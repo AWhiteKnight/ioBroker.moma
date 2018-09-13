@@ -2,10 +2,10 @@
 # ioBroker.moma
 =================
 
-__MoMa__ is an adapter for __Mo__nitoring and __Ma__intenance of an ioBroker based home automation installation.
-__MoMa__ aims at home automation installations which are a bit more complex than a single machine running all in one or a small number of machines doing some basic load balancing within one network.
+**MoMa** is an adapter for **Mo**nitoring and **Ma**intenance of an ioBroker based home automation installation.
+**MoMa** aims at home automation installations which are a bit more complex than a single machine running all in one or a small number of machines doing some basic load balancing within one network.
 
-It is not intended as a replacement for administration tools like ___Puppet___, ___Chef___, ___Salt___ or ___Ansible___.
+It is not intended as a replacement for administration tools like **Puppet**, **Chef**, **Salt** or **Ansible**.
 Those are for big environments with many computers and are capable of remote installation of packages.
 I am using it for monitoring my domesticated IT-infrastructure (including home automation) and keeping it up to date.
 
@@ -14,7 +14,7 @@ I am using it for monitoring my domesticated IT-infrastructure (including home a
 
 ### 0.0.1
 * (awhiteknight) initial release
-Get the Adapter running and show the health state of the machine.
+Get the Adapter running and show first values of the machines.
 
 ## License
 The MIT License (MIT)
