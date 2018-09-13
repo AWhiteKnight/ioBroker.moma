@@ -6,7 +6,7 @@
 **MoMa** aims at home automation installations which are a bit more complex than a single machine running all in one or a small number of machines doing some basic load balancing within one network.
 
 It is not intended as a replacement for administration tools like **Puppet**, **Chef**, **Salt** or **Ansible**.
-Those are for large environments with many computers and are capable of remote installation of packages. **Moma** will only be able to remotely update exsiting installations. No remote Installation and no remote configuration.
+Those are for large environments with many computers and are capable of remote installation of packages. **MoMa** will only be able to remotely update existing installations, no remote installation and no remote configuration.
 
 
 I am using it for monitoring my IT-infrastructure at home (including home automation) and keeping it up to date.
