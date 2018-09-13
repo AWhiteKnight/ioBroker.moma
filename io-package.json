@@ -1,0 +1,100 @@
+{
+    "common": {
+        "name": "moma",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "Initial version",
+                "de": "Initiale Version",
+                "es": "Versión inicial",
+                "fr": "Version initiale",
+                "it": "Versione iniziale",
+                "nl": "Eerste release",
+                "pl": "Pierwszy wersja",
+                "pt": "Versão inicial",
+                "ru": "Первоначальный адаптер"
+            }
+        },
+        "title": "Monitoring & Maintenance Adapter",
+        "titleLang": {
+            "en": "Monitoring and Maintenance",
+            "de": "Monitoring und Wartung",
+            "es": "Monitoreo y Mantenimiento",
+            "fr": "Surveillance et Maintenance",
+            "it": "Monitoraggio e Manutenzione",
+            "nl": "Monitoring en Onderhoud",
+            "pl": "Monitorowanie i Konserwacja",
+            "pt": "Monitoramento e Manutenção",
+            "ru": "Мониторинг и обслуживание"
+        },
+        "desc": {
+            "en": "The adapter allows monitoring and maintenance of the machine",
+            "de": "Der Adapter ermöglicht Monitoring und Wartung der Maschine",
+            "es": "El adaptador permite la monitorización y el mantenimiento de la máquina",
+            "fr": "L'adaptateur permet la surveillance et la maintenance de la machine",
+            "it": "L'adattatore consente il monitoraggio e la manutenzione della macchina",
+            "nl": "De adapter maakt controle en onderhoud van de machine mogelijk",
+            "pl": "Adapter umożliwia monitorowanie i konserwację urządzenia",
+            "pt": "O adaptador permite monitorar e manter a máquina",
+            "ru": "Адаптер позволяет контролировать и обслуживать машину"
+        },
+        "authors": [
+            "A White Knight <awhiteknight@unity-mail.de>"
+        ],
+        "docs": {
+            "en": "docs/en/moma.md",
+            "de": "docs/de/moma.md",
+            "es": "docs/es/moma.md",
+            "fr": "docs/fr/moma.md",
+            "it": "docs/it/moma.md",
+            "nl": "docs/nl/moma.md",
+            "pl": "docs/pl/moma.md",
+            "pt": "docs/pt/moma.md",
+            "ru": "docs/ru/moma.md"
+        },
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "moma.png",
+        "materialize": true,
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/awhiteknight/ioBroker.moma/master/admin/moma.png",
+        "keywords": [
+            "iobroker",
+            "moma",
+            "monitoring",
+            "administration",
+            "smarthome",
+            "home automation",
+            "scada"
+        ],
+        "readme": "https://github.com/awhiteknight/ioBroker.moma/blob/master/README.md",
+        "loglevel": "debug",
+        "type": "hardware",
+        "license": "MIT",
+        "messagebox": false
+    },
+    "native": {
+      "i1": true,
+      "interval1": 30,
+      "i2": true,
+      "interval2": 60,
+      "i3": true,
+      "interval3": 24
+    },
+    "objects": [
+        {
+            "_id": "moma",
+            "type": "meta"
+        },
+        {
+            "_id": "moma.x",
+            "parent": "moma",
+            "type": "meta"
+        },
+        {
+            "_id": "moma.x.hosts",
+            "parent": "moma.x",
+            "type": "channel"
+        }
+    ]
+}

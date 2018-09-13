@@ -1,0 +1,7 @@
+{
+  "adapter settings": "MoMa Einstellungen",
+  "interval1": "Intervall 1 (Sek)",
+  "interval2": "Intervall 2 (Min)",
+  "interval3": "Intervall 3 (Std)",
+  "on save": "Beim Speichern von Einstellungen wird der Adapter sofort neu gestartet.",
+}

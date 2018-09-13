@@ -1,0 +1,42 @@
+{
+  "name": "iobroker.moma",
+  "version": "0.0.1",
+  "description": "Monitoring and Maintenance",
+  "author": {
+    "name": "AWhiteKnight",
+    "email": "awhiteknight@unity-mail.de"
+  },
+  "contributors": [
+    {
+      "name": "AWhiteKnight",
+      "email": "awhiteknight@unity-mail.de"
+    }
+  ],
+  "homepage": "https://github.com/awhiteknight/ioBroker.moma",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "monitoring",
+    "maintenance",
+    "Smart Home",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awhiteknight/ioBroker.moma"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "mocha": "^4.1.0",
+    "chai": "^4.1.2"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --exit"
+  },
+  "bugs": {
+    "url": "https://github.com/awhiteknight/ioBroker.moma/issues"
+  },
+  "readmeFilename": "README.md"
+}
