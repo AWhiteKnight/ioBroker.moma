@@ -14,6 +14,7 @@ I am using it for monitoring my domesticated IT-infrastructure (including home a
 
 ### 0.0.1
 * (awhiteknight) initial release
+
 Get the Adapter running and show first values of the machines.
 
 ## License
