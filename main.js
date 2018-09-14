@@ -94,8 +94,8 @@ adapter.on('ready', function () {
 function updateInterval_1() {
   adapter.log.debug('running interval 1');
 
-  // values will expire 2 seconds after they should be renewed
-  let exp = adapter.config.interval1 + 2;
+  // values will expire 10 seconds after they should be renewed
+  let exp = adapter.config.interval1 + 10;
   // updating values
   adapter.setForeignState(defs.hostEntryTemp, {val: moma.getTemp(), ack: true, expire: exp});
   adapter.setForeignState(defs.hostEntryLoad, {val: moma.getLoad(), ack: true, expire: exp});
@@ -108,8 +108,8 @@ function updateInterval_1() {
 function updateInterval_2() {
   adapter.log.debug('running interval 2');
 
-  // values will expire 10 seconds after they should be renewed
-  let exp = adapter.config.interval2 * 60 + 10;
+  // values will expire 20 seconds after they should be renewed
+  let exp = adapter.config.interval2 * 60 + 20;
   // updating values
 }
 
