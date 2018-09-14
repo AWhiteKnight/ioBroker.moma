@@ -363,8 +363,14 @@ gulp.task('updatePackages', function (done) {
         newNews[pkg.version] = {
             en: 'news',
             de: 'neues',
-            ru: 'новое'
-        };
+            ru: 'новое',
+            pt: 'novo',
+            nl: 'nieuw',
+            fr: 'nouveau',
+            it: 'nuovo',
+            es: 'nuevo',
+            pl: 'nowy'
+                };
         iopackage.common.news = Object.assign(newNews, news);
     }
     fs.writeFileSync('io-package.json', JSON.stringify(iopackage, null, 4));
@@ -373,7 +379,7 @@ gulp.task('updatePackages', function (done) {
 
 gulp.task('rename', function ()  {
     var newname;
-    var author = 'Stephan Kunz';
+    var author = 'AWhiteKnight';
     var email  = 'awhiteknight@unity-mail.de';
     for (var a = 0; a < process.argv.length; a++) {
         if (process.argv[a] === '--name') {
@@ -425,7 +431,7 @@ gulp.task('rename', function ()  {
             replacement: newname ? (newname[0].toUpperCase() + newname.substring(1)) : 'Moma'
         },
         {
-            match: /Stephan Kunz/g,
+            match: /AWhiteKnight/g,
             replacement: author
         },
         {

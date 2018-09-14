@@ -6,37 +6,37 @@
             "0.0.1": {
                 "en": "Initial version",
                 "de": "Initiale Version",
-                "es": "Versión inicial",
+                "ru": "Первоначальный адаптер",
+                "pt": "Versão inicial",
+                "nl": "Eerste release",
                 "fr": "Version initiale",
                 "it": "Versione iniziale",
-                "nl": "Eerste release",
-                "pl": "Pierwszy wersja",
-                "pt": "Versão inicial",
-                "ru": "Первоначальный адаптер"
+                "es": "Versión inicial",
+                "pl": "Pierwszy wersja"
             }
         },
         "title": "Monitoring & Maintenance Adapter",
         "titleLang": {
             "en": "Monitoring and Maintenance",
             "de": "Monitoring und Wartung",
-            "es": "Monitoreo y Mantenimiento",
+            "ru": "Мониторинг и обслуживание",
+            "pt": "Monitoramento e Manutenção",
+            "nl": "Monitoring en Onderhoud",
             "fr": "Surveillance et Maintenance",
             "it": "Monitoraggio e Manutenzione",
-            "nl": "Monitoring en Onderhoud",
-            "pl": "Monitorowanie i Konserwacja",
-            "pt": "Monitoramento e Manutenção",
-            "ru": "Мониторинг и обслуживание"
+            "es": "Monitoreo y Mantenimiento",
+            "pl": "Monitorowanie i Konserwacja"
         },
         "desc": {
             "en": "The adapter allows monitoring and maintenance of the machine",
             "de": "Der Adapter ermöglicht Monitoring und Wartung der Maschine",
-            "es": "El adaptador permite la monitorización y el mantenimiento de la máquina",
+            "ru": "Адаптер позволяет контролировать и обслуживать машину",
+            "pt": "O adaptador permite monitorar e manter a máquina",
+            "nl": "De adapter maakt controle en onderhoud van de machine mogelijk",
             "fr": "L'adaptateur permet la surveillance et la maintenance de la machine",
             "it": "L'adattatore consente il monitoraggio e la manutenzione della macchina",
-            "nl": "De adapter maakt controle en onderhoud van de machine mogelijk",
-            "pl": "Adapter umożliwia monitorowanie i konserwację urządzenia",
-            "pt": "O adaptador permite monitorar e manter a máquina",
-            "ru": "Адаптер позволяет контролировать и обслуживать машину"
+            "es": "El adaptador permite la monitorización y el mantenimiento de la máquina",
+            "pl": "Adapter umożliwia monitorowanie i konserwację urządzenia"
         },
         "authors": [
             "A White Knight <awhiteknight@unity-mail.de>"
@@ -48,13 +48,13 @@
         "docs": {
             "en": "docs/en/moma.md",
             "de": "docs/de/moma.md",
-            "es": "docs/es/moma.md",
+            "ru": "docs/ru/moma.md",
+            "pt": "docs/pt/moma.md",
+            "nl": "docs/nl/moma.md",
             "fr": "docs/fr/moma.md",
             "it": "docs/it/moma.md",
-            "nl": "docs/nl/moma.md",
-            "pl": "docs/pl/moma.md",
-            "pt": "docs/pt/moma.md",
-            "ru": "docs/ru/moma.md"
+            "es": "docs/es/moma.md",
+            "pl": "docs/pl/moma.md"
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
@@ -78,12 +78,12 @@
         "messagebox": false
     },
     "native": {
-      "i1": true,
-      "interval1": 30,
-      "i2": true,
-      "interval2": 60,
-      "i3": true,
-      "interval3": 24
+        "i1": true,
+        "interval1": 30,
+        "i2": true,
+        "interval2": 60,
+        "i3": true,
+        "interval3": 24
     },
     "objects": [
         {
