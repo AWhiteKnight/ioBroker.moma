@@ -41,6 +41,10 @@
         "authors": [
             "A White Knight <awhiteknight@unity-mail.de>"
         ],
+        "adminTab": {
+            "singleton": true,
+            "name": "MoMa"
+        },git 
         "docs": {
             "en": "docs/en/moma.md",
             "de": "docs/de/moma.md",
@@ -68,7 +72,7 @@
             "scada"
         ],
         "readme": "https://github.com/awhiteknight/ioBroker.moma/blob/master/README.md",
-        "loglevel": "debug",
+        "loglevel": "info",
         "type": "hardware",
         "license": "MIT",
         "messagebox": false
