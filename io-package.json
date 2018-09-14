@@ -44,7 +44,7 @@
         "adminTab": {
             "singleton": true,
             "name": "MoMa"
-        },git 
+        }, 
         "docs": {
             "en": "docs/en/moma.md",
             "de": "docs/de/moma.md",
