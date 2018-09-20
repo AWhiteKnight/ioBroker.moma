@@ -18,9 +18,33 @@
   <script type="text/javascript" src="tab.js"></script>
 
 </head>
-<body>
-    Hello World!
-    <br>
-    Good bye!
-</body>
+  <body class = "container">
+    <!-- connect to JavaScript class -->
+    <div id="tab-moma" class="admin-tab m" data-name="MoMa">
+      <!-- here is the anchor point for the tiles view -->
+      <!-- style="display: none"  makes the tiles invisible -->
+      <div id="moma-tiles" class="row" style="display: none">
+        Tiles
+      </div>
+
+      <!-- here is the anchor point for the table view -->
+      <!-- style="display: none"  makes the table invisible -->
+      <table class="moma-table iob-list-table" style="display: all">
+          <thead id="moma-table-head"> 
+            <tr>
+              <th style="width:  25px"></th>
+              <th style="width: 160px">hostname</th>
+              <th style="width:  80px">uptime</th>
+              <th style="width:  40px">load</th>
+              <th style="width:  40px">temp</th>
+              <th style="width:  50px">updates</th>
+              <!-- remaining space -->
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="moma-table-body">
+          </tbody>
+      </table>
+    </div>
+  </body>
 </html>

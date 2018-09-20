@@ -145,7 +145,7 @@ function main() {
   adapter.subscribeForeignStates(regBase + '.*');
   adapter.subscribeForeignObjects(regBase + '.*');
 */
-    // start the three timer if checked
+    // run every interval once and if checked then start each with timer
     adapter.log.debug('starting intervals');
     updateInterval_1();
     if(adapter.config.i1) {
@@ -155,7 +155,7 @@ function main() {
     if(adapter.config.i2) {
       timer2 = setInterval(updateInterval_2, adapter.config.interval2*60*1000);
     }
-    updateInterval_3();
+    setTimeout(updateInterval_3, 10*1000); // run this once after 10 seconds
     if(adapter.config.i3) {
       timer3 = setInterval(updateInterval_3, adapter.config.interval3*60*60*1000);
     }

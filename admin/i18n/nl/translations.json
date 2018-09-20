@@ -3,5 +3,10 @@
   "interval1": "Interval 1 (sec)",
   "interval2": "Interval 2 (min)",
   "interval3": "Interval 3 (uur)",
-  "on save": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config"
+  "on save": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config",
+  "hostname": "Computer naam",
+  "uptime": "Uptime",
+  "load": "Laden",
+  "temp": "CPU-Temp.",
+  "updates": "Updates"
 }
