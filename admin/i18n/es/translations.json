@@ -1,14 +1,8 @@
 {
   "adapter settings": "Configuraciones de MoMa",
-  "number": "Wert",
+  "value": "Valor",
   "interval1": "Intervalo 1 (seg)",
   "interval2": "Intervalo 2 (min)",
   "interval3": "Intervalo 3 (h)",
-  "on save": "en el adaptador de guardar se reinicia con nueva configuración de inmediato",
-  "changeViewMode": "Ansicht ändern",
-  "hostname": "Nombre de la computadora",
-  "uptime": "Tiempo de actividad",
-  "load": "Carga",
-  "temp": "CPU-Temp.",
-  "updates": "Actualizaciones"
+  "on save": "en el adaptador de guardar se reinicia con nueva configuración de inmediato"
 }

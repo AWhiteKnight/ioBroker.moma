@@ -1,14 +1,8 @@
 {
   "adapter settings": "MoMa-instellingen",
-  "number": "Wert",
+  "value": "Waarde",
   "interval1": "Interval 1 (sec)",
   "interval2": "Interval 2 (min)",
   "interval3": "Interval 3 (uur)",
-  "on save": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config",
-  "changeViewMode": "Ansicht ändern",
-  "hostname": "Computer naam",
-  "uptime": "Uptime",
-  "load": "Laden",
-  "temp": "CPU-Temp.",
-  "updates": "Updates"
+  "on save": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config"
 }

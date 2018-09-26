@@ -41,10 +41,6 @@
         "authors": [
             "A White Knight <awhiteknight@unity-mail.de>"
         ],
-        "adminTab": {
-            "singleton": true,
-            "name": "MoMa"
-        },
         "docs": {
             "en": "docs/en/moma.md",
             "de": "docs/de/moma.md",
