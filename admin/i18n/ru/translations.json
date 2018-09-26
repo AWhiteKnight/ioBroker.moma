@@ -1,9 +1,11 @@
 {
   "adapter settings": "Настройки MoMa",
+  "number": "Wert",
   "interval1": "Интервал 1 (сек)",
   "interval2": "Интервал 2 (мин)",
   "interval3": "Интервал 3 (час)",
   "on save": "При сохранении настроек адаптера он сразу же перезапускается",
+  "changeViewMode": "Ansicht ändern",
   "hostname": "Имя компьютера",
   "uptime": "Время до начала",
   "load": "нагрузка",

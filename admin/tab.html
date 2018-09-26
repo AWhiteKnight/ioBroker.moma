@@ -1,43 +1,69 @@
-<!-- Monitoring page for MoMa 
-     inserts into left side navigation bar 
+<!-- 
+  Monitoring page for MoMa 
+  inserts into left side navigation bar 
 -->
 <html>
-<head>
-  <!-- these 4 files always have to be included -->
-  <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
-  <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
-  <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+  <head>
+    <meta charset="utf-8">
 
-  <!-- these files always have to be included -->
-  <script type="text/javascript" src="../../js/translate.js"></script>
-  <script type="text/javascript" src="../../lib/js/materialize.js"></script>
-  <script type="text/javascript" src="words.js"></script>
+    <!-- these stylesheets  always have to be included -->
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
 
-  <!-- this file contains the scripting for the page -->
-  <script type="text/javascript" src="tab.js"></script>
+    <!-- these scripts  always have to be included -->
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
 
-</head>
+    <!-- this file contains the translations for the page -->
+    <script type="text/javascript" src="words.js"></script>
+    <!-- this file contains the scripting for the page -->
+    <script type="text/javascript" src="tab.js"></script>
+    
+    <!-- some local styles -->
+    <style>
+    </style>
+  </head>
+
   <body class = "container">
     <!-- connect to JavaScript class -->
     <div id="tab-moma" class="admin-tab m" data-name="MoMa">
+      <!-- here is the anchor point for the buttons -->
+      <div class="main-toolbar-table">
+        <div class="row navicon">
+            <div class="col s3 m2 main-toolbar-table-types-tools">
+              <!-- default view is tiles (so use view-module as icon) -->
+              <a class="btn-floating btn-small translateT btn-switch-view" title="changeViewMode">
+                <i class="material-icons">view_module</i>
+              </a>
+              <!--
+              <a class="btn-floating btn-small translateT btn-reload" title="updateInfo">
+                <i class="material-icons">refresh</i>
+              </a>
+              -->
+              <span class="iob-toolbar-sep">&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
       <!-- here is the anchor point for the tiles view -->
-      <!-- style="display: none"  makes the tiles invisible -->
+      <!-- table is default view: style="display: all"  makes the tiles visible -->
       <div id="moma-tiles" class="row" style="display: none">
         Tiles
       </div>
 
       <!-- here is the anchor point for the table view -->
-      <!-- style="display: none"  makes the table invisible -->
+      <!-- table is default view: style="display: none"  makes the table invisible -->
       <table class="moma-table iob-list-table" style="display: all">
           <thead id="moma-table-head"> 
             <tr>
               <th style="width:  25px"></th>
-              <th style="width: 160px">hostname</th>
-              <th style="width:  80px">uptime</th>
-              <th style="width:  40px">load</th>
-              <th style="width:  40px">temp</th>
-              <th style="width:  50px">updates</th>
+              <th style="width: 160px" class="translate">hostname</th>
+              <th style="width:  80px" class="translate">uptime</th>
+              <th style="width:  40px" class="translate">load</th>
+              <th style="width:  40px" class="translate">temp</th>
+              <th style="width:  50px" class="translate">updates</th>
               <!-- remaining space -->
               <th></th>
             </tr>
@@ -46,5 +72,10 @@
           </tbody>
       </table>
     </div>
+    <!-- ->
+    <script>
+        $(document).ready(.prepare(document));
+    </script> 
+    <!- -->
   </body>
 </html>

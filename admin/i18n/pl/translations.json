@@ -1,9 +1,11 @@
 {
   "adapter settings": "Ustawienia MoMa",
+  "number": "Wert",
   "interval1": "Interwał 1 (s)",
   "interval2": "Interwał 2 (min)",
   "interval3": "Interwał 3 (godz.)",
   "on save": "Zapisanie ustawień natychmiast uruchomi ponownie adapter.",
+  "changeViewMode": "Ansicht ändern",
   "hostname": "Nazwa komputera",
   "uptime": "Czas pracy",
   "load": "Obciążenie",

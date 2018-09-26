@@ -25,7 +25,9 @@
     "type": "git",
     "url": "https://github.com/awhiteknight/ioBroker.moma"
   },
-  "dependencies": {},
+  "dependencies": {
+    "systeminformation": "^3.45.6"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "mocha": "^4.1.0",

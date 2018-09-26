@@ -1,9 +1,11 @@
 {
   "adapter settings": "Paramètres MoMa",
+  "number": "Wert",
   "interval1": " Intervalle 1 (sec)",
   "interval2": " Intervalle 2 (min)",
   "interval3": " Intervalle 3 (heures)",
   "on save": "sur l'adaptateur de sauvegarde redémarre avec la nouvelle config immédiatement",
+  "changeViewMode": "Ansicht ändern",
   "hostname": "Nom de l'ordinateur",
   "uptime": "Temps de disponibilité",
   "load": "Charge",

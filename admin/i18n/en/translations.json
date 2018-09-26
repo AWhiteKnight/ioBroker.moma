@@ -1,9 +1,11 @@
 {
   "adapter settings": "MoMa settings",
+  "number": "Number",
   "interval1": "Interval 1 (sec)",
   "interval2": "Interval 2 (min)",
   "interval3": "Interval 3 (h)",
   "on save": "on save adapter restarts with new config immediately",
+  "changeViewMode": "Change view  mode",
   "hostname": "Computername",
   "uptime": "Uptime",
   "load": "Load",
