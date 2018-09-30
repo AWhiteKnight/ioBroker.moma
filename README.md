@@ -13,7 +13,7 @@ I am using it for monitoring my IT-Infrastructure at home (including home automa
 
 ## Changelog
 ### 0.0.2 (2018-09-30)
-* Library 'systeminformatiion' integrated. First set of calls implemented
+* Library 'systeminformation' integrated. First set of calls implemented
 
 
 ### 0.0.1
