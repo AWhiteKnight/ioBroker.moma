@@ -12,6 +12,9 @@ Those are for large environments with many computers and are capable of remote i
 I am using it for monitoring my IT-Infrastructure at home (including home automation) and keeping it up to date.
 
 ## Changelog
+### 0.0.2 (2018-09-30)
+* Library 'systeminformatiion' integrated. First set of calls implemented
+
 
 ### 0.0.1
 * (AWhiteKnight) initial release : Get the Adapter running and show first values of the machines.

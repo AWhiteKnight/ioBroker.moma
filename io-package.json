@@ -4,8 +4,8 @@
         "version": "0.0.2",
         "news": {
             "0.0.2": {
-                "en": "Library 'systeminformatiion' integrated",
-                "de": "Bibliothek 'systeminformation' als Basis integriert",
+                "en": "Library 'systeminformatiion' integrated. First set of calls implemented",
+                "de": "Bibliothek 'systeminformation' als Basis integriert. Ersten Umfang der Aufrufe implementiert",
                 "ru": "",
                 "pt": "",
                 "nl": "",
