@@ -88,7 +88,7 @@ adapter.on('ready', function () {
 });
 
 /*
- * call for updated states in interval_1 (default once per minute)
+ * call for updated states in interval_1 (default once per 30 sec)
  */
 function updateInterval_1() {
   // values will expire 10 seconds after they should be renewed
@@ -116,6 +116,20 @@ function updateInterval_1() {
     adapter.setState(defs.sysInfo.mem.swapused.id, {val: data.swapused, ack: true});
     adapter.setState(defs.sysInfo.mem.swapfree.id, {val: data.swapfree, ack: true});
   });
+  si.battery(function(data) {
+    adapter.setState(defs.sysInfo.battery.hasbattery.id, {val: data.hasbattery, ack: true});
+    adapter.setState(defs.sysInfo.battery.cyclecount.id, {val: data.cyclecount, ack: true});
+    adapter.setState(defs.sysInfo.battery.ischarging.id, {val: data.ischarging, ack: true});
+    adapter.setState(defs.sysInfo.battery.maxcapacity.id, {val: data.maxcapacity, ack: true});
+    adapter.setState(defs.sysInfo.battery.currentcapacity.id, {val: data.currentcapacity, ack: true});
+    adapter.setState(defs.sysInfo.battery.percent.id, {val: data.percent, ack: true});
+    adapter.setState(defs.sysInfo.battery.timeremaining.id, {val: data.timeremaining, ack: true});
+    adapter.setState(defs.sysInfo.battery.acconnected.id, {val: data.acconnected, ack: true});
+    adapter.setState(defs.sysInfo.battery.type.id, {val: data.type, ack: true});
+    adapter.setState(defs.sysInfo.battery.model.id, {val: data.model, ack: true});
+    adapter.setState(defs.sysInfo.battery.manufacturer.id, {val: data.manufacturer, ack: true});
+    adapter.setState(defs.sysInfo.battery.serial.id, {val: data.serial, ack: true});
+  });
   //adapter.setForeignState(defs.hostEntryTemp, {val: moma.getTemp(), ack: true, expire: exp});
 }
 
@@ -126,6 +140,51 @@ function updateInterval_2() {
   // values will expire 20 seconds after they should be renewed
   let exp = adapter.config.interval2 * 60 + 20;
   // updating values
+  // user
+  si.users(function(data) {
+    let num = data.length;
+    for(let i = 0; i < num; i++) {
+      helper.createMomaArrayEntry(adapter, i, 'user');
+      adapter.setState(defs.sysTemplates.user.user.id.replace('x', i), {val: data[i].user, ack: true});
+      adapter.setState(defs.sysTemplates.user.tty.id.replace('x', i), {val: data[i].tty, ack: true});
+      adapter.setState(defs.sysTemplates.user.date.id.replace('x', i), {val: data[i].date, ack: true});
+      adapter.setState(defs.sysTemplates.user.time.id.replace('x', i), {val: data[i].time, ack: true});
+      adapter.setState(defs.sysTemplates.user.ip.id.replace('x', i), {val: data[i].ip, ack: true});
+      adapter.setState(defs.sysTemplates.user.command.id.replace('x', i), {val: data[i].command, ack: true});
+    }
+  });
+  // file system
+  si.fsSize(function(data) {
+    let num = data.length;
+    for(let i = 0; i < num; i++) {
+      helper.createMomaArrayEntry(adapter, i, 'fsSize');
+      adapter.setState(defs.sysTemplates.fsSize.fs.id.replace('x', i), {val: data[i].fs, ack: true});
+      adapter.setState(defs.sysTemplates.fsSize.type.id.replace('x', i), {val: data[i].type, ack: true});
+      adapter.setState(defs.sysTemplates.fsSize.size.id.replace('x', i), {val: data[i].size, ack: true});
+      adapter.setState(defs.sysTemplates.fsSize.used.id.replace('x', i), {val: data[i].used, ack: true});
+      adapter.setState(defs.sysTemplates.fsSize.use.id.replace('x', i), {val: data[i].use, ack: true});
+      adapter.setState(defs.sysTemplates.fsSize.mount.id.replace('x', i), {val: data[i].mount, ack: true});
+    }
+  });
+  // block devices
+  si.blockDevices(function(data) {
+    let num = data.length;
+    for(let i = 0; i < num; i++) {
+      helper.createMomaArrayEntry(adapter, i, 'blockDevices');
+      adapter.setState(defs.sysTemplates.blockDevices.name.id.replace('x', i), {val: data[i].name, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.type.id.replace('x', i), {val: data[i].type, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.fstype.id.replace('x', i), {val: data[i].fstype, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.mount.id.replace('x', i), {val: data[i].mount, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.size.id.replace('x', i), {val: data[i].size, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.physical.id.replace('x', i), {val: data[i].physical, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.uuid.id.replace('x', i), {val: data[i].uuid, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.label.id.replace('x', i), {val: data[i].label, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.model.id.replace('x', i), {val: data[i].model, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.serial.id.replace('x', i), {val: data[i].serial, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.removable.id.replace('x', i), {val: data[i].removable, ack: true});
+      adapter.setState(defs.sysTemplates.blockDevices.protocol.id.replace('x', i), {val: data[i].protocol, ack: true});
+    }
+  });
 }
 
 /*
@@ -236,10 +295,58 @@ function main() {
         adapter.setState(defs.sysTemplates.memLayout.voltageConfigured.id.replace('x', i), {val: data[i].voltageConfigured, ack: true});
         adapter.setState(defs.sysTemplates.memLayout.voltageMin.id.replace('x', i), {val: data[i].voltageMin, ack: true});
         adapter.setState(defs.sysTemplates.memLayout.voltageMax.id.replace('x', i), {val: data[i].voltageMax, ack: true});
-        }
+      }
     }
   });
   // disk layout
+  si.diskLayout(function(data) {
+    let num = data.length;
+    for(let i = 0; i < num; i++) {
+//      if(data[i].type !== '') {
+        helper.createMomaArrayEntry(adapter, i, 'diskLayout');
+        adapter.setState(defs.sysTemplates.diskLayout.type.id.replace('x', i), {val: data[i].type, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.name.id.replace('x', i), {val: data[i].name, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.vendor.id.replace('x', i), {val: data[i].vendor, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.firmwareRevision.id.replace('x', i), {val: data[i].firmwareRevision, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.serialNum.id.replace('x', i), {val: data[i].serialNum, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.interfaceType.id.replace('x', i), {val: data[i].interfaceType, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.size.id.replace('x', i), {val: data[i].size, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.totalCylinders.id.replace('x', i), {val: data[i].totalCylinders, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.totalHeads.id.replace('x', i), {val: data[i].totalHeads, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.totalTracks.id.replace('x', i), {val: data[i].totalTracks, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.tracksPerCylinder.id.replace('x', i), {val: data[i].tracksPerCylinder, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.sectorsPerTrack.id.replace('x', i), {val: data[i].sectorsPerTrack, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.totalSectors.id.replace('x', i), {val: data[i].totalSectors, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.bytesPerSector.id.replace('x', i), {val: data[i].bytesPerSector, ack: true});
+        adapter.setState(defs.sysTemplates.diskLayout.smartStatus.id.replace('x', i), {val: data[i].smartStatus, ack: true});
+//      }
+    }
+  });
+  // graphiccontroller & display layout
+  si.graphics(function(data) {
+    let num = data.controllers.length;
+    for(let i = 0; i < num; i++) {
+      helper.createMomaArrayEntry(adapter, i, 'graphiccontroller');
+      adapter.setState(defs.sysTemplates.graphiccontroller.model.id.replace('x', i), {val: data.controllers[i].model, ack: true});
+      adapter.setState(defs.sysTemplates.graphiccontroller.vendor.id.replace('x', i), {val: data.controllers[i].vendor, ack: true});
+      adapter.setState(defs.sysTemplates.graphiccontroller.bus.id.replace('x', i), {val: data.controllers[i].bus, ack: true});
+      adapter.setState(defs.sysTemplates.graphiccontroller.vram.id.replace('x', i), {val: data.controllers[i].vram, ack: true});
+      adapter.setState(defs.sysTemplates.graphiccontroller.vramDynamic.id.replace('x', i), {val: data.controllers[i].vramDynamic, ack: true});
+    }
+    num = data.displays.length;
+    for(let i = 0; i < num; i++) {
+      helper.createMomaArrayEntry(adapter, i, 'display');
+      adapter.setState(defs.sysTemplates.display.model.id.replace('x', i), {val: data.displays[i].model, ack: true});
+      adapter.setState(defs.sysTemplates.display.main.id.replace('x', i), {val: data.displays[i].main, ack: true});
+      adapter.setState(defs.sysTemplates.display.builtin.id.replace('x', i), {val: data.displays[i].builtin, ack: true});
+      adapter.setState(defs.sysTemplates.display.connection.id.replace('x', i), {val: data.displays[i].connection, ack: true});
+      adapter.setState(defs.sysTemplates.display.resolutionx.id.replace('x', i), {val: data.displays[i].resolutionx, ack: true});
+      adapter.setState(defs.sysTemplates.display.resolutiony.id.replace('x', i), {val: data.displays[i].resolutiony, ack: true});
+      adapter.setState(defs.sysTemplates.display.pixeldepth.id.replace('x', i), {val: data.displays[i].pixeldepth, ack: true});
+      adapter.setState(defs.sysTemplates.display.sizex.id.replace('x', i), {val: data.displays[i].sizex, ack: true});
+      adapter.setState(defs.sysTemplates.display.sizey.id.replace('x', i), {val: data.displays[i].sizey, ack: true});
+    }
+  });
 
 
   // run every interval once and if checked then start each with timer
