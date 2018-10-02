@@ -4,8 +4,8 @@
         "version": "0.0.3",
         "news": {
             "0.0.3": {
-                "en": "Additional functions of 'systeminformation' implemented, some documentation",
-                "de": "Weitere Funktionen von 'systeminformation' implementiert, rudimentäre Dokumentation erstellt.",
+                "en": "Basic functions of 'systeminformation' implemented, some documentation",
+                "de": "Grund-Funktionen von 'systeminformation' implementiert, rudimentäre Dokumentation erstellt.",
                 "ru": "",
                 "pt": "",
                 "nl": "",
