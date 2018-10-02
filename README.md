@@ -1,6 +1,6 @@
 ![Logo](admin/moma.png)
 # ioBroker.moma
-=================
+
 
 **MoMa** is an adapter for **Mo**nitoring and **Ma**intenance of an ioBroker based home automation installation.
 **MoMa** aims at home (automation) installations which are a bit more complex than a single machine running all in one or a small number of machines doing some basic load balancing within one network.
@@ -18,6 +18,63 @@ I am using it for monitoring my IT-Infrastructure at home (including home automa
 
 ### 0.0.1
 * (AWhiteKnight) initial release : Get the Adapter running and show first values of the machines.
+
+## Installation
+
+Use "Adapter - Install from URL" with https://github.com/AWhiteKnight/ioBroker.moma
+
+Works also in multihost environments - ensure that the correct instance is selected before installation.
+
+## Core Concept
+
+still under construction - ideas, proposals, hints, ... are welcome!
+
+
+Basic idea is to have 
++ a tree for each instance (moma.\<instance-id\>) containing all the informations of the machine the instance is running on. Below this there are the categories 
+    + info - static non technical information
+    + layout - static technical information
+    + state - load/usage values
+
+    Below these categories the different components are listed as devices, containing the value sets.     
++ and a common tree (moma.x) below which every instance creates a device \<hostname\> containing a reference to the instance and some monitoring informations.
+
+## Reference
+
+Following functions of library systeminformation are called on startup:
+* baseboard
+* bios
+* system
+* cpu
+* cpuFlags
+* osInfo
+* memLayout
+
+
+Following functions of library systeminformation are called in interval 1 (default every 30 seconds):
+* cpuCurrentSpeed
+* cpuTemperature
+* mem
+* battery
+* networkStats
+
+
+
+Following functions of library systeminformation are called in interval 2 (default every 60 minutes):
+* users
+* fsSize
+* blockDevices
+* fsStats
+* disksIO
+* graphics
+* networkInterfaces
+* networkInterfaceDefault
+
+
+Following functions of library systeminformation are called in interval 3 (default every 24 hours):
+* diskLayout
+
+
 
 ## License
 The MIT License (MIT)
