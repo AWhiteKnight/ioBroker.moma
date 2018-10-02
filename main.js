@@ -99,6 +99,8 @@ function updateInterval_1() {
   moma.battery(adapter, isInitI1);
   moma.networkStats(adapter, isInitI1);
   moma.networkConnections(adapter, isInitI1);
+  moma.currentLoad(adapter, isInitI1);
+  moma.fullLoad(adapter, isInitI1);
 
   // set to false after first run
   isInitI1 = false;

@@ -58,6 +58,8 @@ Following functions of library systeminformation are called in interval 1 (defau
 * battery
 * networkStats
 * networkConnections
+* currentLoad
+* fullLoad
 
 
 
