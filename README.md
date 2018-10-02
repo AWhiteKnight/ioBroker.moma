@@ -60,6 +60,7 @@ Following functions of library systeminformation are called in interval 1 (defau
 * networkConnections
 * currentLoad
 * fullLoad
+* processes (overview - no pids)
 
 
 

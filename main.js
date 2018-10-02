@@ -101,6 +101,7 @@ function updateInterval_1() {
   moma.networkConnections(adapter, isInitI1);
   moma.currentLoad(adapter, isInitI1);
   moma.fullLoad(adapter, isInitI1);
+  moma.processes(adapter, isInitI1);
 
   // set to false after first run
   isInitI1 = false;
@@ -142,30 +143,22 @@ function updateInterval_3() {
 function main() {
   adapter.log.debug('Started with main()');
 
-  adapter.log.debug('interval active: interval1=' + adapter.config.i1 +
-                                    ' interval2=' + adapter.config.i2 +
-                                    ' interval3=' + adapter.config.i3);
-  adapter.log.debug('interval values: interval1=' + adapter.config.interval1 +
-                                    ' interval2=' + adapter.config.interval2 +
-                                    ' interval3=' + adapter.config.interval3);
-
-  // register instance states
-  //  adapter.subscribeStates('*');
-
 /*
+  // register instance states
+  adapter.subscribeStates('*');
+
   // register global
   adapter.subscribeForeignStates(regBase + '.*');
   adapter.subscribeForeignObjects(regBase + '.*');
 */
 
-  // 'static' values due to need of restart for change
+  // 'static' values due to need of restart for change of configuration
   moma.baseboard(adapter, isInitMain);
   moma.bios(adapter, isInitMain);
   moma.system(adapter, isInitMain);
   moma.cpu(adapter, isInitMain);
   moma.osInfo(adapter, isInitMain);
   moma.memLayout(adapter, isInitMain);
-
 
   // if checked then run each interval once and start it with interval timer
   adapter.log.debug('starting intervals');
