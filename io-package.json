@@ -1,11 +1,22 @@
 {
     "common": {
         "name": "moma",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
+            "0.0.3": {
+                "en": "Additional functions of 'systeminformation' implemented, some documentation",
+                "de": "Weitere Funktionen von 'systeminformation' implementiert, rudimentäre Dokumentation erstellt.",
+                "ru": "",
+                "pt": "",
+                "nl": "",
+                "fr": "",
+                "it": "",
+                "es": "",
+                "pl": ""
+            },
             "0.0.2": {
-                "en": "Library 'systeminformatiion' integrated. First set of calls implemented",
-                "de": "Bibliothek 'systeminformation' als Basis integriert. Ersten Umfang der Aufrufe implementiert",
+                "en": "Library 'systeminformation' integrated. First set of functions implemented",
+                "de": "Bibliothek 'systeminformation' als Basis integriert. Ersten Umfang der Funktionen implementiert",
                 "ru": "",
                 "pt": "",
                 "nl": "",
