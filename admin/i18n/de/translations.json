@@ -1,6 +1,7 @@
 {
   "adapter settings": "MoMa-Einstellungen",
   "value": "Wert",
+  "interval0": "Intervall 0 (Sek)",
   "interval1": "Intervall 1 (Sek)",
   "interval2": "Intervall 2 (Min)",
   "interval3": "Intervall 3 (Std)",

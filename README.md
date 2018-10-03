@@ -34,13 +34,8 @@ still under construction - ideas, proposals, hints, ... are welcome!
 
 
 Basic idea is to have 
-+ a tree for each instance (moma.\<instance-id\>) containing all the informations of the machine the instance is running on. Below this there are the categories 
-    + info - static non technical information
-    + layout - static technical information
-    + state - load/usage values
-
-    Below these categories the different components are listed as devices, containing the value sets.     
-+ and a common tree (moma.x) below which every instance creates a device \<hostname\> containing a reference to the instance and some monitoring informations.
++ a tree for each instance (moma.\<instance-id\>) containing all the informations of the machine the instance is running on. 
++ a common tree (moma.x) below which every instance creates a device \<hostname\> containing a reference to the instance and some monitoring informations.
 
 ## Reference
 
@@ -54,17 +49,20 @@ Following functions of library systeminformation are called on startup:
 * memLayout
 
 
-Following functions of library systeminformation are called in interval 1 (default every 30 seconds):
+Following functions of library systeminformation are called in interval 0 (default every second):
+* time
 * cpuCurrentSpeed
+* networkConnections
+* currentLoad
+* processes (overview - no pids)
+
+
+Following functions of library systeminformation are called in interval 1 (default every 30 seconds):
 * cpuTemperature
 * mem
 * battery
 * networkStats
-* networkConnections
-* currentLoad
 * fullLoad
-* processes (overview - no pids)
-
 
 
 Following functions of library systeminformation are called in interval 2 (default every 60 minutes):

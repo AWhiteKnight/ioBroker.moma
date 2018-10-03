@@ -23,11 +23,13 @@ const adapter = new utils.Adapter('moma');
 
 // some global variables to keep things under control
 //  the timers
+let timer0 = null;
 let timer1 = null;
 let timer2 = null;
 let timer3 = null;
 // after first run of each function these should be set to false
 let isInitMain = true;
+let isInitI0 = true;
 let isInitI1 = true;
 let isInitI2 = true;
 let isInitI3 = true;
@@ -36,6 +38,7 @@ let isInitI3 = true;
 adapter.on('unload', function (callback) {
   try {
     // clean up the timer
+    if(timer0) { clearInterval(timer0); }
     if(timer1) { clearInterval(timer1); }
     if(timer2) { clearInterval(timer2); }
     if(timer3) { clearInterval(timer3); }
@@ -45,39 +48,6 @@ adapter.on('unload', function (callback) {
     callback();
   }
 });
-
-/*
-// is called if a subscribed object changes
-adapter.on('objectChange', function (id, obj) {
-  // Warning, obj can be null if it was deleted
-  adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
-});
-
-// is called if a subscribed state changes
-adapter.on('stateChange', function (id, state) {
-  // Warning, state can be null if it was deleted
-  adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state));
-
-  // you can use the ack flag to detect if it is status (true) or command (false)
-  if (state && !state.ack) {
-      adapter.log.debug('ack is not set!');
-  }
-});
-
-// Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
-adapter.on('message', function (obj) {
-  if (typeof obj === 'object' && obj.message) {
-    if (obj.command === 'send') {
-      // e.g. send email or pushover or whatever
-      console.log('send command');
-      adapter.log.info('send command ' + id + ' ' + JSON.stringify(state));
-
-      // Send response in callback if required
-      if (obj.callback) adapter.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-    }
-  }
-});
-/**/
 
 // is called when databases are connected and adapter received configuration.
 adapter.on('ready', function () {
@@ -89,19 +59,31 @@ adapter.on('ready', function () {
 });
 
 /*
+ * call for updated states in interval_0 (default once per second)
+ */
+function updateInterval_0() {
+  // updating values
+  moma.time(adapter, isInitI0);
+  moma.cpuCurrentSpeed(adapter, isInitI0);
+  moma.networkConnections(adapter, isInitI0);
+  moma.currentLoad(adapter, isInitI0);
+  moma.processes(adapter, isInitI0);
+
+  // set to false after first run
+  isInitI0 = false;
+}
+
+
+/*
  * call for updated states in interval_1 (default once per 30 sec)
  */
 function updateInterval_1() {
   // updating values
-  moma.cpuCurrentSpeed(adapter, isInitI1);
-  moma.cpuTemperature(adapter, isInitI1);
   moma.mem(adapter, isInitI1);
   moma.battery(adapter, isInitI1);
+  moma.cpuTemperature(adapter, isInitI1);
   moma.networkStats(adapter, isInitI1);
-  moma.networkConnections(adapter, isInitI1);
-  moma.currentLoad(adapter, isInitI1);
   moma.fullLoad(adapter, isInitI1);
-  moma.processes(adapter, isInitI1);
 
   // set to false after first run
   isInitI1 = false;
@@ -130,11 +112,7 @@ function updateInterval_2() {
  * call for updated states in interval_3 (default once per day)
  */
 function updateInterval_3() {
-  // values will expire 100 seconds after they should be renewed
   // updating values
-  moma.diskLayout(adapter, isInitI3);
-  // let exp = adapter.config.interval3 * 60 * 60 + 100;
-  //adapter.setForeignState(defs.hostEntryUpdates, {val: moma.getNumUpdates(), ack: true, expire: exp});
 
   // set to false after first run
   isInitI3 = false;
@@ -143,15 +121,6 @@ function updateInterval_3() {
 function main() {
   adapter.log.debug('Started with main()');
 
-/*
-  // register instance states
-  adapter.subscribeStates('*');
-
-  // register global
-  adapter.subscribeForeignStates(regBase + '.*');
-  adapter.subscribeForeignObjects(regBase + '.*');
-*/
-
   // 'static' values due to need of restart for change of configuration
   moma.baseboard(adapter, isInitMain);
   moma.bios(adapter, isInitMain);
@@ -159,9 +128,14 @@ function main() {
   moma.cpu(adapter, isInitMain);
   moma.osInfo(adapter, isInitMain);
   moma.memLayout(adapter, isInitMain);
+  moma.diskLayout(adapter, isInitMain);
 
   // if checked then run each interval once and start it with interval timer
   adapter.log.debug('starting intervals');
+  if(adapter.config.i0) {
+    updateInterval_0();
+    timer1 = setInterval(updateInterval_0, adapter.config.interval0*1000);
+  }
   if(adapter.config.i1) {
     updateInterval_1();
     timer1 = setInterval(updateInterval_1, adapter.config.interval1*1000);
