@@ -75,51 +75,244 @@
         </div>
         <!-- all the configuration items go in after here -->
         <div class="row">
-            <div class="input-field col s1 m1 l1">
-                <input class="value" id="i0" type="checkbox" />
-                <label for="i0" class="translate"></label>
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s2"><a href="#tab-main"  class="translate active">Main settings</a></li>
+                    <li class="tab col s2 i0-settings"><a href="#tab-i0" class="translate">interval0</a></li>
+                    <li class="tab col s2 i1-settings"><a href="#tab-i1" class="translate">interval1</a></li>
+                    <li class="tab col s2 i2-settings"><a href="#tab-i2" class="translate">interval2</a></li>
+                    <li class="tab col s2 i3-settings"><a href="#tab-i3" class="translate">interval3</a></li>
+                    <li class="tab col s2 i4-settings"><a href="#tab-i4" class="translate">interval4</a></li>
+                </ul>
             </div>
-            <div class="input-field col s6 m3 l2">
-                <input type="number" class="value" id="interval0" />
-                <label for="interval0" class="translate">value</label>
-                <!-- Important: label must come directly after input. Label is important. -->
-                <span class="translate">interval0</span>
+            <div id="tab-main" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="baseboard" type="checkbox" />
+                        <label for="baseboard" class="translate">baseboard</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="bios" type="checkbox" />
+                        <label for="bios" class="translate">bios</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="system" type="checkbox" />
+                        <label for="system" class="translate">system</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="cpu" type="checkbox" />
+                        <label for="cpu" class="translate">cpu</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="memlayout" type="checkbox" />
+                        <label for="memlayout" class="translate">memlayout</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="disklayout" type="checkbox" />
+                        <label for="disklayout" class="translate">disklayout</label>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s1 m1 l1">
-                <input class="value" id="i1" type="checkbox" />
-                <label for="i1" class="translate"></label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input class="value" id="graphics" type="checkbox" />
+                    <label for="graphics" class="translate">graphics</label>
+                </div>
             </div>
-            <div class="input-field col s6 m3 l2">
-                <input type="number" class="value" id="interval1" />
-                <label for="interval1" class="translate">value</label>
-                <!-- Important: label must come directly after input. Label is important. -->
-                <span class="translate">interval1</span>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input class="value" id="osinfo" type="checkbox" />
+                    <label for="osinfo" class="translate">osinfo</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s1 m1 l1">
-                <input class="value" id="i2" type="checkbox" />
-                <label for="i2" class="translate"></label>
+    <div id="tab-i0" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s1 m1 l1">
+                        <input class="value" id="i0" type="checkbox" />
+                        <label for="i0" class="translate"></label>
+                    </div>
+                    <div class="input-field col s6 m3 l2">
+                        <input type="number" class="value" id="interval0" />
+                        <label for="interval0" class="translate">value</label>
+                        <span class="translate">interval0</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="time" type="checkbox" />
+                        <label for="time" class="translate">time</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="cpuspeed" type="checkbox" />
+                        <label for="cpuspeed" class="translate">cpuspeed</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="netconnections" type="checkbox" />
+                        <label for="netconnections" class="translate">netconnections</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="load" type="checkbox" />
+                        <label for="load" class="translate">load</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="processes" type="checkbox" />
+                        <label for="processes" class="translate">processes</label>
+                    </div>
+                </div>
             </div>
-            <div class="input-field col s6 m3 l2">
-                <input type="number" class="value" id="interval2" />
-                <label for="interval2" class="translate">value</label>
-                <!-- Important: label must come directly after input. Label is important. -->
-                <span class="translate">interval2</span>
+            <div id="tab-i1" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s1 m1 l1">
+                        <input class="value" id="i1" type="checkbox" />
+                        <label for="i1" class="translate"></label>
+                    </div>
+                    <div class="input-field col s6 m3 l2">
+                        <input type="number" class="value" id="interval1" />
+                        <label for="interval1" class="translate">value</label>
+                        <span class="translate">interval1</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="mem" type="checkbox" />
+                        <label for="mem" class="translate">mem</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="battery" type="checkbox" />
+                        <label for="battery" class="translate">battery</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="cputemperature" type="checkbox" />
+                        <label for="cputemperature" class="translate">cputemperature</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="netstats" type="checkbox" />
+                        <label for="netstats" class="translate">netstats</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="fullload" type="checkbox" />
+                        <label for="fullload" class="translate">fullload</label>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s1 m1 l1">
-                <input class="value" id="i3" type="checkbox" />
-                <label for="i3" class="translate"></label>
+            <div id="tab-i2" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s1 m1 l1">
+                        <input class="value" id="i2" type="checkbox" />
+                        <label for="i2" class="translate"></label>
+                    </div>
+                    <div class="input-field col s6 m3 l2">
+                        <input type="number" class="value" id="interval2" />
+                        <label for="interval2" class="translate">value</label>
+#                        <span class="translate">interval2</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="users" type="checkbox" />
+                        <label for="users" class="translate">users</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="fssize" type="checkbox" />
+                        <label for="fssize" class="translate">fssize</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="bdev" type="checkbox" />
+                        <label for="bdev" class="translate">bdev</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="fsstats" type="checkbox" />
+                        <label for="fsstats" class="translate">fsstats</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="disksio" type="checkbox" />
+                        <label for="disksio" class="translate">disksio</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="display" type="checkbox" />
+                        <label for="display" class="translate">display</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="network" type="checkbox" />
+                        <label for="network" class="translate">network</label>
+                    </div>
+                </div>
             </div>
-            <div class="input-field col s6 m3 l2">
-                <input type="number" class="value" id="interval3" />
-                <label for="interval3" class="translate">value</label>
-                <!-- Important: label must come directly after input. Label is important. -->
-                <span class="translate">interval3</span>
+            <div id="tab-i3" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s1 m1 l1">
+                        <input class="value" id="i3" type="checkbox" />
+                        <label for="i3" class="translate"></label>
+                    </div>
+                    <div class="input-field col s6 m3 l2">
+                        <input type="number" class="value" id="interval3" />
+                        <label for="interval3" class="translate">value</label>
+                        <span class="translate">interval3</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="i3F1" type="checkbox" />
+                        <label for="i3F1" class="translate">i3F1</label>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-i4" class="col s12 page">
+                <div class="row">
+                    <div class="input-field col s1 m1 l1">
+                        <input class="value" id="i4" type="checkbox" />
+                        <label for="i4" class="translate"></label>
+                    </div>
+                    <div class="input-field col s6 m3 l2">
+                        <input type="number" class="value" id="interval4" />
+                        <label for="interval4" class="translate">value</label>
+                        <span class="translate">interval4</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input class="value" id="updates" type="checkbox" />
+                        <label for="updates" class="translate">updates</label>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- bottom message what will happen on save -->

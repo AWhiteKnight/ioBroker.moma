@@ -4,8 +4,8 @@
         "version": "0.0.4",
         "news": {
             "0.0.4": {
-                "en": "New high frequency interval 0,",
-                "de": "NeuesInterval0 mit hoher Frequenz.",
+                "en": "New intervals: 0 with high frequency, 4 daily. Extended configuration",
+                "de": "Neue Intervalle: 0 mit hoher Frequenz, 4 täglich. Erweiterte Konfiguration",
                 "ru": "",
                 "pt": "",
                 "nl": "",
@@ -110,11 +110,13 @@
         "i0": true,
         "interval0": 1,
         "i1": true,
-        "interval1": 30,
+        "interval1": 10,
         "i2": true,
-        "interval2": 60,
+        "interval2": 1,
         "i3": true,
-        "interval3": 24
+        "interval3": 1,
+        "i4": true,
+        "interval4": 1
     },
     "objects": [
         {

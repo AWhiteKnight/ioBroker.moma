@@ -27,12 +27,14 @@ let timer0 = null;
 let timer1 = null;
 let timer2 = null;
 let timer3 = null;
+let timer4 = null;
 // after first run of each function these should be set to false
 let isInitMain = true;
 let isInitI0 = true;
 let isInitI1 = true;
 let isInitI2 = true;
 let isInitI3 = true;
+let isInitI4 = true;
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
@@ -75,7 +77,7 @@ function updateInterval_0() {
 
 
 /*
- * call for updated states in interval_1 (default once per 30 sec)
+ * call for updated states in interval_1 (default once per 10 sec)
  */
 function updateInterval_1() {
   // updating values
@@ -90,7 +92,7 @@ function updateInterval_1() {
 }
 
 /*
- * call for updated states in interval_2 (default once per hour)
+ * call for updated states in interval_2 (default once per minute)
  */
 function updateInterval_2() {
   // updating values
@@ -109,7 +111,7 @@ function updateInterval_2() {
 }
 
 /*
- * call for updated states in interval_3 (default once per day)
+ * call for updated states in interval_3 (default once per hour)
  */
 function updateInterval_3() {
   // updating values
@@ -118,17 +120,28 @@ function updateInterval_3() {
   isInitI3 = false;
 }
 
+/*
+ * call for updated states in interval_4 (default once per day)
+ */
+function updateInterval_4() {
+  // updating values
+  moma.checkUpdates(adapter);
+
+  // set to false after first run
+  isInitI4 = false;
+}
+
 function main() {
   adapter.log.debug('Started with main()');
 
   // 'static' values due to need of restart for change of configuration
-  moma.baseboard(adapter, isInitMain);
-  moma.bios(adapter, isInitMain);
-  moma.system(adapter, isInitMain);
-  moma.cpu(adapter, isInitMain);
-  moma.osInfo(adapter, isInitMain);
-  moma.memLayout(adapter, isInitMain);
-  moma.diskLayout(adapter, isInitMain);
+    moma.baseboard(adapter, isInitMain);
+    moma.bios(adapter, isInitMain);
+    moma.system(adapter, isInitMain);
+    moma.cpu(adapter, isInitMain);
+    moma.osInfo(adapter, isInitMain);
+    moma.memLayout(adapter, isInitMain);
+    moma.diskLayout(adapter, isInitMain);
 
   // if checked then run each interval once and start it with interval timer
   adapter.log.debug('starting intervals');
@@ -147,6 +160,10 @@ function main() {
   if(adapter.config.i3) {
     updateInterval_3();
     timer3 = setInterval(updateInterval_3, adapter.config.interval3*60*60*1000);
+  }
+  if(adapter.config.i4) {
+    setTimeout(updateInterval_4, 10000);
+    timer4 = setInterval(updateInterval_4, adapter.config.interval3*60*60*1000);
   }
 
   // initialization of main finished
