@@ -163,7 +163,7 @@ function main() {
   }
   if(adapter.config.i4) {
     setTimeout(updateInterval_4, 10000);
-    timer4 = setInterval(updateInterval_4, adapter.config.interval3*60*60*1000);
+    timer4 = setInterval(updateInterval_4, adapter.config.interval3*24*60*60*1000);
   }
 
   // initialization of main finished
