@@ -65,11 +65,11 @@ adapter.on('ready', function () {
  */
 function updateInterval_0() {
   // updating values
-  moma.time(adapter, isInitI0);
-  moma.cpuCurrentSpeed(adapter, isInitI0);
-  moma.networkConnections(adapter, isInitI0);
-  moma.currentLoad(adapter, isInitI0);
-  moma.processes(adapter, isInitI0);
+  moma.time(isInitI0);
+  moma.cpuCurrentSpeed(isInitI0);
+  moma.networkConnections(isInitI0);
+  moma.currentLoad(isInitI0);
+  moma.processes(isInitI0);
 
   // set to false after first run
   isInitI0 = false;
@@ -81,11 +81,11 @@ function updateInterval_0() {
  */
 function updateInterval_1() {
   // updating values
-  moma.mem(adapter, isInitI1);
-  moma.battery(adapter, isInitI1);
-  moma.cpuTemperature(adapter, isInitI1);
-  moma.networkStats(adapter, isInitI1);
-  moma.fullLoad(adapter, isInitI1);
+  moma.mem(isInitI1);
+  moma.battery(isInitI1);
+  moma.cpuTemperature(isInitI1);
+  moma.networkStats(isInitI1);
+  moma.fullLoad(isInitI1);
 
   // set to false after first run
   isInitI1 = false;
@@ -96,15 +96,15 @@ function updateInterval_1() {
  */
 function updateInterval_2() {
   // updating values
-  moma.users(adapter, isInitI2);
-  moma.fsSize(adapter, isInitI2);
-  moma.blockDevices(adapter, isInitI2);
-  moma.fsStats(adapter, isInitI2);
-  moma.disksIO(adapter, isInitI2);
+  moma.users(isInitI2);
+  moma.fsSize(isInitI2);
+  moma.blockDevices(isInitI2);
+  moma.fsStats(isInitI2);
+  moma.disksIO(isInitI2);
   // displays do not change so often, but sometimes
-  moma.graphics(adapter, isInitI2);
+  moma.graphics(isInitI2);
   // network does notchange often but sometimes
-  moma.network(adapter, isInitI2);
+  moma.network(isInitI2);
 
   // set to false after first run
   isInitI2 = false;
@@ -125,7 +125,7 @@ function updateInterval_3() {
  */
 function updateInterval_4() {
   // updating values
-  moma.checkUpdates(adapter);
+  moma.checkUpdates();
 
   // set to false after first run
   isInitI4 = false;
@@ -135,13 +135,13 @@ function main() {
   adapter.log.debug('Started with main()');
 
   // 'static' values due to need of restart for change of configuration
-    moma.baseboard(adapter, isInitMain);
-    moma.bios(adapter, isInitMain);
-    moma.system(adapter, isInitMain);
-    moma.cpu(adapter, isInitMain);
-    moma.osInfo(adapter, isInitMain);
-    moma.memLayout(adapter, isInitMain);
-    moma.diskLayout(adapter, isInitMain);
+    moma.baseboard(isInitMain);
+    moma.bios(isInitMain);
+    moma.system(isInitMain);
+    moma.cpu(isInitMain);
+    moma.osInfo(isInitMain);
+    moma.memLayout(isInitMain);
+    moma.diskLayout(isInitMain);
 
   // if checked then run each interval once and start it with interval timer
   adapter.log.debug('starting intervals');
