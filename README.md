@@ -43,10 +43,11 @@ Following functions of library systeminformation are called on startup:
 * baseboard
 * bios
 * system
-* cpu
-* cpuFlags
-* osInfo
+* cpu (with cpuFlags)
 * memLayout
+* diskLayout
+* graphics
+* osInfo
 
 
 Following functions of library systeminformation are called in interval 0 (default every second):
@@ -57,28 +58,28 @@ Following functions of library systeminformation are called in interval 0 (defau
 * processes (overview - no pids)
 
 
-Following functions of library systeminformation are called in interval 1 (default every 30 seconds):
-* cpuTemperature
+Following functions of library systeminformation are called in interval 1 (default every 10 seconds):
 * mem
 * battery
+* cpuTemperature
 * networkStats
 * fullLoad
 
 
-Following functions of library systeminformation are called in interval 2 (default every 60 minutes):
+Following functions of library systeminformation are called in interval 2 (default every minute):
 * users
 * fsSize
 * blockDevices
 * fsStats
 * disksIO
-* graphics
-* networkInterfaces
-* networkInterfaceDefault
+* networkInterfaces (with networkInterfaceDefault)
 
 
-Following functions of library systeminformation are called in interval 3 (default every 24 hours):
-* diskLayout
+Following functions of library systeminformation are called in interval 3 (default every hour):
+* none
 
+Following functions of library systeminformation are called in interval 4 (default every day):
+* none
 
 
 ## License

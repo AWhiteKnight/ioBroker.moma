@@ -143,26 +143,27 @@ function main() {
     moma.memLayout(isInitMain);
     moma.diskLayout(isInitMain);
 
-  // if checked then run each interval once and start it with interval timer
+  // run each interval once and if checked then start it with interval timer
   adapter.log.debug('starting intervals');
+  updateInterval_0();
   if(adapter.config.i0) {
-    updateInterval_0();
     timer1 = setInterval(updateInterval_0, adapter.config.interval0*1000);
   }
+  updateInterval_1();
   if(adapter.config.i1) {
-    updateInterval_1();
     timer1 = setInterval(updateInterval_1, adapter.config.interval1*1000);
   }
+  updateInterval_2();
   if(adapter.config.i2) {
-    updateInterval_2();
     timer2 = setInterval(updateInterval_2, adapter.config.interval2*60*1000);
   }
+  updateInterval_3();
   if(adapter.config.i3) {
-    updateInterval_3();
     timer3 = setInterval(updateInterval_3, adapter.config.interval3*60*60*1000);
   }
+  // first run of interval 4 after 5 minutes
+  setTimeout(updateInterval_4, 5*60*1000);
   if(adapter.config.i4) {
-    setTimeout(updateInterval_4, 10000);
     timer4 = setInterval(updateInterval_4, adapter.config.interval3*24*60*60*1000);
   }
 
