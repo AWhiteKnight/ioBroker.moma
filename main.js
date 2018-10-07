@@ -104,7 +104,8 @@ function updateInterval_2() {
   // displays do not change so often, but sometimes
   moma.graphics(isInitI2);
   // network does notchange often but sometimes
-  moma.network(isInitI2);
+  moma.networkInterfaces(isInitI2);
+  moma.networkInterfaceDefault(isInitI2);
 
   // set to false after first run
   isInitI2 = false;
@@ -139,6 +140,7 @@ function main() {
     moma.bios(isInitMain);
     moma.system(isInitMain);
     moma.cpu(isInitMain);
+    moma.cpuFlags(isInitMain);
     moma.osInfo(isInitMain);
     moma.memLayout(isInitMain);
     moma.diskLayout(isInitMain);
