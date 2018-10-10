@@ -56,8 +56,8 @@ adapter.on('ready', function () {
   // do some preparations
   adapter.log.debug('starting adapter');
   moma.init(adapter);
-  // call main routine
-  main();
+  // wait a few ticks before calling main routine
+  setTimeout(main, 50);
 });
 
 /*
