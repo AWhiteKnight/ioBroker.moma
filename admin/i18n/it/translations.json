@@ -5,5 +5,6 @@
   "interval1": "Intervallo 1 (sec)",
   "interval2": "Intervallo 2 (min)",
   "interval3": "Intervallo 3 (ore)",
+  "interval4": "Intervallo 4 (days)",
   "on save": "su save adapter si riavvia immediatamente con la nuova configurazione"
 }

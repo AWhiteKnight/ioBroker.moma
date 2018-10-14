@@ -12,6 +12,9 @@ Those are for large environments with many computers and are capable of remote i
 I am using it for monitoring my IT-Infrastructure at home (including home automation) and keeping it up to date.
 
 ## Changelog
+### 0.0.4 (2018-10-14)
+* New intervals: 0 with high frequency, 4 daily. Extended configuration
+
 ### 0.0.3 (2018-10-02)
 * Basic functions of 'systeminformation' implemented, some documentation
 
