@@ -1,40 +1,23 @@
 {
     "common": {
         "name": "moma",
-        "version": "0.0.4",
+        "version": "0.0.5",
         "news": {
+            "0.0.5": {
+                "en": "New intervals: 0 with high frequency, 4 daily. Extended configuration",
+                "de": "Neue Intervalle: 0 mit hoher Frequenz, 4 täglich. Erweiterte Konfiguration"
+            },
             "0.0.4": {
                 "en": "New intervals: 0 with high frequency, 4 daily. Extended configuration",
-                "de": "Neue Intervalle: 0 mit hoher Frequenz, 4 täglich. Erweiterte Konfiguration",
-                "ru": "",
-                "pt": "",
-                "nl": "",
-                "fr": "",
-                "it": "",
-                "es": "",
-                "pl": ""
+                "de": "Neue Intervalle: 0 mit hoher Frequenz, 4 täglich. Erweiterte Konfiguration"
             },
             "0.0.3": {
                 "en": "Basic functions of 'systeminformation' implemented, some documentation",
-                "de": "Grund-Funktionen von 'systeminformation' implementiert, rudimentäre Dokumentation erstellt.",
-                "ru": "",
-                "pt": "",
-                "nl": "",
-                "fr": "",
-                "it": "",
-                "es": "",
-                "pl": ""
+                "de": "Grund-Funktionen von 'systeminformation' implementiert, rudimentäre Dokumentation erstellt."
             },
             "0.0.2": {
                 "en": "Library 'systeminformation' integrated. First set of functions implemented",
-                "de": "Bibliothek 'systeminformation' als Basis integriert. Ersten Umfang der Funktionen implementiert",
-                "ru": "",
-                "pt": "",
-                "nl": "",
-                "fr": "",
-                "it": "",
-                "es": "",
-                "pl": ""
+                "de": "Bibliothek 'systeminformation' als Basis integriert. Ersten Umfang der Funktionen implementiert"
             },
             "0.0.1": {
                 "en": "Initial version",

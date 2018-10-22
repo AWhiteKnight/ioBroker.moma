@@ -46,7 +46,8 @@ Following functions of library systeminformation are called on startup:
 * baseboard
 * bios
 * system
-* cpu (with cpuFlags)
+* cpu 
+* cpuFlags
 * memLayout
 * diskLayout
 * graphics
@@ -58,6 +59,7 @@ Following functions of library systeminformation are called in interval 0 (defau
 * cpuCurrentSpeed
 * networkConnections
 * currentLoad
+* fullLoad
 * processes (overview - no pids)
 
 
@@ -66,7 +68,6 @@ Following functions of library systeminformation are called in interval 1 (defau
 * battery
 * cpuTemperature
 * networkStats
-* fullLoad
 
 
 Following functions of library systeminformation are called in interval 2 (default every minute):
@@ -75,7 +76,8 @@ Following functions of library systeminformation are called in interval 2 (defau
 * blockDevices
 * fsStats
 * disksIO
-* networkInterfaces (with networkInterfaceDefault)
+* networkInterfaceDefault
+* networkInterfaces
 
 
 Following functions of library systeminformation are called in interval 3 (default every hour):
@@ -83,6 +85,9 @@ Following functions of library systeminformation are called in interval 3 (defau
 
 Following functions of library systeminformation are called in interval 4 (default every day):
 * none
+
+Following functions of moma are called in interval 4 (default every day):
+* updates - checks for pending updates and shows the amount of updates in moma.x.\<hostname\>.updates (currently only Ubuntu, Debian, openSUSE, RedHat)
 
 
 ## License
