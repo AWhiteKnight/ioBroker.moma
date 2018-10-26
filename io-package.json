@@ -4,8 +4,8 @@
         "version": "0.0.5",
         "news": {
             "0.0.5": {
-                "en": "New intervals: 0 with high frequency, 4 daily. Extended configuration",
-                "de": "Neue Intervalle: 0 mit hoher Frequenz, 4 täglich. Erweiterte Konfiguration"
+                "en": "Checking for updates in interval 4",
+                "de": "Auf Updates prüfen im Intervall 4"
             },
             "0.0.4": {
                 "en": "New intervals: 0 with high frequency, 4 daily. Extended configuration",
