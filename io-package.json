@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "moma",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
+            "0.0.6": {
+                "en": "UI text and Translations",
+                "de": "UI-Texte und Übersetzungen"
+            },
             "0.0.5": {
                 "en": "Checking for updates in interval 4",
                 "de": "Auf Updates prüfen im Intervall 4"
