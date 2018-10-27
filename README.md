@@ -62,7 +62,6 @@ Following functions of library systeminformation are called in interval 0 (defau
 * cpuCurrentSpeed
 * networkConnections
 * currentLoad
-* fullLoad
 * processes (overview - no pids)
 
 
@@ -71,6 +70,7 @@ Following functions of library systeminformation are called in interval 1 (defau
 * battery
 * cpuTemperature
 * networkStats
+* fullLoad
 
 
 Following functions of library systeminformation are called in interval 2 (default every minute):

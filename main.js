@@ -44,6 +44,7 @@ adapter.on('unload', function (callback) {
     if(timer1) { clearInterval(timer1); }
     if(timer2) { clearInterval(timer2); }
     if(timer3) { clearInterval(timer3); }
+    if(timer4) { clearInterval(timer4); }
     adapter.log.info('cleaned everything up...');
     callback();
   } catch (e) {
@@ -126,7 +127,7 @@ function updateInterval_3() {
  */
 function updateInterval_4() {
   // updating values
-  moma.checkUpdates();
+  moma.checkUpdates(isInitI4);
 
   // set to false after first run
   isInitI4 = false;
