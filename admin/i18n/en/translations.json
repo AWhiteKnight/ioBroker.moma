@@ -19,12 +19,12 @@
   "cpuCurrentSpeed": "Actual cpu and core frequencies",
   "networkConnections": "Actual network connections",
   "currentLoad": "Actual cpu load",
-  "fullLoad": "Average load since last boot",
   "processes": "Process overview",
   "mem": "Information about memory usage ",
   "battery": "State of charge and information about battery",
   "cpuTemperature": "Temperatures of cpu and cores",
   "networkStats": "Network statistics",
+  "fullLoad": "Average load since last boot",
   "users": "Current user sessions",
   "fsSize": "Information about computers file system",
   "blockDevices": "Connected block devices",
@@ -32,5 +32,5 @@
   "disksIO": "IO statistics of block devices",
   "networkInterfaceDefault": "Default network interface",
   "updates": "Check for available updates",
-  "on save": "on save adapter restarts with new config immediately"
+  "on save": "On save adapter restarts with new config immediately"
 }
