@@ -4,7 +4,7 @@
         "version": "0.0.6",
         "news": {
             "0.0.6": {
-                "en": "UI text and Translations; changed meta-path from moma.x to moma.meta",
+                "en": "UI text and translations; changed meta-path from moma.x to moma.meta",
                 "de": "UI-Texte und Übersetzungen; Pfad für Metadaten von moma.x in moma.meta geändert"
             },
             "0.0.5": {
