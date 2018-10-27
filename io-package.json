@@ -4,8 +4,8 @@
         "version": "0.0.6",
         "news": {
             "0.0.6": {
-                "en": "UI text and Translations",
-                "de": "UI-Texte und Übersetzungen"
+                "en": "UI text and Translations; changed meta-path from moma.x to moma.meta",
+                "de": "UI-Texte und Übersetzungen; Pfad für Metadaten von moma.x in moma.meta geändert"
             },
             "0.0.5": {
                 "en": "Checking for updates in interval 4",
@@ -111,13 +111,13 @@
             "type": "meta"
         },
         {
-            "_id": "moma.x",
+            "_id": "moma.meta",
             "parent": "moma",
             "type": "meta"
         },
         {
-            "_id": "moma.x.hosts",
-            "parent": "moma.x",
+            "_id": "moma.meta.hosts",
+            "parent": "moma.meta",
             "type": "channel"
         }
     ]

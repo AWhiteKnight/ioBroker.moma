@@ -41,7 +41,7 @@ still under construction - ideas, proposals, hints, ... are welcome!
 
 Basic idea is to have 
 + a tree for each instance (moma.\<instance-id\>) containing all the informations of the machine the instance is running on. 
-+ a common tree (moma.x) below which every instance creates a device \<hostname\> containing a reference to the instance and some monitoring informations.
++ a common tree (moma.meta) below which every instance creates a device \<hostname\> containing a reference to the instance and some monitoring informations.
 
 ## Reference
 
@@ -90,7 +90,7 @@ Following functions of library systeminformation are called in interval 4 (defau
 * none
 
 Following functions of moma are called in interval 4 (default every day):
-* updates - checks for pending updates and shows the amount of updates in moma.x.\<hostname\>.updates (currently only Ubuntu, Debian, openSUSE, RedHat)
+* updates - checks for pending updates and shows the amount of updates in moma.meta.\<hostname\>.updates (currently only Ubuntu, Debian, openSUSE, RedHat)
 
 
 ## License
