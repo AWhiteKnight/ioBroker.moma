@@ -1,6 +1,6 @@
 /**
  *
- * moma adapter - Monitoring and maintenance of the machine the adapter is runnin on
+ * moma adapter - Monitoring and maintenance of the machine the adapter is running on
  *  (c) 2018 AWhiteKnight
  *  @author: AWhiteKnight <awhiteknight@unity-mail.de>
  *  @license: MIT
@@ -9,9 +9,9 @@
  /* jshint -W097 */
  /* jshint strict:false */
  /* jslint node: true */
-'use strict';
+ 'use strict';
 
-// you have to require the utils module and call adapter function
+ // you have to require the utils module and call adapter function
 const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 // the moma lib
 const moma = require(__dirname + '/lib/momalib');
