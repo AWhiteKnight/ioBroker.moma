@@ -14,7 +14,7 @@
 // you have to require the utils module and call adapter function
 const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 // the moma lib
-const moma = require('./lib/momalib');
+const moma = require(__dirname + '/lib/momalib');
 
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
