@@ -4,8 +4,8 @@
         "version": "0.0.7",
         "news": {
             "0.0.7": {
-                "en": "",
-                "de": ""
+                "en": "Travis testing activated, minor enhancements in meta data",
+                "de": "Travis-Tests aktiviert, kleinere Erweiterungen der Meta-Daten"
             },
             "0.0.6": {
                 "en": "UI text and translations; changed meta-path from moma.x to moma.meta",
