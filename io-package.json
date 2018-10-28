@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "moma",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
+            "0.0.7": {
+                "en": "",
+                "de": ""
+            },
             "0.0.6": {
                 "en": "UI text and translations; changed meta-path from moma.x to moma.meta",
                 "de": "UI-Texte und Übersetzungen; Pfad für Metadaten von moma.x in moma.meta geändert"
@@ -89,7 +93,7 @@
         ],
         "readme": "https://github.com/awhiteknight/ioBroker.moma/blob/master/README.md",
         "loglevel": "info",
-        "type": "hardware",
+        "type": "utility",
         "license": "MIT",
         "messagebox": false
     },
@@ -108,17 +112,17 @@
     "objects": [
         {
             "_id": "moma",
-            "type": "meta"
+            "type": ""
         },
         {
             "_id": "moma.meta",
             "parent": "moma",
-            "type": "meta"
+            "type": ""
         },
         {
             "_id": "moma.meta.hosts",
             "parent": "moma.meta",
-            "type": "channel"
+            "type": ""
         }
     ]
 }
