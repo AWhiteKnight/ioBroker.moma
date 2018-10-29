@@ -12,6 +12,9 @@ Those are for large environments with many computers and are capable of remote i
 I am using it for monitoring my IT-Infrastructure at home (including home automation) and keeping it up to date.
 
 ## Changelog
+### 0.0.7 (2018-10-29)
+* Travis testing activated; Minor enhancements in meta data
+
 ### 0.0.6 (2018-10-27)
 * UI text and translations; changed meta-path from moma.x to moma.meta
 
