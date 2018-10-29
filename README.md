@@ -30,13 +30,16 @@ I am using it for monitoring my IT-Infrastructure at home (including home automa
 ### 0.0.2 (2018-09-30)
 * Library 'systeminformation' integrated. First set of calls implemented
 
-
 ### 0.0.1
 * (AWhiteKnight) initial release : Get the Adapter running and show first values of the machines.
 
 ## Installation
 
 Use "Adapter - Install from URL" with https://github.com/AWhiteKnight/ioBroker.moma
+
+alternative
+
+npm install iobroker.moma
 
 Works also in multihost environments - ensure that the correct instance is selected before installation.
 
