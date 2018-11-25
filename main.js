@@ -30,7 +30,7 @@ let timer3 = null;
 let timer4 = null;
 // after first run of each function these should be set to false
 let isInitMain = true;
-let isInitI0 = true;
+//let isInitI0 = true;
 let isInitI1 = true;
 let isInitI2 = true;
 let isInitI3 = true;
@@ -64,7 +64,7 @@ adapter.on('ready', function () {
 /*
  * call for updated states in interval_0 (default once per second)
  */
-function updateInterval_0() {
+function updateInterval_0(isInitI0 = false) {
   // updating values
   moma.time(isInitI0);
   moma.cpuCurrentSpeed(isInitI0);
@@ -73,7 +73,7 @@ function updateInterval_0() {
   moma.processes(isInitI0);
 
   // set to false after first run
-  isInitI0 = false;
+  //isInitI0 = false;
 }
 
 
@@ -148,8 +148,8 @@ function main() {
 
   // run each interval once and if checked then start it with interval timer
   adapter.log.debug('starting intervals');
-  updateInterval_0();
   if(adapter.config.i0) {
+    updateInterval_0(true);
     timer1 = setInterval(updateInterval_0, adapter.config.interval0*1000);
   }
   updateInterval_1();
