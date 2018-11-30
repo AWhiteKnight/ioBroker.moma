@@ -4,8 +4,8 @@
         "version": "0.0.8",
         "news": {
             "0.0.8": {
-                "en": "List of packages to update",
-                "de": "Liste mit zu aktualisiernden Paketen"
+                "en": "List of packages to update. Not running with nodejs 4 anymore",
+                "de": "Liste mit zu aktualisiernden Paketen. Nicht mehr kompatibel mit nodejs 4"
             },
             "0.0.7": {
                 "en": "Travis testing activated. Minor enhancements in meta data",

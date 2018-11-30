@@ -11,6 +11,12 @@ Those are for large environments with many computers and are capable of remote i
 
 I am using it for monitoring my IT-Infrastructure at home (including home automation) and keeping it up to date.
 
+
+MoMa uses the platform independant library 'systeminformation' (https://github.com/sebhildebrandt/systeminformation) to gather information about the computer. Many of the calls are exposed to be used in timer intervalls - see reference below.
+
+MoMa needs at least nodejs version 6.
+
+
 ## Changelog
 ### 0.0.7 (2018-10-29)
 * Travis testing activated; Minor enhancements in meta data
