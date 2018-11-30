@@ -28,13 +28,6 @@ let timer1 = null;
 let timer2 = null;
 let timer3 = null;
 let timer4 = null;
-// after first run of each function these should be set to false
-let isInitMain = true;
-//let isInitI0 = true;
-let isInitI1 = true;
-let isInitI2 = true;
-let isInitI3 = true;
-let isInitI4 = true;
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
@@ -64,38 +57,32 @@ adapter.on('ready', function () {
 /*
  * call for updated states in interval_0 (default once per second)
  */
-function updateInterval_0(isInitI0 = false) {
+function updateInterval_0(isInitI0 = 'false') {
   // updating values
   moma.time(isInitI0);
   moma.cpuCurrentSpeed(isInitI0);
   moma.networkConnections(isInitI0);
   moma.currentLoad(isInitI0);
   moma.processes(isInitI0);
-
-  // set to false after first run
-  //isInitI0 = false;
 }
 
 
 /*
  * call for updated states in interval_1 (default once per 10 sec)
  */
-function updateInterval_1() {
+function updateInterval_1(isInitI1 = 'false') {
   // updating values
   moma.mem(isInitI1);
   moma.battery(isInitI1);
   moma.cpuTemperature(isInitI1);
   moma.networkStats(isInitI1);
   moma.fullLoad(isInitI1);
-
-  // set to false after first run
-  isInitI1 = false;
 }
 
 /*
  * call for updated states in interval_2 (default once per minute)
  */
-function updateInterval_2() {
+function updateInterval_2(isInitI2 = 'false') {
   // updating values
   moma.users(isInitI2);
   moma.fsSize(isInitI2);
@@ -107,44 +94,36 @@ function updateInterval_2() {
   // network does notchange often but sometimes
   moma.networkInterfaces(isInitI2);
   moma.networkInterfaceDefault(isInitI2);
-
-  // set to false after first run
-  isInitI2 = false;
 }
 
 /*
  * call for updated states in interval_3 (default once per hour)
  */
-function updateInterval_3() {
+function updateInterval_3(isInitI3 = 'false') {
   // updating values
 
-  // set to false after first run
-  isInitI3 = false;
 }
 
 /*
  * call for updated states in interval_4 (default once per day)
  */
-function updateInterval_4() {
+function updateInterval_4(isInitI4 = 'false') {
   // updating values
   moma.checkUpdates(isInitI4);
-
-  // set to false after first run
-  isInitI4 = false;
 }
 
 function main() {
   adapter.log.debug('Started with main()');
 
   // 'static' values due to need of restart for change of configuration
-    moma.baseboard(isInitMain);
-    moma.bios(isInitMain);
-    moma.system(isInitMain);
-    moma.cpu(isInitMain);
-    moma.cpuFlags(isInitMain);
-    moma.osInfo(isInitMain);
-    moma.memLayout(isInitMain);
-    moma.diskLayout(isInitMain);
+    moma.baseboard(true);
+    moma.bios(true);
+    moma.system(true);
+    moma.cpu(true);
+    moma.cpuFlags(true);
+    moma.osInfo(true);
+    moma.memLayout(true);
+    moma.diskLayout(true);
 
   // run each interval once and if checked then start it with interval timer
   adapter.log.debug('starting intervals');
@@ -152,25 +131,20 @@ function main() {
     updateInterval_0(true);
     timer1 = setInterval(updateInterval_0, adapter.config.interval0*1000);
   }
-  updateInterval_1();
   if(adapter.config.i1) {
+    updateInterval_1(true);
     timer1 = setInterval(updateInterval_1, adapter.config.interval1*1000);
   }
-  updateInterval_2();
   if(adapter.config.i2) {
+    updateInterval_2(true);
     timer2 = setInterval(updateInterval_2, adapter.config.interval2*60*1000);
   }
-  updateInterval_3();
   if(adapter.config.i3) {
+    updateInterval_3(true);
     timer3 = setInterval(updateInterval_3, adapter.config.interval3*60*60*1000);
   }
-  // first run of interval 4 after 5 minutes
-  setTimeout(updateInterval_4, 5*60*1000);
   if(adapter.config.i4) {
+    updateInterval_4(true);
     timer4 = setInterval(updateInterval_4, adapter.config.interval3*24*60*60*1000);
   }
-
-  // initialization of main finished
-  isInitMain = false;
-
 } // end of main
