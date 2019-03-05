@@ -1,11 +1,11 @@
 {
-    "common": {
-        "name": "moma",
-        "version": "0.0.8",
-        "news": {
+	"common": {
+		"name": "moma",
+		"version": "0.0.8",
+		"news": {
             "0.0.8": {
-                "en": "List of packages to update. Not running with nodejs 4 anymore",
-                "de": "Liste mit zu aktualisiernden Paketen. Nicht mehr kompatibel mit nodejs 4"
+                "en": "List of packages to update. Moved to new template concept",
+                "de": "Liste mit zu aktualisiernden Paketen. Auf das neue Template umgestellt"
             },
             "0.0.7": {
                 "en": "Travis testing activated. Minor enhancements in meta data",
@@ -31,18 +31,19 @@
                 "en": "Library 'systeminformation' integrated. First set of functions implemented",
                 "de": "Bibliothek 'systeminformation' als Basis integriert. Ersten Umfang der Funktionen implementiert"
             },
-            "0.0.1": {
-                "en": "Initial version",
-                "de": "Initiale Version",
-                "ru": "Первоначальный адаптер",
-                "pt": "Versão inicial",
-                "nl": "Eerste release",
-                "fr": "Version initiale",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwszy wersja"
-            }
-        },
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
         "title": "Monitoring & Maintenance",
         "titleLang": {
             "en": "Monitoring and Maintenance",
@@ -53,9 +54,10 @@
             "fr": "Surveillance et Maintenance",
             "it": "Monitoraggio e Manutenzione",
             "es": "Monitoreo y Mantenimiento",
-            "pl": "Monitorowanie i Konserwacja"
-        },
-        "desc": {
+            "pl": "Monitorowanie i Konserwacja",
+			"zh-cn": "moma"
+		},
+		"desc": {
             "en": "The adapter allows monitoring and maintenance of the machine",
             "de": "Der Adapter ermöglicht Monitoring und Wartung der Maschine",
             "ru": "Адаптер позволяет контролировать и обслуживать машину",
@@ -64,45 +66,55 @@
             "fr": "L'adaptateur permet la surveillance et la maintenance de la machine",
             "it": "L'adattatore consente il monitoraggio e la manutenzione della macchina",
             "es": "El adaptador permite la monitorización y el mantenimiento de la máquina",
-            "pl": "Adapter umożliwia monitorowanie i konserwację urządzenia"
-        },
-        "authors": [
-            "A White Knight <awhiteknight@unity-mail.de>"
-        ],
-        "docs": {
-            "en": "docs/en/moma.md",
-            "de": "docs/de/moma.md",
-            "ru": "docs/ru/moma.md",
-            "pt": "docs/pt/moma.md",
-            "nl": "docs/nl/moma.md",
-            "fr": "docs/fr/moma.md",
-            "it": "docs/it/moma.md",
-            "es": "docs/es/moma.md",
-            "pl": "docs/pl/moma.md"
-        },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "moma.png",
-        "materialize": true,
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/awhiteknight/ioBroker.moma/master/admin/moma.png",
-        "keywords": [
-            "iobroker",
-            "moma",
-            "monitoring",
-            "administration",
-            "smarthome",
-            "home automation",
-            "scada"
-        ],
-        "readme": "https://github.com/awhiteknight/ioBroker.moma/blob/master/README.md",
-        "loglevel": "info",
-        "type": "utility",
-        "license": "MIT",
-        "messagebox": false
-    },
-    "native": {
-        "i0": true,
+            "pl": "Adapter umożliwia monitorowanie i konserwację urządzenia",
+			"zh-cn": "MomaDescription"
+		},
+		"authors": [
+			"AWhiteKnight <awhiteknight@unity-mail.de>"
+		],
+		"keywords": [
+			"monitoring",
+			"maintenance",
+			"systeminfo"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "moma.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/AWhiteKnight/ioBroker.moma/master/admin/moma.png",
+		"readme": "https://github.com/AWhiteKnight/ioBroker.moma/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "general",
+		"compact": true,
+		"materialize": true,
+		"materializeTab": true,
+		"adminTab": {
+			"singleton": true,
+			"name": {
+				"en": "moma",
+				"de": "moma",
+				"ru": "moma",
+				"pt": "moma",
+				"nl": "moma",
+				"fr": "moma",
+				"it": "moma",
+				"es": "moma",
+				"pl": "moma",
+				"zh-cn": "moma"
+			},
+			"link": "",
+			"fa-icon": "info"
+		},
+		"dependencies": [
+			{
+				"admin": ">=3.0.0"
+			}
+		]
+	},
+	"native": {
+	    "i0": true,
         "interval0": 1,
         "i1": true,
         "interval1": 10,
@@ -112,7 +124,7 @@
         "interval3": 1,
         "i4": true,
         "interval4": 1
-    },
+	},
     "objects": [
         {
             "_id": "moma",
@@ -128,5 +140,28 @@
             "parent": "moma.meta",
             "type": ""
         }
-    ]
+    ],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		}
+	]
 }

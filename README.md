@@ -1,6 +1,19 @@
-![Logo](admin/moma.png)
-# ioBroker.moma
+<h1>
+	<img src="admin/moma.png" width="64"/>
+	ioBroker.moma
+</h1>
 
+[![NPM version](http://img.shields.io/npm/v/iobroker.moma.svg)](https://www.npmjs.com/package/iobroker.moma)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.moma.svg)](https://www.npmjs.com/package/iobroker.moma)
+[![Dependency Status](https://img.shields.io/david/AWhiteKnight/iobroker.moma.svg)](https://david-dm.org/AWhiteKnight/iobroker.moma)
+[![Known Vulnerabilities](https://snyk.io/test/github/AWhiteKnight/ioBroker.moma/badge.svg)](https://snyk.io/test/github/AWhiteKnight/ioBroker.moma)
+
+[![NPM](https://nodei.co/npm/iobroker.moma.png?downloads=true)](https://nodei.co/npm/iobroker.moma/)
+
+**Tests:** Linux/Mac: [![Travis-CI](http://img.shields.io/travis/AWhiteKnight/ioBroker.moma/master.svg)](https://travis-ci.org/AWhiteKnight/ioBroker.moma)
+Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/AWhiteKnight/ioBroker.moma?branch=master&svg=true)](https://ci.appveyor.com/project/AWhiteKnight/ioBroker-moma/)
+
+## moma adapter for ioBroker
 
 **MoMa** is an adapter for **Mo**nitoring and **Ma**intenance of an ioBroker based home automation installation.
 **MoMa** aims at home (automation) installations which are a bit more complex than a single machine running all in one or a small number of machines doing some basic load balancing within one network.
@@ -14,30 +27,30 @@ I am using it for monitoring my IT-Infrastructure at home (including home automa
 
 MoMa uses the platform independant library 'systeminformation' (https://github.com/sebhildebrandt/systeminformation) to gather information about the computer. Many of the calls are exposed to be used in timer intervalls - see reference below.
 
-MoMa needs at least nodejs version 6.
-
+MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
+
 ### 0.0.7 (2018-10-29)
-* Travis testing activated; Minor enhancements in meta data
+* (AWhiteKnight) Travis testing activated; Minor enhancements in meta data
 
 ### 0.0.6 (2018-10-27)
-* UI text and translations; changed meta-path from moma.x to moma.meta
+* (AWhiteKnight) UI text and translations; changed meta-path from moma.x to moma.meta
 
 ### 0.0.5 (2018-10-26)
-* Checking for updates in interval 4
+* (AWhiteKnight) Checking for updates in interval 4
 
 ### 0.0.4 (2018-10-14)
-* New intervals: 0 with high frequency, 4 daily. Extended configuration
+* (AWhiteKnight) New intervals: 0 with high frequency, 4 daily. Extended configuration
 
 ### 0.0.3 (2018-10-02)
-* Basic functions of 'systeminformation' implemented, some documentation
+* (AWhiteKnight) Basic functions of 'systeminformation' implemented, some documentation
 
 ### 0.0.2 (2018-09-30)
-* Library 'systeminformation' integrated. First set of calls implemented
+* (AWhiteKnight) Library 'systeminformation' integrated. First set of calls implemented
 
 ### 0.0.1
-* (AWhiteKnight) initial release : Get the Adapter running and show first values of the machines.
+* (AWhiteKnight) initial release
 
 ## Installation
 
@@ -109,9 +122,9 @@ Following functions of moma are called in interval 4 (default every day):
 
 
 ## License
-The MIT License (MIT)
+MIT License
 
-Copyright (c) 2018 'A White Knight' <awhiteknight@unity-mail.de>
+Copyright (c) 2019 AWhiteKnight
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -120,13 +133,13 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
