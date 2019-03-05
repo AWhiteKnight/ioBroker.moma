@@ -46,14 +46,13 @@ class Moma extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
+		// Reset the connection indicator during startup
+		this.setState("info.connection", false, true);
+
 		// Initialize your adapter here
 		// do some preparations
 		this.log.debug('starting adapter');
 		moma.init(this);
-/*
-		// Reset the connection indicator during startup
-		this.setState("info.connection", false, true);
-
 /*
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
@@ -115,27 +114,29 @@ class Moma extends utils.Adapter {
 	  
 		// if checked run each interval once and then start it with interval timer
 		this.log.debug('starting intervals');
-		if(this.config.i0) {
+		if(this.config.i0 && this.config.interval0) {
 			this.updateInterval_0(true);
 			timer0 = setInterval(this.updateInterval_0, this.config.interval0*1000);
 		}
-		if(this.config.i1) {
+		if(this.config.i1 && this.config.interval1) {
 			this.updateInterval_1(true);
 			timer1 = setInterval(this.updateInterval_1, this.config.interval1*1000);
 		}
-		if(this.config.i2) {
+		if(this.config.i2 && this.config.interval2) {
 			this.updateInterval_2(true);
 			timer2 = setInterval(this.updateInterval_2, this.config.interval2*60*1000);
 		}
-		if(this.config.i3) {
+		if(this.config.i3 && this.config.interval3) {
 			this.updateInterval_3(true);
 			timer3 = setInterval(this.updateInterval_3, this.config.interval3*60*60*1000);
 		}
-		if(this.config.i4) {
+		if(this.config.i4 && this.config.interval4) {
 			this.updateInterval_4(true);
-			timer4 = setInterval(this.updateInterval_4, this.config.interval3*24*60*60*1000);
+			timer4 = setInterval(this.updateInterval_4, this.config.interval4*24*60*60*1000);
 		}
 
+		// Set the connection indicator after startup
+		this.setState("info.connection", true, true);
 	}
 
 	/**
@@ -263,7 +264,8 @@ class Moma extends utils.Adapter {
 	}
 }
 
-if (module.parent) {
+// @ts-ignore
+if (module && module.parent) {
 	// Export the constructor in compact mode
 	/**
 	 * @param {Partial<ioBroker.AdapterOptions>} [options={}]
