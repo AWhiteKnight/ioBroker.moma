@@ -1,3 +1,8 @@
+/* jshint -W097 */
+/* jshint -W030 */
+/* jshint strict:true */
+/* jslint node: true */
+/* jslint esversion: 6 */
 "use strict";
 /**
  *
@@ -17,13 +22,6 @@ const utils = require("@iobroker/adapter-core");
 // const fs = require("fs");
 // the moma lib
 const moma = require(__dirname + '/lib/momalib');
-// some variables to keep things under control
-//  the timers
-let timer0 = 0;
-let timer1 = 0;
-let timer2 = 0;
-let timer3 = 0;
-let timer4 = 0;
 
 class Moma extends utils.Adapter {
 
@@ -35,6 +33,12 @@ class Moma extends utils.Adapter {
 			...options,
 			name: "moma",
 		});
+		// store references to the timers
+		let timer0 = null;
+		let timer1 = null;
+		let timer2 = null;
+		let timer3 = null;
+		let timer4 = null;
 		this.on("ready", this.onReady.bind(this));
 		this.on("objectChange", this.onObjectChange.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
@@ -44,65 +48,24 @@ class Moma extends utils.Adapter {
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
+	 * So we do our initializations here and start the recurrent updates via timer events.
 	 */
 	async onReady() {
 		// Reset the connection indicator during startup
-		this.setState("info.connection", false, true);
+		//this.setState("info.connection", false, true);
 
-		// Initialize your adapter here
-		// do some preparations
+		// Initializiation of adapter
 		this.log.debug('starting adapter');
 		moma.init(this);
-/*
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
-		this.log.info("config option1: " + this.config.option1);
-		this.log.info("config option2: " + this.config.option2);
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-/*		await this.setObjectAsync("testVariable", {
-			type: "state",
-			common: {
-				name: "testVariable",
-				type: "boolean",
-				role: "indicator",
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
 
-		// in this template all states changes inside the adapters namespace are subscribed
-		this.subscribeStates("*");
+		// all states changes inside the adapters namespace moma.<instance> are subscribed
+		// not those of moma.meta
+		//this.subscribeStates("*");
 
-		/*
-		setState examples
-		you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		*/
-		// the variable testVariable is set to true as command (ack=false)
-/*		await this.setStateAsync("testVariable", true);
-
-		// same thing, but the value is flagged "ack"
-		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setStateAsync("testVariable", { val: true, ack: true });
-
-		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-
-		// examples for the checkPassword/checkGroup functions
-		let result = await this.checkPasswordAsync("admin", "iobroker");
-		this.log.info("check user admin pw ioboker: " + result);
-
-		result = await this.checkGroupAsync("admin", "admin");
-		this.log.info("check group user admin group admin: " + result);
-*/
 		// reading one time values
 		this.log.debug('reading one time values');
 	  
-		// 'static' values due to need of restart for change of configuration
+		// read 'static' values on restart for change of machine configuration
 		moma.baseboard(true);
 		moma.bios(true);
 		moma.system(true);
@@ -112,31 +75,32 @@ class Moma extends utils.Adapter {
 		moma.memLayout(true);
 		moma.diskLayout(true);
 	  
+		// start the recurrent updates pf values
 		// if checked run each interval once and then start it with interval timer
 		this.log.debug('starting intervals');
 		if(this.config.i0 && this.config.interval0) {
 			this.updateInterval_0(true);
-			timer0 = setInterval(this.updateInterval_0, this.config.interval0*1000);
+			this.timer0 = setInterval(this.updateInterval_0, this.config.interval0*1000);
 		}
 		if(this.config.i1 && this.config.interval1) {
 			this.updateInterval_1(true);
-			timer1 = setInterval(this.updateInterval_1, this.config.interval1*1000);
+			this.timer1 = setInterval(this.updateInterval_1, this.config.interval1*1000);
 		}
 		if(this.config.i2 && this.config.interval2) {
 			this.updateInterval_2(true);
-			timer2 = setInterval(this.updateInterval_2, this.config.interval2*60*1000);
+			this.timer2 = setInterval(this.updateInterval_2, this.config.interval2*60*1000);
 		}
 		if(this.config.i3 && this.config.interval3) {
 			this.updateInterval_3(true);
-			timer3 = setInterval(this.updateInterval_3, this.config.interval3*60*60*1000);
+			this.timer3 = setInterval(this.updateInterval_3, this.config.interval3*60*60*1000);
 		}
 		if(this.config.i4 && this.config.interval4) {
 			this.updateInterval_4(true);
-			timer4 = setInterval(this.updateInterval_4, this.config.interval4*24*60*60*1000);
+			this.timer4 = setInterval(this.updateInterval_4, this.config.interval4*24*60*60*1000);
 		}
 
 		// Set the connection indicator after startup
-		this.setState("info.connection", true, true);
+		//this.setState("info.connection", true, true);
 	}
 
 	/**
@@ -146,11 +110,11 @@ class Moma extends utils.Adapter {
 	onUnload(callback) {
 		try {
 			// clean up the timer
-			if(timer0) { clearInterval(timer0); }
-			if(timer1) { clearInterval(timer1); }
-			if(timer2) { clearInterval(timer2); }
-			if(timer3) { clearInterval(timer3); }
-			if(timer4) { clearInterval(timer4); }
+			if(this.timer0) { clearInterval(this.timer0); }
+			if(this.timer1) { clearInterval(this.timer1); }
+			if(this.timer2) { clearInterval(this.timer2); }
+			if(this.timer3) { clearInterval(this.timer3); }
+			if(this.timer4) { clearInterval(this.timer4); }
 			this.log.info("cleaned everything up...");
 			callback();
 		} catch (e) {
