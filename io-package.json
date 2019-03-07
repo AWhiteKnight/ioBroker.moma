@@ -133,12 +133,14 @@
         {
             "_id": "moma.meta",
             "parent": "moma",
-            "type": ""
+			"type": "",
+			"name" : "moma metadata"
         },
         {
             "_id": "moma.meta.hosts",
             "parent": "moma.meta",
-            "type": ""
+			"type": "device",
+			"name": "list of all connected hosts"
         }
     ],
 	"instanceObjects": [

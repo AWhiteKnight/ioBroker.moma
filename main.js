@@ -100,7 +100,7 @@ class Moma extends utils.Adapter {
 		}
 
 		// Set the connection indicator after startup
-		//this.setState("info.connection", true, true);
+		this.setState("info.connection", true, true);
 	}
 
 	/**
