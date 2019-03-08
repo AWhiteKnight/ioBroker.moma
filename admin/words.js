@@ -366,6 +366,17 @@ systemDictionary = {
 		"es": "Compruebe las actualizaciones disponibles",
 		"pl": "Sprawdź dostępne aktualizacje"
 	},
+	"sudo info": {
+		"en": "Linux - Insert following into /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"de": "Linux - Folgendes einfügen in /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"ru": "Linux - Вставить следующее в /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"pt": "Linux - Insira o seguinte em /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"nl": "Linux - Volgende invoegen in /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"fr": "Linux - Insérer ce qui suit dans /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"it": "Linux - Inserisci in seguito /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"es": "Linux - Insertar siguiendo en /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",
+		"pl": "Linux - Wstaw następujące po /etc/sudoers: iobroker	ALL = NOPASSWD: ALL"
+	},
     "on save": {
 		"en": "On save adapter restarts with new config immediately",
 		"de": "Beim Speichern von Einstellungen wird der Adapter sofort neu gestartet.",
