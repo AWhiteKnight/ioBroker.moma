@@ -31,6 +31,9 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
+### 0.0.8 (2019-03-10)
+* (AWhiteKnight) Started merging to new development method. Maintaining meta states.
+
 ### 0.0.7 (2018-10-29)
 * (AWhiteKnight) Travis testing activated; Minor enhancements in meta data
 
