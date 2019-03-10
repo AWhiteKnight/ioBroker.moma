@@ -346,14 +346,25 @@ systemDictionary = {
 	},
     "networkInterfaceDefault": {
 		"en": "Default network interface",
-		"de": "Standard Netzwerk Schnittstelle",
+		"de": "Standard-Netzwerkschnittstelle",
 		"ru": "Стандартный сетевой интерфейс",
 		"pt": "Interface de rede padrão",
 		"nl": "Standaard netwerkinterface",
-		"fr": "Interface réseau standard",
+		"fr": "Interface réseau par défaut",
 		"it": "Interfaccia di rete standard",
 		"es": "Interfaz de red estándar",
 		"pl": "Standardowy interfejs sieciowy"
+	},
+	"networkInterfaces": {
+		"en": "Available network interfaces",
+		"de": "Verfügbare Netzwerkschnittstellen",
+		"ru": "Доступные сетевые интерфейсы",
+		"pt": "Interfaces de rede disponíveis",
+		"nl": "Beschikbare netwerkinterfaces",
+		"fr": "Interfaces réseau disponibles",
+		"it": "Interfacce di rete disponibili",
+		"es": "Interfaces de red disponibles",
+		"pl": "Dostępne interfejsy sieciowe"
 	},
     "updates": {
 		"en": "Check for available updates",
