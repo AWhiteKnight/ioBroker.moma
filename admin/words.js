@@ -91,6 +91,17 @@ systemDictionary = {
 		"es": "Información sobre la placa base de la computadora",
 		"pl": "Informacje o płycie głównej komputera"
 	},
+	"chassis": {
+		"en": "Information about computers chassis",
+		"de": "Informationen zum Gehäuse des Rechners",
+		"ru": "Информация о корпусах компьютеров",
+		"pt": "Informações sobre chassis de computadores",
+		"nl": "Informatie over het chassis van computers",
+		"fr": "Informations sur le châssis des ordinateurs",
+		"it": "Informazioni sul telaio del computer",
+		"es": "Información sobre el chasis de las computadoras",
+		"pl": "Informacje o podwoziach komputerów"
+	},
     "bios": {
 		"en": "Information about computers BIOS",
 		"de": "Informationen zum BIOS des Rechners",
@@ -168,7 +179,7 @@ systemDictionary = {
 		"es": "Tarjetas gráficas incorporadas y pantallas conectadas",
 		"pl": "Wbudowane karty graficzne i połączone ekrany"
 	},
-    "osinfo": {
+    "osInfo": {
 		"en": "Information about computers operating system",
 		"de": "Informationen zum Betriebssystem",
 		"ru": "Информация об операционной системе",
@@ -376,6 +387,39 @@ systemDictionary = {
 		"it": "Controlla gli aggiornamenti disponibili",
 		"es": "Compruebe las actualizaciones disponibles",
 		"pl": "Sprawdź dostępne aktualizacje"
+	},
+	"uuid": {
+		"en": "UUID's of installation",
+		"de": "UUIDs der Systeminstallation",
+		"ru": "UUID's установки",
+		"pt": "UUID da instalação",
+		"nl": "UUID's van installatie",
+		"fr": "UUID de l'installation",
+		"it": "UUID di installazione",
+		"es": "UUID's de instalación",
+		"pl": "Identyfikatory UUID instalacji"
+	},
+	"shell": {
+		"en": "Default system shell",
+		"de": "Standard-Systemshell",
+		"ru": "Системная оболочка по умолчанию",
+		"pt": "Shell do sistema padrão",
+		"nl": "Standaard systeemshell",
+		"fr": "Shell système par défaut",
+		"it": "Shell di sistema predefinita",
+		"es": "Shell del sistema predeterminado",
+		"pl": "Domyślna powłoka systemu"
+	},
+	"versions": {
+		"en": "Versions of installed software packages",
+		"de": "Versionen der installierten Softwarepakete",
+		"ru": "Версии установленных пакетов программного обеспечения",
+		"pt": "Versões de pacotes de software instalados",
+		"nl": "Versies van geïnstalleerde softwarepakketten",
+		"fr": "Versions des packages logiciels installés",
+		"it": "Versioni di pacchetti software installati",
+		"es": "Versiones de paquetes de software instalados",
+		"pl": "Wersje zainstalowanych pakietów oprogramowania"
 	},
 	"sudo info": {
 		"en": "Linux - Insert following into /etc/sudoers: iobroker	ALL = NOPASSWD: ALL",

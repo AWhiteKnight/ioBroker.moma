@@ -67,6 +67,7 @@ class Moma extends utils.Adapter {
 	  
 		// read 'static' values on restart for change of machine configuration
 		moma.baseboard(true);
+		moma.chassis(true);
 		moma.bios(true);
 		moma.system(true);
 		moma.cpu(true);
@@ -74,7 +75,10 @@ class Moma extends utils.Adapter {
 		moma.osInfo(true);
 		moma.memLayout(true);
 		moma.diskLayout(true);
-	  
+		moma.uuid(true);
+		moma.shell(true);
+		moma.versions(true);
+
 		// start the recurrent updates pf values
 		// if checked run each interval once and then start it with interval timer
 		this.log.debug('starting intervals');
