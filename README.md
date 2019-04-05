@@ -32,7 +32,7 @@ MoMa needs at least nodejs version 8 / ES6.
 ## Changelog
 
 ### 0.0.9 (2019-??-??)
-* (AWhiteKnight) Systeminfolib upgraded to 4.1.1 and added some calls/variables. Testing (re)enabled.
+* (AWhiteKnight) Systeminfolib upgraded to 4.1.1 and added some calls/variables. Testing (re)enabled. Merging to new adapter creation template part 2.
 
 ### 0.0.8 (2019-03-10)
 * (AWhiteKnight) Started merging to new development method. Maintaining meta states.
