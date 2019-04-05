@@ -4,8 +4,8 @@
 		"version": "0.0.9",
 		"news": {
             "0.0.9": {
-                "en": "Upgrade of systeminfolib to 4.1.1 and added calls/variables",
-                "de": "Upgrade der systeminfolib auf 4.1.1 und Aufrufe/Variablen hinzugefügt"
+                "en": "Upgrade of systeminfolib to 4.1.1 and added calls/variables, testing (re)enabled",
+                "de": "Upgrade der systeminfolib auf 4.1.1 und Aufrufe/Variablen hinzugefügt, Testing (re)aktiviert"
             },
             "0.0.8": {
                 "en": "List of packages to update. Moved to new template concept",
