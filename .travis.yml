@@ -1,7 +1,6 @@
 os:
   - linux
   - osx
-  - windows
 language: node_js
 node_js:
   - '8'
@@ -13,16 +12,10 @@ before_script:
   - npm install winston@2.3.1
   - 'npm install https://github.com/ioBroker/ioBroker.js-controller/tarball/master --production'
 env:
-  - CXX=g++-4.9
+  - CXX=g++-4.8
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-4.9
-after_success:
-  - 'bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)'
-script:
-  - npm run test:package
-  - npm run test:unit
-- DEBUG=testing:* npm run test:integration
+      - g++-4.8
