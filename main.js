@@ -124,6 +124,8 @@ class Moma extends utils.Adapter {
 		} catch (e) {
 			callback();
 		}
+// termination of adapter needed?
+//		this.terminate ? this.terminate() : process.exit();
 	}
 
 	/**
@@ -229,6 +231,11 @@ class Moma extends utils.Adapter {
 	updateInterval_4(isInit = false) {
 		// updating values
 		moma.checkUpdates(isInit);
+		moma.uuids(isInit);
+		moma.shell(isInit);
+		moma.packageVersions(isInit);
+		moma.checkBatteries(isInit);
+	
 	}
 }
 
