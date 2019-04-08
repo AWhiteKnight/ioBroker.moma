@@ -31,6 +31,9 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
+### 0.0.9 (2019-??-??)
+* (AWhiteKnight) Systeminfolib upgraded to 4.1.1 and added some calls/variables. Testing (re)enabled. Merging to new adapter creation template part 2.
+
 ### 0.0.8 (2019-03-10)
 * (AWhiteKnight) Started merging to new development method. Maintaining meta states.
 
@@ -118,10 +121,13 @@ Following functions of library systeminformation are called in interval 3 (defau
 * none
 
 Following functions of library systeminformation are called in interval 4 (default every day):
-* none
+* uuid
+* shell
+* versions
 
 Following functions of moma are called in interval 4 (default every day):
 * updates - checks for pending updates and shows the amount of updates in moma.meta.\<hostname\>.updates (currently only Ubuntu, Debian, openSUSE, RedHat)
+* checkBatteries - checks battery state variables (current Adapters: hm-rpc for classic, ip, cuxd)
 
 
 ## License
