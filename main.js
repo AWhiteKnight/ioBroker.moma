@@ -233,7 +233,7 @@ class Moma extends utils.Adapter {
 		moma.checkUpdates(isInit);
 		moma.uuids(isInit);
 		moma.shell(isInit);
-		moma.packageVersions(isInit);
+		moma.versions(isInit);
 		moma.checkBatteries(isInit);
 	
 	}
