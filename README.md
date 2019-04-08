@@ -89,9 +89,6 @@ Following functions of library systeminformation are called on startup:
 * diskLayout
 * graphics
 * osInfo
-* uuid
-* shell
-* versions
 
 
 Following functions of library systeminformation are called in interval 0 (default every second):
@@ -124,10 +121,13 @@ Following functions of library systeminformation are called in interval 3 (defau
 * none
 
 Following functions of library systeminformation are called in interval 4 (default every day):
-* none
+* uuid
+* shell
+* versions
 
 Following functions of moma are called in interval 4 (default every day):
 * updates - checks for pending updates and shows the amount of updates in moma.meta.\<hostname\>.updates (currently only Ubuntu, Debian, openSUSE, RedHat)
+* checkBatteries - checks battery state variables (current Adapters: hm-rpc for classic, ip, cuxd)
 
 
 ## License
