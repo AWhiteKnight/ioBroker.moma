@@ -3,7 +3,7 @@
 /* jshint strict:true */
 /* jslint node: true */
 /* jslint esversion: 6 */
-"use strict";
+'use strict';
 /**
  *
  * moma adapter - monitoring and maintenance of the machine the adapter is running on
@@ -16,10 +16,10 @@
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
-const utils = require("@iobroker/adapter-core");
+const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
+// const fs = require('fs');
 // the moma lib
 const moma = require(__dirname + '/lib/momalib');
 
@@ -31,7 +31,7 @@ class Moma extends utils.Adapter {
 	constructor(options) {
 		super({
 			...options,
-			name: "moma",
+			name: 'moma',
 		});
 		// store references to the timers
 		let timer0 = null;
@@ -39,11 +39,11 @@ class Moma extends utils.Adapter {
 		let timer2 = null;
 		let timer3 = null;
 		let timer4 = null;
-		this.on("ready", this.onReady.bind(this));
-		this.on("objectChange", this.onObjectChange.bind(this));
-		this.on("stateChange", this.onStateChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
-		this.on("unload", this.onUnload.bind(this));
+		this.on('ready', this.onReady.bind(this));
+		this.on('objectChange', this.onObjectChange.bind(this));
+		this.on('stateChange', this.onStateChange.bind(this));
+		// this.on('message', this.onMessage.bind(this));
+		this.on('unload', this.onUnload.bind(this));
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Moma extends utils.Adapter {
 	 */
 	async onReady() {
 		// Reset the connection indicator during startup
-		//this.setState("info.connection", false, true);
+		//this.setState('info.connection', false, true);
 
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
@@ -60,24 +60,18 @@ class Moma extends utils.Adapter {
 
 		// all states changes inside the adapters namespace moma.<instance> are subscribed
 		// not those of moma.meta
-		//this.subscribeStates("*");
+		//this.subscribeStates('*');
 
 		// reading one time values
 		this.log.debug('reading one time values');
 	  
 		// read 'static' values on restart for change of machine configuration
-		moma.baseboard(true);
-		moma.chassis(true);
-		moma.bios(true);
-		moma.system(true);
-		moma.cpu(true);
-		moma.cpuFlags(true);
-		moma.osInfo(true);
-		moma.memLayout(true);
-		moma.diskLayout(true);
-		moma.uuid(true);
-		moma.shell(true);
-		moma.versions(true);
+		try {
+			const Once = require(__dirname + '/lib/Once.js');
+			new Once().run(this, true);
+		} catch (error) {
+			this.log.error('Error in once: ' + error);
+		}
 
 		// start the recurrent updates pf values
 		// if checked run each interval once and then start it with interval timer
@@ -104,7 +98,7 @@ class Moma extends utils.Adapter {
 		}
 
 		// Set the connection indicator after startup
-		this.setState("info.connection", true, true);
+		this.setState('info.connection', true, true);
 	}
 
 	/**
@@ -119,13 +113,13 @@ class Moma extends utils.Adapter {
 			if(this.timer2) { clearInterval(this.timer2); }
 			if(this.timer3) { clearInterval(this.timer3); }
 			if(this.timer4) { clearInterval(this.timer4); }
-			this.log.info("cleaned everything up...");
+			this.log.info('cleaned everything up...');
 			callback();
 		} catch (e) {
 			callback();
 		}
 // termination of adapter needed?
-//		this.terminate ? this.terminate() : process.exit();
+//	this.terminate ? this.terminate() : process.exit();
 	}
 
 	/**
@@ -160,17 +154,17 @@ class Moma extends utils.Adapter {
 
 	// /**
 	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.message" property to be set to true in io-package.json
+	//  * Using this method requires 'common.message' property to be set to true in io-package.json
 	//  * @param {ioBroker.Message} obj
 	//  */
 	// onMessage(obj) {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
+	// 	if (typeof obj === 'object' && obj.message) {
+	// 		if (obj.command === 'send') {
 	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
+	// 			this.log.info('send command');
 
 	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
+	// 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
 	// 		}
 	// 	}
 	// }
@@ -180,11 +174,15 @@ class Moma extends utils.Adapter {
 	*/
 	updateInterval_0(isInit = false) {
 		// updating values
-		moma.time(isInit);
-		moma.cpuCurrentSpeed(isInit);
-		moma.networkConnections(isInit);
-		moma.currentLoad(isInit);
-		moma.processes(isInit);
+		try {
+			moma.time(isInit);
+			moma.cpuCurrentSpeed(isInit);
+			moma.networkConnections(isInit);
+			moma.currentLoad(isInit);
+			moma.processes(isInit);
+		} catch (error) {
+			this.log.error('Error in interval 0: ' + error);
+		}
 	}
 	
 	
@@ -193,11 +191,15 @@ class Moma extends utils.Adapter {
 	*/
 	updateInterval_1(isInit = false) {
 		// updating values
-		moma.mem(isInit);
-		moma.battery(isInit);
-		moma.cpuTemperature(isInit);
-		moma.networkStats(isInit);
-		moma.fullLoad(isInit);
+		try {
+			moma.mem(isInit);
+			moma.battery(isInit);
+			moma.cpuTemperature(isInit);
+			moma.networkStats(isInit);
+			moma.fullLoad(isInit);
+		} catch (error) {
+			this.log.error('Error in interval 1: ' + error);
+		}
 	}
 	
 	/*
@@ -205,16 +207,15 @@ class Moma extends utils.Adapter {
 	*/
 	updateInterval_2(isInit = false) {
 		// updating values
-		moma.users(isInit);
-		moma.fsSize(isInit);
-		moma.blockDevices(isInit);
-		moma.fsStats(isInit);
-		moma.disksIO(isInit);
-		// displays do not change so often, but sometimes
-		moma.graphics(isInit);
-		// network does notchange often but sometimes
-		moma.networkInterfaces(isInit);
-		moma.networkInterfaceDefault(isInit);
+		try {
+			moma.users(isInit);
+			moma.fsSize(isInit);
+			moma.blockDevices(isInit);
+			moma.fsStats(isInit);
+			moma.disksIO(isInit);
+		} catch (error) {
+			this.log.error('Error in interval 2: ' + error);
+		}
 	}
 
 	/*
@@ -222,7 +223,12 @@ class Moma extends utils.Adapter {
 	*/
 	updateInterval_3(isInit = false) {
 		// updating values
-	
+		try {
+			const Hourly = require(__dirname + '/lib/Hourly.js');
+			new Hourly().run(this, isInit);
+		} catch (error) {
+			this.log.error('Error in interval 3: ' + error);
+		}
 	}
 	
 	/*
@@ -230,12 +236,12 @@ class Moma extends utils.Adapter {
 	*/
 	updateInterval_4(isInit = false) {
 		// updating values
-		moma.checkUpdates(isInit);
-		moma.uuids(isInit);
-		moma.shell(isInit);
-		moma.versions(isInit);
-		moma.checkBatteries(isInit);
-	
+		try {
+			const Daily = require(__dirname + '/lib/Daily.js');
+			new Daily().run(this, isInit);
+		} catch (error) {
+			this.log.error('Error in interval 4: ' + error);
+		}
 	}
 }
 
