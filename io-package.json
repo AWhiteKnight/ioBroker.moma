@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "0.0.9",
+		"version": "0.0.10",
 		"news": {
+            "0.0.10": {
+                "en": "Reduction of footprint",
+                "de": ""
+            },
             "0.0.9": {
                 "en": "Upgrade of systeminfolib to 4.1.1 and added calls/variables, testing (re)enabled, merging to new template part2, chinese translation",
                 "de": "Upgrade der systeminfolib auf 4.1.1 und Aufrufe/Variablen hinzugefügt, Testing (re)aktiviert, Neues Template Teil2, Chinesische Übersetzung"

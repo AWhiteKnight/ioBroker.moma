@@ -31,7 +31,10 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
-### 0.0.9 (2019-??-??)
+### 0.0.10 (2019-??-??)
+* (AWhiteKnight) Reduction of footprint. Restructuring. 
+
+### 0.0.9 (2019-04-08)
 * (AWhiteKnight) Systeminfolib upgraded to 4.1.1 and added some calls/variables. Testing (re)enabled. Merging to new adapter creation template part 2.
 
 ### 0.0.8 (2019-03-10)
@@ -79,7 +82,7 @@ Basic idea is to have
 
 ## Reference
 
-Following functions of library systeminformation are called on startup:
+Following functions of library systeminformation are called once on startup:
 * baseboard
 * bios
 * system
@@ -87,8 +90,6 @@ Following functions of library systeminformation are called on startup:
 * cpuFlags
 * memLayout
 * diskLayout
-* graphics
-* osInfo
 
 
 Following functions of library systeminformation are called in interval 0 (default every second):
@@ -113,17 +114,20 @@ Following functions of library systeminformation are called in interval 2 (defau
 * blockDevices
 * fsStats
 * disksIO
-* networkInterfaceDefault
-* networkInterfaces
 
 
 Following functions of library systeminformation are called in interval 3 (default every hour):
-* none
+* networkInterfaceDefault
+* networkInterfaces
+* graphics
+
 
 Following functions of library systeminformation are called in interval 4 (default every day):
+* osInfo
 * uuid
 * shell
 * versions
+
 
 Following functions of moma are called in interval 4 (default every day):
 * updates - checks for pending updates and shows the amount of updates in moma.meta.\<hostname\>.updates (currently only Ubuntu, Debian, openSUSE, RedHat)

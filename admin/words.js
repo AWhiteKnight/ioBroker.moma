@@ -412,7 +412,7 @@ systemDictionary = {
 	},
   "updates": {
     "en": "Check for available updates",
-    "de": "Suchen Sie nach verfügbaren Updates",
+    "de": "Nach verfügbaren Updates suchen",
     "ru": "Проверить наличие обновлений",
     "pt": "Verificar atualizações disponíveis",
     "nl": "Controleer op beschikbare updates",
@@ -472,7 +472,7 @@ systemDictionary = {
   },
   "on save": {
     "en": "On save adapter restarts with new config immediately",
-    "de": "Beim Speichern startet der Adapter sofort mit der neuen Konfiguration neu",
+    "de": "Beim Speichern startet der Adapter sofort mit der neuen Konfiguration",
     "ru": "При сохранении адаптер перезапускается с новым конфигом немедленно",
     "pt": "Em salvar adaptador reinicia com nova configuração imediatamente",
     "nl": "Op save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config",
