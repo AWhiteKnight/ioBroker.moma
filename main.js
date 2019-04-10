@@ -20,8 +20,6 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require('fs');
-// the moma lib
-const moma = require(__dirname + '/lib/momalib');
 
 class Moma extends utils.Adapter {
 
@@ -56,8 +54,14 @@ class Moma extends utils.Adapter {
 
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
-		moma.init(this);
-
+		const helper  = require(__dirname + '/lib/helper');
+		// create Entries moma.meta.<hostname>.*
+		helper.createMomaMetaEntries(this);
+		// create Entries moma.<instanceId>.*
+		helper.createMomaInstanceEntries(this);
+		// set the instance in moma.meta.<hostname>.instance
+		this.setForeignState(require(__dirname + '/lib/definitions').hostEntryInstance, {val: this.namespace, ack: true});
+	  
 		// all states changes inside the adapters namespace moma.<instance> are subscribed
 		// not those of moma.meta
 		//this.subscribeStates('*');
@@ -175,11 +179,8 @@ class Moma extends utils.Adapter {
 	updateInterval_0(isInit = false) {
 		// updating values
 		try {
-			moma.time(isInit);
-			moma.cpuCurrentSpeed(isInit);
-			moma.networkConnections(isInit);
-			moma.currentLoad(isInit);
-			moma.processes(isInit);
+			const Secondly1 = require(__dirname + '/lib/Secondly1.js');
+			new Secondly1().run(this, isInit);
 		} catch (error) {
 			this.log.error('Error in interval 0: ' + error);
 		}
@@ -192,11 +193,8 @@ class Moma extends utils.Adapter {
 	updateInterval_1(isInit = false) {
 		// updating values
 		try {
-			moma.mem(isInit);
-			moma.battery(isInit);
-			moma.cpuTemperature(isInit);
-			moma.networkStats(isInit);
-			moma.fullLoad(isInit);
+			const Secondly2 = require(__dirname + '/lib/Secondly2.js');
+			new Secondly2().run(this, isInit);
 		} catch (error) {
 			this.log.error('Error in interval 1: ' + error);
 		}
@@ -208,11 +206,8 @@ class Moma extends utils.Adapter {
 	updateInterval_2(isInit = false) {
 		// updating values
 		try {
-			moma.users(isInit);
-			moma.fsSize(isInit);
-			moma.blockDevices(isInit);
-			moma.fsStats(isInit);
-			moma.disksIO(isInit);
+			const Minutely = require(__dirname + '/lib/Minutely.js');
+			new Minutely().run(this, isInit);
 		} catch (error) {
 			this.log.error('Error in interval 2: ' + error);
 		}
