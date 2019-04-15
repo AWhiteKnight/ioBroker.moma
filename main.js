@@ -3,7 +3,7 @@
 /* jshint strict:true */
 /* jslint node: true */
 /* jslint esversion: 6 */
-"use strict";
+'use strict';
 /**
  *
  * moma adapter - monitoring and maintenance of the machine the adapter is running on
@@ -16,12 +16,71 @@
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
-const utils = require("@iobroker/adapter-core");
+const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
-// the moma lib
-const moma = require(__dirname + '/lib/momalib');
+// const fs = require('fs');
+
+/** @type {Moma | undefined} */
+let adapter = undefined;
+/** @type {number | undefined} */
+let timer0 = undefined;
+/** @type {number | undefined} */
+let timer1 = undefined;
+/** @type {number | undefined} */
+let timer2 = undefined;
+/** @type {number | undefined} */
+let timer3 = undefined;
+/** @type {number | undefined} */
+let timer4 = undefined;
+
+/*
+ * call for updated states in interval_0 (default once per second)
+ */
+function updateInterval_0(isInit = false) {
+	// updating values
+	const Secondly1 = require(__dirname + '/lib/Secondly1.js');
+	new Secondly1().run(adapter, isInit);
+}
+
+	
+/*
+ * call for updated states in interval_1 (default once per 10 sec)
+ */
+function updateInterval_1(isInit = false) {
+	// updating values
+	const Secondly2 = require(__dirname + '/lib/Secondly2.js');
+	new Secondly2().run(adapter, isInit);
+}
+	
+/*
+ * call for updated states in interval_2 (default once per minute)
+ */
+function updateInterval_2(isInit = false) {
+	// updating values
+	const Minutely = require(__dirname + '/lib/Minutely.js');
+	new Minutely().run(adapter, isInit);
+}
+
+
+/*
+ * call for updated states in interval_3 (default once per hour)
+ */
+function updateInterval_3(isInit = false) {
+	// updating values
+	const Hourly = require(__dirname + '/lib/Hourly.js');
+	new Hourly().run(adapter, isInit);
+}
+	
+/*
+ * call for updated states in interval_4 (default once per day)
+ */
+function updateInterval_4(isInit = false) {
+	// updating values
+	const Daily = require(__dirname + '/lib/Daily.js');
+	new Daily().run(adapter, isInit);
+}
+
 
 class Moma extends utils.Adapter {
 
@@ -31,76 +90,73 @@ class Moma extends utils.Adapter {
 	constructor(options) {
 		super({
 			...options,
-			name: "moma",
+			name: 'moma',
 		});
 		// store references to the timers
-		let timer0 = null;
-		let timer1 = null;
-		let timer2 = null;
-		let timer3 = null;
-		let timer4 = null;
-		this.on("ready", this.onReady.bind(this));
-		this.on("objectChange", this.onObjectChange.bind(this));
-		this.on("stateChange", this.onStateChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
-		this.on("unload", this.onUnload.bind(this));
+		adapter = this;
+		this.on('ready', this.onReady.bind(this));
+		this.on('objectChange', this.onObjectChange.bind(this));
+		this.on('stateChange', this.onStateChange.bind(this));
+		this.on('message', this.onMessage.bind(this));
+		this.on('unload', this.onUnload.bind(this));
 	}
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 * So we do our initializations here and start the recurrent updates via timer events.
 	 */
-	async onReady() {
-		// Reset the connection indicator during startup
-		//this.setState("info.connection", false, true);
-
+	onReady() {
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
-		moma.init(this);
+		//this.log.debug('config: ' + JSON.stringify(this.config));
+		// Reset the connection indicator during startup
+		this.setState('info.connection', false, true);
 
-		// all states changes inside the adapters namespace moma.<instance> are subscribed
-		// not those of moma.meta
-		//this.subscribeStates("*");
+		try {
+			const helper  = require(__dirname + '/lib/helper');
+			// create Entries moma.meta.<hostname>.*
+			helper.createMomaMetaEntries(this);
+			// create Entries moma.<instanceId>.*
+			helper.createMomaInstanceEntries(this);
+			// set the instance in moma.meta.<hostname>.instance
+			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryInstance, {val: this.namespace, ack: true});
+		  
+			// with this codeline all states changes inside the adapters namespace moma.<instance> are subscribed
+			// not those of moma.meta
+			//this.subscribeStates('*');
+	
+			// read 'static' values on restart for change of machine configuration
+			const Once = require(__dirname + '/lib/Once.js');
+			new Once().run(this, true);
+		} catch(err) {
+			this.log.error('Error on startup: ' + err);
+		}
 
-		// reading one time values
-		this.log.debug('reading one time values');
-	  
-		// read 'static' values on restart for change of machine configuration
-		moma.baseboard(true);
-		moma.bios(true);
-		moma.system(true);
-		moma.cpu(true);
-		moma.cpuFlags(true);
-		moma.osInfo(true);
-		moma.memLayout(true);
-		moma.diskLayout(true);
-	  
 		// start the recurrent updates pf values
 		// if checked run each interval once and then start it with interval timer
-		this.log.debug('starting intervals');
 		if(this.config.i0 && this.config.interval0) {
-			this.updateInterval_0(true);
-			this.timer0 = setInterval(this.updateInterval_0, this.config.interval0*1000);
+			updateInterval_0(true);
+			timer0 = setInterval(updateInterval_0, this.config.interval0*1000);
 		}
 		if(this.config.i1 && this.config.interval1) {
-			this.updateInterval_1(true);
-			this.timer1 = setInterval(this.updateInterval_1, this.config.interval1*1000);
+			updateInterval_1(true);
+			timer1 = setInterval(updateInterval_1, this.config.interval1*1000);
 		}
 		if(this.config.i2 && this.config.interval2) {
-			this.updateInterval_2(true);
-			this.timer2 = setInterval(this.updateInterval_2, this.config.interval2*60*1000);
+			updateInterval_2(true);
+			timer2 = setInterval(updateInterval_2, this.config.interval2*60*1000);
 		}
 		if(this.config.i3 && this.config.interval3) {
-			this.updateInterval_3(true);
-			this.timer3 = setInterval(this.updateInterval_3, this.config.interval3*60*60*1000);
+			updateInterval_3(true);
+			timer3 = setInterval(updateInterval_3, this.config.interval3*60*60*1000);
 		}
 		if(this.config.i4 && this.config.interval4) {
-			this.updateInterval_4(true);
-			this.timer4 = setInterval(this.updateInterval_4, this.config.interval4*24*60*60*1000);
+			updateInterval_4(true);
+			timer4 = setInterval(updateInterval_4, this.config.interval4*24*60*60*1000);
 		}
 
 		// Set the connection indicator after startup
-		this.setState("info.connection", true, true);
+		this.setState('info.connection', true, true);
 	}
 
 	/**
@@ -108,16 +164,18 @@ class Moma extends utils.Adapter {
 	 * @param {() => void} callback
 	 */
 	onUnload(callback) {
+		const message = 'cleaned everything up...';
 		try {
 			// clean up the timer
-			if(this.timer0) { clearInterval(this.timer0); }
-			if(this.timer1) { clearInterval(this.timer1); }
-			if(this.timer2) { clearInterval(this.timer2); }
-			if(this.timer3) { clearInterval(this.timer3); }
-			if(this.timer4) { clearInterval(this.timer4); }
-			this.log.info("cleaned everything up...");
+			if(timer0) { clearInterval(timer0); }
+			if(timer1) { clearInterval(timer1); }
+			if(timer2) { clearInterval(timer2); }
+			if(timer3) { clearInterval(timer3); }
+			if(timer4) { clearInterval(timer4); }
+			this.log.info(message);
 			callback();
 		} catch (e) {
+			this.log.error(message);
 			callback();
 		}
 	}
@@ -152,79 +210,21 @@ class Moma extends utils.Adapter {
 		}
 	}
 
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.message" property to be set to true in io-package.json
-	//  * @param {ioBroker.Message} obj
-	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
+	/**
+	 * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
+	 * Using this method requires 'common.message' property to be set to true in io-package.json
+	 * @param {ioBroker.Message} obj
+	 */
+	onMessage(obj) {
+	 	if (typeof obj === 'object' && obj.message) {
+	 		if (obj.command === 'send') {
+	 			// e.g. send email or pushover or whatever
+	 			this.log.info('send command');
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
-
-	/*
-	* call for updated states in interval_0 (default once per second)
-	*/
-	updateInterval_0(isInit = false) {
-		// updating values
-		moma.time(isInit);
-		moma.cpuCurrentSpeed(isInit);
-		moma.networkConnections(isInit);
-		moma.currentLoad(isInit);
-		moma.processes(isInit);
-	}
-	
-	
-	/*
-	* call for updated states in interval_1 (default once per 10 sec)
-	*/
-	updateInterval_1(isInit = false) {
-		// updating values
-		moma.mem(isInit);
-		moma.battery(isInit);
-		moma.cpuTemperature(isInit);
-		moma.networkStats(isInit);
-		moma.fullLoad(isInit);
-	}
-	
-	/*
-	* call for updated states in interval_2 (default once per minute)
-	*/
-	updateInterval_2(isInit = false) {
-		// updating values
-		moma.users(isInit);
-		moma.fsSize(isInit);
-		moma.blockDevices(isInit);
-		moma.fsStats(isInit);
-		moma.disksIO(isInit);
-		// displays do not change so often, but sometimes
-		moma.graphics(isInit);
-		// network does notchange often but sometimes
-		moma.networkInterfaces(isInit);
-		moma.networkInterfaceDefault(isInit);
-	}
-
-	/*
-	* call for updated states in interval_3 (default once per hour)
-	*/
-	updateInterval_3(isInit = false) {
-		// updating values
-	
-	}
-	
-	/*
-	* call for updated states in interval_4 (default once per day)
-	*/
-	updateInterval_4(isInit = false) {
-		// updating values
-		moma.checkUpdates(isInit);
+	 			// Send response in callback if required
+	 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+	 		}
+	 	}
 	}
 }
 

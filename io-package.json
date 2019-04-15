@@ -1,8 +1,16 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "0.0.8",
+		"version": "0.0.10",
 		"news": {
+            "0.0.10": {
+                "en": "Reduction of footprint",
+                "de": ""
+            },
+            "0.0.9": {
+                "en": "Upgrade of systeminfolib to 4.1.1 and added calls/variables, testing (re)enabled, merging to new template part2, chinese translation",
+                "de": "Upgrade der systeminfolib auf 4.1.1 und Aufrufe/Variablen hinzugefügt, Testing (re)aktiviert, Neues Template Teil2, Chinesische Übersetzung"
+            },
             "0.0.8": {
                 "en": "List of packages to update. Moved to new template concept",
                 "de": "Liste mit zu aktualisiernden Paketen. Auf das neue Template umgestellt"
@@ -34,41 +42,41 @@
 			"0.0.1": {
 				"en": "initial release",
 				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
+				"ru": "Первый выпуск",
 				"pt": "lançamento inicial",
 				"nl": "Eerste uitgave",
 				"fr": "Première version",
 				"it": "Versione iniziale",
 				"es": "Versión inicial",
 				"pl": "Pierwsze wydanie",
-				"zh-cn": "首次出版"
-			}
+				"zh-cn": "初始发行"
+						}
 		},
         "title": "Monitoring & Maintenance",
         "titleLang": {
-            "en": "Monitoring and Maintenance",
-            "de": "Monitoring und Wartung",
-            "ru": "Мониторинг и обслуживание",
-            "pt": "Monitoramento e Manutenção",
-            "nl": "Monitoring en Onderhoud",
-            "fr": "Surveillance et Maintenance",
-            "it": "Monitoraggio e Manutenzione",
-            "es": "Monitoreo y Mantenimiento",
-            "pl": "Monitorowanie i Konserwacja",
-			"zh-cn": "moma"
-		},
+			"en": "Monitoring and Maintenance",
+			"de": "Überwachung und Wartung",
+			"ru": "Мониторинг и обслуживание",
+			"pt": "Monitoramento e Manutenção",
+			"nl": "Monitoring en onderhoud",
+			"fr": "Surveillance et maintenance",
+			"it": "Monitoraggio e manutenzione",
+			"es": "Monitoreo y Mantenimiento",
+			"pl": "Monitorowanie i konserwacja",
+			"zh-cn": "监控和维护"
+				},
 		"desc": {
-            "en": "The adapter allows monitoring and maintenance of the machine",
-            "de": "Der Adapter ermöglicht Monitoring und Wartung der Maschine",
-            "ru": "Адаптер позволяет контролировать и обслуживать машину",
-            "pt": "O adaptador permite monitorar e manter a máquina",
-            "nl": "De adapter maakt controle en onderhoud van de machine mogelijk",
-            "fr": "L'adaptateur permet la surveillance et la maintenance de la machine",
-            "it": "L'adattatore consente il monitoraggio e la manutenzione della macchina",
-            "es": "El adaptador permite la monitorización y el mantenimiento de la máquina",
-            "pl": "Adapter umożliwia monitorowanie i konserwację urządzenia",
-			"zh-cn": "MomaDescription"
-		},
+			"en": "The adapter allows monitoring and maintenance of the machine",
+			"de": "Der Adapter ermöglicht die Überwachung und Wartung der Maschine",
+			"ru": "Адаптер позволяет контролировать и обслуживать машину",
+			"pt": "O adaptador permite monitorar e manter a máquina",
+			"nl": "Met de adapter kan de machine worden bewaakt en onderhouden",
+			"fr": "L'adaptateur permet la surveillance et la maintenance de la machine",
+			"it": "L'adattatore consente il monitoraggio e la manutenzione della macchina",
+			"es": "El adaptador permite el seguimiento y mantenimiento de la máquina.",
+			"pl": "Adapter umożliwia monitorowanie i konserwację maszyny",
+			"zh-cn": "适配器允许监视和维护机器"
+				},
 		"authors": [
 			"AWhiteKnight <awhiteknight@unity-mail.de>"
 		],
@@ -95,14 +103,14 @@
 			"name": {
 				"en": "moma",
 				"de": "moma",
-				"ru": "moma",
+				"ru": "MOMA",
 				"pt": "moma",
 				"nl": "moma",
 				"fr": "moma",
 				"it": "moma",
 				"es": "moma",
 				"pl": "moma",
-				"zh-cn": "moma"
+				"zh-cn": "MOMA"
 			},
 			"link": "",
 			"fa-icon": "info"
@@ -110,6 +118,9 @@
 		"dependencies": [
 			{
 				"admin": ">=3.0.0"
+			},
+			{
+				"js-controller": ">=1.4.2"
 			}
 		]
 	},
