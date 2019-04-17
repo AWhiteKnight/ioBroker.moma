@@ -11,7 +11,7 @@
  *  @author: AWhiteKnight <awhiteknight@unity-mail.de>
  *  @license: MIT
  *
- * Created with @iobroker/create-adapter v1.10.0
+ * Created with help of @iobroker/create-adapter v1.10.0
  */
 
 // The adapter-core module gives you access to the core ioBroker functions
