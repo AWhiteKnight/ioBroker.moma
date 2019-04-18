@@ -11,7 +11,7 @@
  *  @author: AWhiteKnight <awhiteknight@unity-mail.de>
  *  @license: MIT
  *
- * Created with @iobroker/create-adapter v1.10.0
+ * Created with help of @iobroker/create-adapter v1.10.0
  */
 
 // The adapter-core module gives you access to the core ioBroker functions
@@ -39,8 +39,8 @@ let timer4 = undefined;
  */
 function updateInterval_0(isInit = false) {
 	// updating values
-	const Secondly1 = require(__dirname + '/lib/Secondly1.js');
-	new Secondly1().run(adapter, isInit);
+	const Interval0 = require(__dirname + '/lib/Interval0.js');
+	new Interval0().run(adapter, isInit);
 }
 
 	
@@ -49,8 +49,8 @@ function updateInterval_0(isInit = false) {
  */
 function updateInterval_1(isInit = false) {
 	// updating values
-	const Secondly2 = require(__dirname + '/lib/Secondly2.js');
-	new Secondly2().run(adapter, isInit);
+	const Interval1 = require(__dirname + '/lib/Interval1.js');
+	new Interval1().run(adapter, isInit);
 }
 	
 /*
@@ -58,8 +58,8 @@ function updateInterval_1(isInit = false) {
  */
 function updateInterval_2(isInit = false) {
 	// updating values
-	const Minutely = require(__dirname + '/lib/Minutely.js');
-	new Minutely().run(adapter, isInit);
+	const Interval2 = require(__dirname + '/lib/Interval2.js');
+	new Interval2().run(adapter, isInit);
 }
 
 
@@ -68,8 +68,8 @@ function updateInterval_2(isInit = false) {
  */
 function updateInterval_3(isInit = false) {
 	// updating values
-	const Hourly = require(__dirname + '/lib/Hourly.js');
-	new Hourly().run(adapter, isInit);
+	const Interval3 = require(__dirname + '/lib/Interval3.js');
+	new Interval3().run(adapter, isInit);
 }
 	
 /*
@@ -77,8 +77,8 @@ function updateInterval_3(isInit = false) {
  */
 function updateInterval_4(isInit = false) {
 	// updating values
-	const Daily = require(__dirname + '/lib/Daily.js');
-	new Daily().run(adapter, isInit);
+	const Interval4 = require(__dirname + '/lib/Interval4.js');
+	new Interval4().run(adapter, isInit);
 }
 
 

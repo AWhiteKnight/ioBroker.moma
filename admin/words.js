@@ -422,7 +422,7 @@ systemDictionary = {
     "pl": "Sprawdź dostępne aktualizacje",
     "zh-cn": "检查可用的更新"
 	},
-	"uuids": {
+	"uuid": {
     "en": "UUID's of installation",
     "de": "UUIDs der Installation",
     "ru": "UUID's установки",
@@ -446,7 +446,7 @@ systemDictionary = {
     "pl": "Domyślna powłoka systemu",
     "zh-cn": "默认系统shell"
 	},
-	"packageversions": {
+	"versions": {
     "en": "Versions of installed software packages",
     "de": "Versionen der installierten Softwarepakete",
     "ru": "Версии установленных пакетов программного обеспечения",

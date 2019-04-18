@@ -4,8 +4,8 @@
 		"version": "0.0.10",
 		"news": {
             "0.0.10": {
-                "en": "Reduction of footprint",
-                "de": ""
+                "en": "Reduction of footprint. Restructuring.",
+                "de": "Fußabdruck reduziert. Restrukturiert."
             },
             "0.0.9": {
                 "en": "Upgrade of systeminfolib to 4.1.1 and added calls/variables, testing (re)enabled, merging to new template part2, chinese translation",
@@ -101,15 +101,15 @@
 		"adminTab": {
 			"singleton": true,
 			"name": {
-				"en": "moma",
-				"de": "moma",
+				"en": "MoMa",
+				"de": "MoMa",
 				"ru": "MOMA",
-				"pt": "moma",
-				"nl": "moma",
-				"fr": "moma",
-				"it": "moma",
-				"es": "moma",
-				"pl": "moma",
+				"pt": "MoMa",
+				"nl": "MoMa",
+				"fr": "MoMa",
+				"it": "MoMa",
+				"es": "MoMa",
+				"pl": "MoMa",
 				"zh-cn": "MOMA"
 			},
 			"link": "",
