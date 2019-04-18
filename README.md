@@ -31,6 +31,9 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
+### 0.1.0 (2019-04-18)
+* (AWhiteKnight) First release for adapter list.
+
 ### 0.0.10 (2019-04-18)
 * (AWhiteKnight) Reduction of footprint. Restructuring.
 
