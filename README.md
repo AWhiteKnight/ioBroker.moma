@@ -31,8 +31,8 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
-### 0.0.10 (2019-??-??)
-* (AWhiteKnight) Reduction of footprint. Restructuring. 
+### 0.0.10 (2019-04-18)
+* (AWhiteKnight) Reduction of footprint. Restructuring.
 
 ### 0.0.9 (2019-04-08)
 * (AWhiteKnight) Systeminfolib upgraded to 4.1.1 and added some calls/variables. Testing (re)enabled. Merging to new adapter creation template part 2.
@@ -59,7 +59,7 @@ MoMa needs at least nodejs version 8 / ES6.
 * (AWhiteKnight) Library 'systeminformation' integrated. First set of calls implemented
 
 ### 0.0.1
-* (AWhiteKnight) initial release
+* (AWhiteKnight) initial version
 
 ## Installation
 
@@ -83,55 +83,56 @@ Basic idea is to have
 ## Reference
 
 Following functions of library systeminformation are called once on startup:
-* baseboard
-* bios
-* system
-* cpu 
-* cpuFlags
-* memLayout
-* diskLayout
+* baseboard - Information about computers motherboard
+* chassis - Information about computers chassis
+* bios - Information about computers BIOS
+* system - Information about computers manufacturer
+* cpu - Information about computers CPU
+* cpuFlags - CPU flags available
+* memLayout - Information about computers memory chips
+* diskLayout - Information about computers harddisks
 
 
 Following functions of library systeminformation are called in interval 0 (default every second):
-* time
-* cpuCurrentSpeed
-* networkConnections
-* currentLoad
-* processes (overview - no pids)
+* time - Actual time, timezone and uptime
+* cpuCurrentSpeed - Actual cpu and core frequencies
+* networkConnections - Actual network connections
+* currentLoad - Actual cpu load
+* processes - Process overview with process.list as HTML-table
 
 
 Following functions of library systeminformation are called in interval 1 (default every 10 seconds):
-* mem
-* battery
-* cpuTemperature
-* networkStats
-* fullLoad
+* mem - Information about memory usage
+* cpuTemperature - Temperatures of cpu and cores
+* networkStats - Network statistics
+* fullLoad - Average load since last boot
 
 
 Following functions of library systeminformation are called in interval 2 (default every minute):
-* users
-* fsSize
-* blockDevices
-* fsStats
-* disksIO
+* battery - State of charge and information about battery
+* users - Current user sessions
+* fsSize - Information about computers file system
+* blockDevices - Connected block devices
+* fsStats - File access statistics
+* disksIO - IO statistics of block devices
 
 
 Following functions of library systeminformation are called in interval 3 (default every hour):
-* networkInterfaceDefault
-* networkInterfaces
-* graphics
+* networkInterfaceDefault - Default network interface
+* networkInterfaces - Avilable network interfaces
+* graphics - Information about computers graphics cards and connected monitors
 
 
 Following functions of library systeminformation are called in interval 4 (default every day):
-* osInfo
-* uuid
-* shell
-* versions
+* osInfo - Information about computers operating system
+* uuid - UUID's of installation
+* shell - Default system shell
+* versions - Versions of installed software packages
 
 
-Following functions of moma are called in interval 4 (default every day):
+Following functions of **MoMa** are called in interval 4 (default every day):
 * updates - checks for pending updates and shows the amount of updates in moma.meta.\<hostname\>.updates (currently only Ubuntu, Debian, openSUSE, RedHat)
-* checkBatteries - checks battery state variables (current Adapters: hm-rpc for classic, ip, cuxd)
+* checkBatteries - checks battery state variables (current implemented state names: LOWBAT, LOW_BAT)
 
 
 ## License
