@@ -22,16 +22,29 @@
 
 <body>
 
-	<div class="m adapter-container">
+	<div class="m adapter-container" id="tab-moma">
 		<div class="row">
 			<!-- Forms are the standard way to receive user inputted data.
 			 Learn more http://materializecss.com/forms.html-->
 			<!-- changes inbetween here -->
-			
+			<div class="col">
+				<a id="btnUpdateAll" class="waves-effect waves-light btn blue">Update All</a>
+			</div>
+			<div class="col">
+				<a id="btnRebootAll" class="waves-effect waves-light btn blue">Reboot All</a>
+			</div>
+			<table class="hosts-table iob-list-table">
+				<thead id="table-hosts-head">
+				</thead>
+				<tbody id="table-hosts-body">
+				</tbody>
+			</table>
 			<!-- /changes inbetween here -->
 		</div>
 	</div>
-
+	
+	<!-- include scripting for tab -->
+	<script type="text/javascript" src="tab.js"></script>
 </body>
 
 </html>

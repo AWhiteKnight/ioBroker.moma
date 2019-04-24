@@ -1,11 +1,15 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"news": {
+            "0.1.1": {
+                "en": "",
+                "de": ""
+            },
             "0.1.0": {
                 "en": "First release for adapter list",
-                "de": "Erstes Release für dei Adapter-Liste."
+                "de": "Erstes Release für die Adapter-Liste."
             },
             "0.0.10": {
                 "en": "Reduction of footprint. Restructuring.",

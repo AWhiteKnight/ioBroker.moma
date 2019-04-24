@@ -97,7 +97,7 @@ class Moma extends utils.Adapter {
 		this.on('ready', this.onReady.bind(this));
 		this.on('objectChange', this.onObjectChange.bind(this));
 		this.on('stateChange', this.onStateChange.bind(this));
-		this.on('message', this.onMessage.bind(this));
+		// this.on('message', this.onMessage.bind(this));
 		this.on('unload', this.onUnload.bind(this));
 	}
 
@@ -167,11 +167,11 @@ class Moma extends utils.Adapter {
 		const message = 'cleaned everything up...';
 		try {
 			// clean up the timer
-			if(timer0) { clearInterval(timer0); }
-			if(timer1) { clearInterval(timer1); }
-			if(timer2) { clearInterval(timer2); }
-			if(timer3) { clearInterval(timer3); }
-			if(timer4) { clearInterval(timer4); }
+			if(timer0) { clearInterval(timer0); timer0 = undefined; }
+			if(timer1) { clearInterval(timer1); timer1 = undefined; }
+			if(timer2) { clearInterval(timer2); timer2 = undefined; }
+			if(timer3) { clearInterval(timer3); timer3 = undefined; }
+			if(timer4) { clearInterval(timer4); timer4 = undefined; }
 			this.log.info(message);
 			callback();
 		} catch (e) {
@@ -215,6 +215,7 @@ class Moma extends utils.Adapter {
 	 * Using this method requires 'common.message' property to be set to true in io-package.json
 	 * @param {ioBroker.Message} obj
 	 */
+/*
 	onMessage(obj) {
 	 	if (typeof obj === 'object' && obj.message) {
 	 		if (obj.command === 'send') {
@@ -226,6 +227,7 @@ class Moma extends utils.Adapter {
 	 		}
 	 	}
 	}
+*/
 }
 
 // @ts-ignore
