@@ -123,6 +123,7 @@
 			"link": "",
 			"fa-icon": "info"
 		},
+		"messagebox": true,
 		"dependencies": [
 			{
 				"admin": ">=3.0.0"

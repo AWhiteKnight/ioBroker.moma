@@ -97,7 +97,7 @@ class Moma extends utils.Adapter {
 		this.on('ready', this.onReady.bind(this));
 		this.on('objectChange', this.onObjectChange.bind(this));
 		this.on('stateChange', this.onStateChange.bind(this));
-		// this.on('message', this.onMessage.bind(this));
+		this.on('message', this.onMessage.bind(this));
 		this.on('unload', this.onUnload.bind(this));
 	}
 
@@ -212,22 +212,28 @@ class Moma extends utils.Adapter {
 
 	/**
 	 * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	 * Using this method requires 'common.message' property to be set to true in io-package.json
+	 * Using this method requires 'common.messagebox' property to be set to true in io-package.json
 	 * @param {ioBroker.Message} obj
 	 */
-/*
 	onMessage(obj) {
-	 	if (typeof obj === 'object' && obj.message) {
+		if (typeof obj === 'object' && obj.message) {
+			this.log.debug(JSON.stringify(obj));
 	 		if (obj.command === 'send') {
 	 			// e.g. send email or pushover or whatever
-	 			this.log.info('send command');
+				this.log.info('send command ' + obj.message);
+				if(obj.message == 'doUpdates') {
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().doUpdates(this);
+				} else if(obj.message == 'scheduleReboot') {
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().scheduleReboot(this);
+				}
 
 	 			// Send response in callback if required
 	 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
 	 		}
 	 	}
 	}
-*/
 }
 
 // @ts-ignore
