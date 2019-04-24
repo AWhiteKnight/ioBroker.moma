@@ -12,145 +12,146 @@ this.firstConnect = true;
 this.main = {
     socket: io.connect(location.protocol + '//' + location.host, {
         query: 'ws=true'
-    }),
-    saveConfig:     (attr, value) => {
-        if (!main.config) return;
-        if (attr) main.config[attr] = value;
+    })
+    // ,
+    // saveConfig:     (attr, value) => {
+    //     if (!main.config) return;
+    //     if (attr) main.config[attr] = value;
 
-        if (typeof storage !== 'undefined') {
-            storage.set('adminConfig', JSON.stringify(main.config));
-        }
-    },
-    showError:      (error, cb) => {
-        main.showMessage(_(error),  _('Error'), 'alert', cb);
-    },
-    showMessage:    (message, title, icon, cb)  => {
-        if (typeof title === 'function') {
-            cb = title;
-            title = null;
-            icon = null;
-        }
-        if (typeof icon === 'function') {
-            cb = icon;
-            icon = null;
-        }
-        $dialogMessage.dialog('option', 'title', title || _('Message'));
-        $('#dialog-message-text').html(message);
+    //     if (typeof storage !== 'undefined') {
+    //         storage.set('adminConfig', JSON.stringify(main.config));
+    //     }
+    // },
+    // showError:      (error, cb) => {
+    //     main.showMessage(_(error),  _('Error'), 'alert', cb);
+    // },
+    // showMessage:    (message, title, icon, cb)  => {
+    //     if (typeof title === 'function') {
+    //         cb = title;
+    //         title = null;
+    //         icon = null;
+    //     }
+    //     if (typeof icon === 'function') {
+    //         cb = icon;
+    //         icon = null;
+    //     }
+    //     $dialogMessage.dialog('option', 'title', title || _('Message'));
+    //     $('#dialog-message-text').html(message);
 
-        if (icon) {
-            if (!icon.match(/^ui\-icon\-/)) icon = 'ui-icon-' + icon;
+    //     if (icon) {
+    //         if (!icon.match(/^ui\-icon\-/)) icon = 'ui-icon-' + icon;
 
-            $('#dialog-message-icon')
-                .show()
-                .attr('class', '')
-                .addClass('ui-icon ' + icon);
-        } else {
-            $('#dialog-message-icon').hide();
-        }
-        $dialogMessage.data('callback', cb);
-        $dialogMessage.dialog('open');
-    },
-    confirmMessage: (message, title, icon, buttons, callback) => {
-        if (typeof buttons === 'function') {
-            callback = buttons;
-            $dialogConfirm.dialog('option', 'buttons', [
-                {
-                    text: _('Ok'),
-                    click: () => {
-                        let cb = $(this).data('callback');
-                        $(this).dialog('close');
-                        if (cb) cb(true);
-                    }
-                },
-                {
-                    text: _('Cancel'),
-                    click: () => {
-                        let cb = $(this).data('callback');
-                        $(this).dialog('close');
-                        if (cb) cb(false);
-                    }
-                }
+    //         $('#dialog-message-icon')
+    //             .show()
+    //             .attr('class', '')
+    //             .addClass('ui-icon ' + icon);
+    //     } else {
+    //         $('#dialog-message-icon').hide();
+    //     }
+    //     $dialogMessage.data('callback', cb);
+    //     $dialogMessage.dialog('open');
+    // },
+    // confirmMessage: (message, title, icon, buttons, callback) => {
+    //     if (typeof buttons === 'function') {
+    //         callback = buttons;
+    //         $dialogConfirm.dialog('option', 'buttons', [
+    //             {
+    //                 text: _('Ok'),
+    //                 click: () => {
+    //                     let cb = $(this).data('callback');
+    //                     $(this).dialog('close');
+    //                     if (cb) cb(true);
+    //                 }
+    //             },
+    //             {
+    //                 text: _('Cancel'),
+    //                 click: () => {
+    //                     let cb = $(this).data('callback');
+    //                     $(this).dialog('close');
+    //                     if (cb) cb(false);
+    //                 }
+    //             }
 
-            ]);
-        } else if (typeof buttons === 'object') {
-            for (let b = 0; b < buttons.length; b++) {
-                buttons[b] = {
-                    text: buttons[b],
-                    id: 'dialog-confirm-button-' + b,
-                    click: (e) => {
-                        let id = parseInt(e.currentTarget.id.substring('dialog-confirm-button-'.length), 10);
-                        let cb = $(this).data('callback');
-                        $(this).dialog('close');
-                        if (cb) cb(id);
-                    }
-                }
-            }
-            $dialogConfirm.dialog('option', 'buttons', buttons);
-        }
+    //         ]);
+    //     } else if (typeof buttons === 'object') {
+    //         for (let b = 0; b < buttons.length; b++) {
+    //             buttons[b] = {
+    //                 text: buttons[b],
+    //                 id: 'dialog-confirm-button-' + b,
+    //                 click: (e) => {
+    //                     let id = parseInt(e.currentTarget.id.substring('dialog-confirm-button-'.length), 10);
+    //                     let cb = $(this).data('callback');
+    //                     $(this).dialog('close');
+    //                     if (cb) cb(id);
+    //                 }
+    //             }
+    //         }
+    //         $dialogConfirm.dialog('option', 'buttons', buttons);
+    //     }
 
-        $dialogConfirm.dialog('option', 'title', title || _('Message'));
-        $('#dialog-confirm-text').html(message);
-        if (icon) {
-            $('#dialog-confirm-icon')
-                .show()
-                .attr('class', '')
-                .addClass('ui-icon ui-icon-' + icon);
-        } else {
-            $('#dialog-confirm-icon').hide();
-        }
-        $dialogConfirm.data('callback', callback);
-        $dialogConfirm.dialog('open');
-    },
-    initSelectId:   () => {
-        if (main.selectId) return main.selectId;
-        main.selectId = $('#dialog-select-member').selectId('init',  {
-            objects: main.objects,
-            states:  main.states,
-            noMultiselect: true,
-            imgPath: '../../lib/css/fancytree/',
-            filter: {type: 'state'},
-            getObjects: getObjects,
-            texts: {
-                select:   _('Select'),
-                cancel:   _('Cancel'),
-                all:      _('All'),
-                id:       _('ID'),
-                name:     _('Name'),
-                role:     _('Role'),
-                room:     _('Room'),
-                value:    _('Value'),
-                selectid: _('Select ID'),
-                from:     _('From'),
-                lc:       _('Last changed'),
-                ts:       _('Time stamp'),
-                wait:     _('Processing...'),
-                ack:      _('Acknowledged')
-            },
-            columns: ['image', 'name', 'role', 'room', 'value']
-        });
-        return main.selectId;
-    },
-    subscribe:      (isSubscribe) => {
-        if (!main.socket) return;
-        if (isSubscribe) {
-            console.log('Subscribe logs');
-            main.socket.emit('subscribeObjects', 'script.*');
-            main.socket.emit('subscribeObjects', 'system.adapter.*');
-            main.socket.emit('requireLog', true);
-        } else {
-            console.log('Unsubscribe logs');
-            main.socket.emit('unsubscribeObjects', 'script.*');
-            main.socket.emit('unsubscribeObjects', 'system.adapter.*');
-            main.socket.emit('requireLog', false);
-        }
-    },
-    objects:        {},
-    states:         {},
-    currentHost:    '',
-    instances:      [],
-    objectsLoaded:  false,
-    waitForRestart: false,
-    selectId:       null
+    //     $dialogConfirm.dialog('option', 'title', title || _('Message'));
+    //     $('#dialog-confirm-text').html(message);
+    //     if (icon) {
+    //         $('#dialog-confirm-icon')
+    //             .show()
+    //             .attr('class', '')
+    //             .addClass('ui-icon ui-icon-' + icon);
+    //     } else {
+    //         $('#dialog-confirm-icon').hide();
+    //     }
+    //     $dialogConfirm.data('callback', callback);
+    //     $dialogConfirm.dialog('open');
+    // },
+    // initSelectId:   () => {
+    //     if (main.selectId) return main.selectId;
+    //     main.selectId = $('#dialog-select-member').selectId('init',  {
+    //         objects: main.objects,
+    //         states:  main.states,
+    //         noMultiselect: true,
+    //         imgPath: '../../lib/css/fancytree/',
+    //         filter: {type: 'state'},
+    //         getObjects: getObjects,
+    //         texts: {
+    //             select:   _('Select'),
+    //             cancel:   _('Cancel'),
+    //             all:      _('All'),
+    //             id:       _('ID'),
+    //             name:     _('Name'),
+    //             role:     _('Role'),
+    //             room:     _('Room'),
+    //             value:    _('Value'),
+    //             selectid: _('Select ID'),
+    //             from:     _('From'),
+    //             lc:       _('Last changed'),
+    //             ts:       _('Time stamp'),
+    //             wait:     _('Processing...'),
+    //             ack:      _('Acknowledged')
+    //         },
+    //         columns: ['image', 'name', 'role', 'room', 'value']
+    //     });
+    //     return main.selectId;
+    // },
+    // subscribe:      (isSubscribe) => {
+    //     if (!main.socket) return;
+    //     if (isSubscribe) {
+    //         console.log('Subscribe logs');
+    //         main.socket.emit('subscribeObjects', 'script.*');
+    //         main.socket.emit('subscribeObjects', 'system.adapter.*');
+    //         main.socket.emit('requireLog', true);
+    //     } else {
+    //         console.log('Unsubscribe logs');
+    //         main.socket.emit('unsubscribeObjects', 'script.*');
+    //         main.socket.emit('unsubscribeObjects', 'system.adapter.*');
+    //         main.socket.emit('requireLog', false);
+    //     }
+    // },
+    // objects:        {},
+    // states:         {},
+    // currentHost:    '',
+    // instances:      [],
+    // objectsLoaded:  false,
+    // waitForRestart: false,
+    // selectId:       null
 };
 
 // sometimes we need that :-)
@@ -209,7 +210,7 @@ function showHostsTable() {
     
     // fetch data
     fetchData(function() {
-        console.log('preparing table ' + JSON.stringify(this.list));
+        // console.log('preparing table ' + JSON.stringify(this.list));
         text = '';
         for (var i = 0; i < this.list.length; i++) {
             text += createHostRow(i);
