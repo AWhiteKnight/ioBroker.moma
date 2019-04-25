@@ -134,8 +134,8 @@ function showHostsTable() {
         body.html(text);
         body.show();
         for (let i = 0; i < that.list.length; i++) {
-            window.document.querySelector('#btnUpdate'+i+'').addEventListener('click', function(obj) { update(i); }, true);
-            window.document.querySelector('#btnReboot'+i+'').addEventListener('click', function(obj) { reboot(i); }, true);;
+            window.document.querySelector('#btnUpdate'+i+'').addEventListener('click', function(obj) { update(i); } );
+            window.document.querySelector('#btnReboot'+i+'').addEventListener('click', function(obj) { reboot(i); } );;
         }
     });
 }
@@ -166,9 +166,9 @@ function createHostRow(index) {
     // list of updates
     text += '<td title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
     // button Update
-    text += '<td><button type="button" title="update" id="btnUpdate' + index + '">U'+index+'</button></td>'
+    text += '<td><button type="button" title="update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot
-    text += '<td><button type="button" title="reboot" id="btnReboot' + index + '">R'+index+'</button></td>'
+    text += '<td><button type="button" title="reboot" id="btnReboot' + index + '">R</button></td>'
     text += '</tr>';
 
     return text;

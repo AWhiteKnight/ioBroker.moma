@@ -4,8 +4,8 @@
 		"version": "0.1.1",
 		"news": {
             "0.1.1": {
-                "en": "",
-                "de": ""
+                "en": "First implementation of moma admin-tab",
+                "de": "Erste Implementierung des moma admin-tabs"
             },
             "0.1.0": {
                 "en": "First release for adapter list",
