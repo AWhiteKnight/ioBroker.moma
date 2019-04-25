@@ -1,15 +1,19 @@
 //'use strict';
 console.log('starting moma admin-tab script');
 
+// to avoid conflicts with different "this" objects
+// sometimes we need that :-)
+let that = this;
+
 // access to admin-tab moma
-this.$tab = $('#tab-moma');
+that.$tab = $('#tab-moma');
 // data for each host
-this.list = [];
+that.list = [];
 // translation
-this.words = {};
+that.words = {};
 // socket.io connection
-this.firstConnect = true;
-this.main = {
+that.firstConnect = true;
+that.main = {
     socket: io.connect(location.protocol + '//' + location.host, {
         query: 'ws=true'
     }),
@@ -43,15 +47,13 @@ main.socket.on('stateChange', (id, obj) => {
     console.log(id);
 });
 
-// sometimes we need that :-)
-let that = this;
-
 function Moma() {
     // prepare the table below buttons
     showHostsTable();
 
-    // connect and enable buttons depending on data 
+    // connect and enable global buttons depending on data 
     $('#btnUpdateAll').click(() => {
+        console.log('button UpdateAll');
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['numUpdates'] > 0) {
                 console.log('updating ' + that.list[i]['instance']);
@@ -63,13 +65,12 @@ function Moma() {
     });
 
     $('#btnRebootAll').click(() => {
+        console.log('button RebootAll');
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['needsReboot'] > 0) {
                 console.log('rebooting ' + that.list[i]['instance']);
                 main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
-                    for(x in result){
-                        console.log(x);
-                    }
+                    console.log(result);
                 });
             }
         }
@@ -77,7 +78,7 @@ function Moma() {
 }
 
 function fetchData(callback) {
-    this.main.socket.emit('getForeignObjects', 'moma.meta.hosts.*',  'channel', function (err, res) {
+    that.main.socket.emit('getForeignObjects', 'moma.meta.hosts.*',  'channel', function (err, res) {
         if(res) {
             // console.log(res);
             for(let line in res) {
@@ -108,21 +109,38 @@ function fetchData(callback) {
 }
 
 function showHostsTable() {
+    // create table header
     let text = createHostHeader();
-    let header = this.$tab.find('#table-hosts-head');
+    let header = that.$tab.find('#table-hosts-head');
     header.html(text);
     header.show();
     
-    // fetch data
+    // fetch data before creating table body
     fetchData(function() {
-        // console.log('preparing table ' + JSON.stringify(this.list));
+        // console.log('preparing table ' + JSON.stringify(that.list));
         text = '';
-        for (let i = 0; i < this.list.length; i++) {
+        for (let i = 0; i < that.list.length; i++) {
             text += createHostRow(i);
         }
-        let body = this.$tab.find('#table-hosts-body');
+        let body = that.$tab.find('#table-hosts-body');
         body.html(text);
         body.show();
+        for (let i = 0; i < that.list.length; i++) {
+            window.document.querySelector('#btnUpdate'+i+'').addEventListener('click', function(obj) {
+                console.log('updating ' + that.list[i]['instance']);
+                main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
+                    console.log(result);
+                });
+            }, true);
+            window.document.querySelector('#btnReboot'+i+'').addEventListener('click', function(obj) {
+                console.log('rebooting ' + that.list[i]['instance']);
+                main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
+                    for(x in result){
+                        console.log(result);
+                    }
+                });
+            }, true);;
+        }
     });
 }
 
@@ -146,15 +164,15 @@ function createHostHeader() {
 function createHostRow(index) {
     let text = '<tr>';
     // hostname
-    text += '<td>' + this.list[index]['id'] + '</td>'
+    text += '<td>' + that.list[index]['id'] + '</td>'
     // number of updates
-    text += '<td>' + this.list[index]['numUpdates'] + '</td>'
+    text += '<td>' + that.list[index]['numUpdates'] + '</td>'
     // list of updates
-    text += '<td title="' + this.list[index]['updates'] +'">' + this.list[index]['updates'] + '</td>'
+    text += '<td title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
     // button Update
-    text += '<td><button title="update">U</button></td>'
+    text += '<td><button type="button" title="btnUpdate" id="btnUpdate' + index + '">U'+index+'</button></td>'
     // button Reboot
-    text += '<td><button title="reboot">R</button></td>'
+    text += '<td><button type="button" title="btnReboot" id="btnReboot' + index + '">R'+index+'</button></td>'
     text += '</tr>';
 
     return text;
