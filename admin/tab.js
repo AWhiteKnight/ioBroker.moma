@@ -20,11 +20,11 @@ that.main = {
     subscribe: (isSubscribe) => {
         if (!main.socket) return;
         if (isSubscribe) {
-            console.log('Subscribe objects');
+            console.log('subscribe objects');
             main.socket.emit('subscribeObjects', 'moma.meta.*');
             main.socket.emit('requireLog', true);
         } else {
-            console.log('Unsubscribe objects');
+            console.log('unsubscribe objects');
             main.socket.emit('unsubscribeObjects', 'moma.meta.*');
             main.socket.emit('requireLog', false);
         }
@@ -47,6 +47,20 @@ main.socket.on('stateChange', (id, obj) => {
     console.log(id);
 });
 
+function update(i) {
+    console.log('updating ' + that.list[i]['instance']);
+    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
+        console.log(result);
+    });
+}
+
+function reboot(i) {
+    console.log('rebooting ' + that.list[i]['instance']);
+    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
+        console.log(result);
+    });
+}
+
 function Moma() {
     // prepare the table below buttons
     showHostsTable();
@@ -56,10 +70,7 @@ function Moma() {
         console.log('button UpdateAll');
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['numUpdates'] > 0) {
-                console.log('updating ' + that.list[i]['instance']);
-                main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
-                    console.log(result);
-                });
+                update(i);
             }
         }
     });
@@ -68,10 +79,7 @@ function Moma() {
         console.log('button RebootAll');
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['needsReboot'] > 0) {
-                console.log('rebooting ' + that.list[i]['instance']);
-                main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
-                    console.log(result);
-                });
+                reboot(i);
             }
         }
     });
@@ -126,20 +134,8 @@ function showHostsTable() {
         body.html(text);
         body.show();
         for (let i = 0; i < that.list.length; i++) {
-            window.document.querySelector('#btnUpdate'+i+'').addEventListener('click', function(obj) {
-                console.log('updating ' + that.list[i]['instance']);
-                main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
-                    console.log(result);
-                });
-            }, true);
-            window.document.querySelector('#btnReboot'+i+'').addEventListener('click', function(obj) {
-                console.log('rebooting ' + that.list[i]['instance']);
-                main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
-                    for(x in result){
-                        console.log(result);
-                    }
-                });
-            }, true);;
+            window.document.querySelector('#btnUpdate'+i+'').addEventListener('click', function(obj) { update(i); }, true);
+            window.document.querySelector('#btnReboot'+i+'').addEventListener('click', function(obj) { reboot(i); }, true);;
         }
     });
 }
@@ -170,9 +166,9 @@ function createHostRow(index) {
     // list of updates
     text += '<td title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
     // button Update
-    text += '<td><button type="button" title="btnUpdate" id="btnUpdate' + index + '">U'+index+'</button></td>'
+    text += '<td><button type="button" title="update" id="btnUpdate' + index + '">U'+index+'</button></td>'
     // button Reboot
-    text += '<td><button type="button" title="btnReboot" id="btnReboot' + index + '">R'+index+'</button></td>'
+    text += '<td><button type="button" title="reboot" id="btnReboot' + index + '">R'+index+'</button></td>'
     text += '</tr>';
 
     return text;
