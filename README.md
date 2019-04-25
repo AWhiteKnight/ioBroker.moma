@@ -31,6 +31,9 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
+### 0.1.1 (2019-04-26)
+* (AWhiteKnight) First implementation of moma admin-tab. Be careful, the table line buttons are always active!!
+
 ### 0.1.0 (2019-04-18)
 * (AWhiteKnight) First release for adapter list.
 

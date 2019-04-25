@@ -1,11 +1,15 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"news": {
+            "0.1.1": {
+                "en": "First implementation of moma admin-tab",
+                "de": "Erste Implementierung des moma admin-tabs"
+            },
             "0.1.0": {
                 "en": "First release for adapter list",
-                "de": "Erstes Release für dei Adapter-Liste."
+                "de": "Erstes Release für die Adapter-Liste."
             },
             "0.0.10": {
                 "en": "Reduction of footprint. Restructuring.",
@@ -119,6 +123,7 @@
 			"link": "",
 			"fa-icon": "info"
 		},
+		"messagebox": true,
 		"dependencies": [
 			{
 				"admin": ">=3.0.0"

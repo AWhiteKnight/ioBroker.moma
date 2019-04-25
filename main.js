@@ -167,11 +167,11 @@ class Moma extends utils.Adapter {
 		const message = 'cleaned everything up...';
 		try {
 			// clean up the timer
-			if(timer0) { clearInterval(timer0); }
-			if(timer1) { clearInterval(timer1); }
-			if(timer2) { clearInterval(timer2); }
-			if(timer3) { clearInterval(timer3); }
-			if(timer4) { clearInterval(timer4); }
+			if(timer0) { clearInterval(timer0); timer0 = undefined; }
+			if(timer1) { clearInterval(timer1); timer1 = undefined; }
+			if(timer2) { clearInterval(timer2); timer2 = undefined; }
+			if(timer3) { clearInterval(timer3); timer3 = undefined; }
+			if(timer4) { clearInterval(timer4); timer4 = undefined; }
 			this.log.info(message);
 			callback();
 		} catch (e) {
@@ -212,14 +212,22 @@ class Moma extends utils.Adapter {
 
 	/**
 	 * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	 * Using this method requires 'common.message' property to be set to true in io-package.json
+	 * Using this method requires 'common.messagebox' property to be set to true in io-package.json
 	 * @param {ioBroker.Message} obj
 	 */
 	onMessage(obj) {
-	 	if (typeof obj === 'object' && obj.message) {
+		if (typeof obj === 'object' && obj.message) {
+			this.log.debug(JSON.stringify(obj));
 	 		if (obj.command === 'send') {
 	 			// e.g. send email or pushover or whatever
-	 			this.log.info('send command');
+				this.log.info('send command ' + obj.message);
+				if(obj.message == 'doUpdates') {
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().doUpdates(this);
+				} else if(obj.message == 'scheduleReboot') {
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().scheduleReboot(this);
+				}
 
 	 			// Send response in callback if required
 	 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
