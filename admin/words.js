@@ -412,7 +412,7 @@ systemDictionary = {
 	},
   "updates": {
     "en": "Check for available updates",
-    "de": "Suchen Sie nach verfügbaren Updates",
+    "de": "Nach verfügbaren Updates suchen",
     "ru": "Проверить наличие обновлений",
     "pt": "Verificar atualizações disponíveis",
     "nl": "Controleer op beschikbare updates",
@@ -422,7 +422,7 @@ systemDictionary = {
     "pl": "Sprawdź dostępne aktualizacje",
     "zh-cn": "检查可用的更新"
 	},
-	"uuids": {
+	"uuid": {
     "en": "UUID's of installation",
     "de": "UUIDs der Installation",
     "ru": "UUID's установки",
@@ -446,7 +446,7 @@ systemDictionary = {
     "pl": "Domyślna powłoka systemu",
     "zh-cn": "默认系统shell"
 	},
-	"packageversions": {
+	"versions": {
     "en": "Versions of installed software packages",
     "de": "Versionen der installierten Softwarepakete",
     "ru": "Версии установленных пакетов программного обеспечения",
@@ -472,7 +472,7 @@ systemDictionary = {
   },
   "on save": {
     "en": "On save adapter restarts with new config immediately",
-    "de": "Beim Speichern startet der Adapter sofort mit der neuen Konfiguration neu",
+    "de": "Beim Speichern startet der Adapter sofort mit der neuen Konfiguration",
     "ru": "При сохранении адаптер перезапускается с новым конфигом немедленно",
     "pt": "Em salvar adaptador reinicia com nova configuração imediatamente",
     "nl": "Op save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config",
