@@ -1,0 +1,25 @@
+/* You can delete those if you want. I just found them very helpful */
+/*
+* {
+	box-sizing: border-box
+}
+.m {
+	/* Don't cut off dropdowns! */
+/*	overflow: initial;
+}
+*/
+/* Add your styles here */
+.m .col .select-wrapper + label {
+	top: -26px;
+}
+.m span {
+	font-size: 0.9em;
+}
+
+.update:hover {
+	color:orange;
+}
+
+.reboot:hover {
+	color:red;
+}

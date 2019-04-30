@@ -1,19 +1,9 @@
 //'use strict';
 console.log('starting moma admin-tab script');
 
-// to avoid conflicts with different "this" objects
-// sometimes we need that :-)
-let that = this;
-
-// access to admin-tab moma
-that.$tab = $('#tab-moma');
-// data for each host
-that.list = [];
-// translation
-that.words = {};
-// socket.io connection
-that.firstConnect = true;
-that.main = {
+//==== socket.io connection ======================================
+let firstConnect = true;
+let main = {
     socket: io.connect(location.protocol + '//' + location.host, {
         query: 'ws=true'
     }),
@@ -47,10 +37,25 @@ main.socket.on('stateChange', (id, obj) => {
     console.log(id);
 });
 
+//==== moma tab ==================================================
+// to avoid conflicts with different "this" objects
+// sometimes we need that :-)
+let that = this;
+
+// access to admin-tab moma
+that.$tab = $('#tab-moma');
+// data for each host
+that.list;
+// translation
+that.words = {};
+that.main = main; 
+
 function update(i) {
     console.log('updating ' + that.list[i]['instance']);
     main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
         console.log(result);
+        that.list[i].numUpdates = 0;
+        window.document.querySelector('#btnUpdate'+i+'').style.visibility='hidden';
     });
 }
 
@@ -66,8 +71,17 @@ function Moma() {
     showHostsTable();
 
     // connect and enable global buttons depending on data 
-    $('#btnUpdateAll').click(() => {
-        console.log('button UpdateAll');
+    $('#btn-view-mode').click(() => {
+        console.log('button ViewMode');
+    });
+
+    $('#btn-reload').click(() => {
+        console.log('button Reload');
+        showHostsTable();        
+    });
+
+    $('#btn-update-all').click(() => {
+        console.log('button Update');
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['numUpdates'] > 0) {
                 update(i);
@@ -75,8 +89,8 @@ function Moma() {
         }
     });
 
-    $('#btnRebootAll').click(() => {
-        console.log('button RebootAll');
+    $('#btn-reboot-all').click(() => {
+        console.log('button Reboot');
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['needsReboot'] > 0) {
                 reboot(i);
@@ -86,6 +100,7 @@ function Moma() {
 }
 
 function fetchData(callback) {
+    that.list = [];
     that.main.socket.emit('getForeignObjects', 'moma.meta.hosts.*',  'channel', function (err, res) {
         if(res) {
             // console.log(res);
@@ -134,8 +149,20 @@ function showHostsTable() {
         body.html(text);
         body.show();
         for (let i = 0; i < that.list.length; i++) {
-            window.document.querySelector('#btnUpdate'+i+'').addEventListener('click', function(obj) { update(i); } );
-            window.document.querySelector('#btnReboot'+i+'').addEventListener('click', function(obj) { reboot(i); } );;
+            let button= window.document.querySelector('#btnUpdate'+i+'');
+            if(that.list[i].numUpdates > 0) {
+                button.style.visibility='visible';
+                button.addEventListener('click', function(obj) { update(i); } );
+            } else {
+                button.style.visibility='hidden';
+            }
+            button= window.document.querySelector('#btnReboot'+i+'');
+            if(that.list[i].needsReboot) {
+                button.style.visibility='visible';
+                button.addEventListener('click', function(obj) { reboot(i); } );
+            } else {
+                button.style.visibility='hidden';
+            }
         }
     });
 }
@@ -166,9 +193,9 @@ function createHostRow(index) {
     // list of updates
     text += '<td title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
     // button Update
-    text += '<td><button type="button" title="update" id="btnUpdate' + index + '">U</button></td>'
+    text += '<td><button type="button" title="update" class="update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot
-    text += '<td><button type="button" title="reboot" id="btnReboot' + index + '">R</button></td>'
+    text += '<td><button type="button" title="reboot" class="reboot" id="btnReboot' + index + '">R</button></td>'
     text += '</tr>';
 
     return text;

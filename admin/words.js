@@ -481,5 +481,77 @@ systemDictionary = {
     "es": "En guardar adaptador se reinicia con nueva configuración inmediatamente",
     "pl": "Po zapisaniu adapter natychmiast uruchamia się ponownie z nową konfiguracją",
     "zh-cn": "在保存适配器时立即重新启动新配置"
-	},
+  },
+  "change view": {
+    "en": "change view",
+    "de": "Ansicht ändern",
+    "ru": "Сменить вид",
+    "pt": "mudar de vista",
+    "nl": "Verander perspectief",
+    "fr": "change de vue",
+    "it": "cambia punto di vista",
+    "es": "cambio Vista",
+    "pl": "Zmień widok",
+    "zh-cn": "改变观点"
+  },
+  "reload information": {
+    "en": "adapter information update",
+    "de": "Adapterinformationen aktualiseren",
+    "ru": "обновление информации об адаптере",
+    "pt": "atualização de informações do adaptador",
+    "nl": "update van adapterinformatie",
+    "fr": "Mise à jour des informations sur l'adaptateur",
+    "it": "aggiornamento delle informazioni dell'adattatore",
+    "es": "actualización de la información del adaptador",
+    "pl": "aktualizacja informacji o adapterze",
+    "zh-cn": "适配器信息更新"
+  },
+  "update machines": {
+    "en": "update package information",
+    "de": "Aktualisieren Sie die Paketinformationen",
+    "ru": "обновить информацию о пакете",
+    "pt": "atualizar informações do pacote",
+    "nl": "update pakketinformatie",
+    "fr": "mettre à jour les informations sur le paquet",
+    "it": "aggiornare le informazioni sul pacchetto",
+    "es": "actualizar la información del paquete",
+    "pl": "zaktualizuj informacje o pakiecie",
+    "zh-cn": "更新包信息"
+  },
+  "reboot machines": {
+    "en": "reboot machines",
+    "de": "Maschinen neu starten",
+    "ru": "перезагрузить машины",
+    "pt": "reinicializar máquinas",
+    "nl": "herstart machines",
+    "fr": "redémarrer les machines",
+    "it": "riavviare le macchine",
+    "es": "máquinas de reinicio",
+    "pl": "zrestartuj maszyny",
+    "zh-cn": "重启机器"
+  },
+  "update": {
+    "en": "update machine",
+    "de": "Maschine aktualisieren",
+    "ru": "обновить машину",
+    "pt": "atualizar a máquina",
+    "nl": "update de machine",
+    "fr": "machine de mise à jour",
+    "it": "aggiorna la macchina",
+    "es": "actualizar la máquina",
+    "pl": "aktualizować maszynę",
+    "zh-cn": "更新机器"
+  },
+  "reboot": {
+    "en": "reboot machine",
+    "de": "Maschine neu starten",
+    "ru": "перезагрузить машину",
+    "pt": "reboot machine",
+    "nl": "herstart de machine",
+    "fr": "redémarrer la machine",
+    "it": "riavviare la macchina",
+    "es": "reiniciar la máquina",
+    "pl": "zrestartuj komputer",
+    "zh-cn": "重启机器"
+  }
 };

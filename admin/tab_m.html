@@ -3,7 +3,8 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
 	<link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	<!-- include stylesheet for tab -->
+	<link rel="stylesheet" type="text/css" href="tab.css" />
 
 	<script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
@@ -11,37 +12,36 @@
 	<script type="text/javascript" src="../../lib/js/materialize.js"></script>
 
 	<script type="text/javascript" src="words.js"></script>
-	<style>
-		.m .col .select-wrapper + label {
-			top: -26px;
-		}
-		.m span{
-			font-size: 0.9em;
-		}
-	</style>
 </head>
 
 <body>
 
-	<div class="m adapter-container" id="tab-moma">
-		<div class="row">
-			<!-- Forms are the standard way to receive user inputted data.
-			 Learn more http://materializecss.com/forms.html-->
-			<!-- changes inbetween here -->
-			<div class="col">
-				<a id="btnUpdateAll" class="waves-effect waves-light btn blue">Update All</a>
+	<div id="tab-moma" class="admin-tab m" data-name="Moma">
+		<div class="main-toolbar-table">
+			<div class="row navicon">
+				<div class="col s6 l4 main-toolbar-table-types-tools">
+<!--
+					<a class="btn-floating btn-small translateT" id="btn-view-mode" title="change view"><i class="material-icons">view_module</i></a>
+-->	
+					<a class="btn-floating btn-small translateT reload" id="btn-reload" title="reload information"><i class="material-icons">refresh</i></a>
+					<a class="btn-floating btn-small translateT update" id="btn-update-all" title="update machines">U</a>
+					<a class="btn-floating btn-small translateT reboot" id="btn-reboot-all" title="reboot machines">R</a>
+					<span class="iob-toolbar-sep">&nbsp;</span>
+				</div>
+<!--
+				<div class="col l4 main-toolbar-table-types-tools">
+					<input class="filter-input translateP" placeholder="Filter" />
+					<a class="filter-clear btn-floating btn-very-small translateT red lighten-3" title="clear"><i class="material-icons">clear</i></a>
+				</div>
+-->
 			</div>
-			<div class="col">
-				<a id="btnRebootAll" class="waves-effect waves-light btn blue">Reboot All</a>
-			</div>
-			<table class="hosts-table iob-list-table">
-				<thead id="table-hosts-head">
-				</thead>
-				<tbody id="table-hosts-body">
-				</tbody>
-			</table>
-			<!-- /changes inbetween here -->
 		</div>
+		<table class="iob-list-table">
+			<thead id="table-hosts-head">
+			</thead>
+			<tbody id="table-hosts-body">
+			</tbody>
+		</table>
 	</div>
 	
 	<!-- include scripting for tab -->
