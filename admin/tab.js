@@ -68,19 +68,30 @@ function reboot(i) {
 }
 
 function Moma() {
+    // cache translations
+    that.words['changeview']     = _('changeview');
+    that.words['reload']     = _('reload');
+    that.words['update']     = _('update');
+    that.words['reboot']     = _('reboot');
+    that.words['hostname']     = _('hostname');
+    that.words['updatelist']     = _('updatelist');
+
     // prepare the table below buttons
     showHostsTable();
 
     // connect and enable global buttons depending on data 
+/*    window.document.querySelector('#btn-view-mode').title = that.words['changeview'];
     $('#btn-view-mode').click(() => {
         console.log('button ViewMode');
     });
-
+*/
+    window.document.querySelector('#btn-reload').title = that.words['reload'];
     $('#btn-reload').click(() => {
         console.log('button Reload');
         showHostsTable();        
     });
 
+    window.document.querySelector('#btn-update-all').title = that.words['update'];
     $('#btn-update-all').click(() => {
         console.log('button Update');
         for (let i = 0; i < that.list.length; i++) {
@@ -90,6 +101,7 @@ function Moma() {
         }
     });
 
+    window.document.querySelector('#btn-reboot-all').title = that.words['reboot'];
     $('#btn-reboot-all').click(() => {
         console.log('button Reboot');
         for (let i = 0; i < that.list.length; i++) {
@@ -171,11 +183,11 @@ function showHostsTable() {
 function createHostHeader() {
     let text = '<tr>';
     // col for hostname
-    text += '<th class="translate" style="width: 80px;">hostname</th>'
+    text += '<th class="translate" style="width: 80px;">'+that.words['hostname']+'</th>'
     // col for number of updates
     text += '<th style="width: 20px;">#</th>'
     // col for list of updates
-    text += '<th style="overflow:hidden;" class="translate">updates</th>'
+    text += '<th style="overflow:hidden;" class="translate">'+that.words['updatelist']+'</th>'
     // col for button Update
     text += '<th style="width: 15px;"> </th>'
     // col for button Reboot
@@ -194,9 +206,9 @@ function createHostRow(index) {
     // list of updates
     text += '<td style="overflow:hidden;" title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
     // button Update
-    text += '<td><button type="button" title="update" class="btn update" id="btnUpdate' + index + '">U</button></td>'
+    text += '<td><button type="button" title="' + that.words['update'] + '" class="btn update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot
-    text += '<td><button type="button" title="reboot" class="btn reboot" id="btnReboot' + index + '">R</button></td>'
+    text += '<td><button type="button" title="' + that.words['reboot'] + '" class="btn reboot" id="btnReboot' + index + '">R</button></td>'
     text += '</tr>';
 
     return text;

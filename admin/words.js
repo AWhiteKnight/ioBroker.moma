@@ -482,7 +482,7 @@ systemDictionary = {
     "pl": "Po zapisaniu adapter natychmiast uruchamia się ponownie z nową konfiguracją",
     "zh-cn": "在保存适配器时立即重新启动新配置"
   },
-  "change view": {
+  "changeview": {
     "en": "change view",
     "de": "Ansicht ändern",
     "ru": "Сменить вид",
@@ -494,7 +494,7 @@ systemDictionary = {
     "pl": "Zmień widok",
     "zh-cn": "改变观点"
   },
-  "reload information": {
+  "reload": {
     "en": "adapter information update",
     "de": "Adapterinformationen aktualiseren",
     "ru": "обновление информации об адаптере",
@@ -506,9 +506,9 @@ systemDictionary = {
     "pl": "aktualizacja informacji o adapterze",
     "zh-cn": "适配器信息更新"
   },
-  "update machines": {
+  "update": {
     "en": "update package information",
-    "de": "Aktualisieren Sie die Paketinformationen",
+    "de": "Aktualisiert die Paketinformationen",
     "ru": "обновить информацию о пакете",
     "pt": "atualizar informações do pacote",
     "nl": "update pakketinformatie",
@@ -518,16 +518,16 @@ systemDictionary = {
     "pl": "zaktualizuj informacje o pakiecie",
     "zh-cn": "更新包信息"
   },
-  "reboot machines": {
-    "en": "reboot machines",
-    "de": "Maschinen neu starten",
-    "ru": "перезагрузить машины",
-    "pt": "reinicializar máquinas",
-    "nl": "herstart machines",
-    "fr": "redémarrer les machines",
-    "it": "riavviare le macchine",
-    "es": "máquinas de reinicio",
-    "pl": "zrestartuj maszyny",
+  "reboot": {
+    "en": "reboot machine",
+    "de": "Maschine neu starten",
+    "ru": "перезагрузить машину",
+    "pt": "reboot machine",
+    "nl": "herstart de machine",
+    "fr": "redémarrer la machine",
+    "it": "riavviare la macchina",
+    "es": "reiniciar la máquina",
+    "pl": "zrestartuj komputer",
     "zh-cn": "重启机器"
   },
   "update": {
@@ -553,5 +553,29 @@ systemDictionary = {
     "es": "reiniciar la máquina",
     "pl": "zrestartuj komputer",
     "zh-cn": "重启机器"
+  },
+  "hostname": {
+    "en": "Hostname",
+    "de": "Hostname",
+    "ru": "Hostname",
+    "pt": "nome de anfitrião",
+    "nl": "hostname",
+    "fr": "Nom d'hôte",
+    "it": "hostname",
+    "es": "Nombre de host",
+    "pl": "Nazwa hosta",
+    "zh-cn": "主机名"
+  },
+  "updatelist": {
+    "en": "List of available updates",
+    "de": "Liste der verfügbaren Updates",
+    "ru": "Список доступных обновлений",
+    "pt": "Lista de atualizações disponíveis",
+    "nl": "Lijst met beschikbare updates",
+    "fr": "Liste des mises à jour disponibles",
+    "it": "Elenco di aggiornamenti disponibili",
+    "es": "Lista de actualizaciones disponibles",
+    "pl": "Lista dostępnych aktualizacji",
+    "zh-cn": "可用更新列表"
   }
 };
