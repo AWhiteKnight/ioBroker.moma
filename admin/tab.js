@@ -48,6 +48,7 @@ that.$tab = $('#tab-moma');
 that.list;
 // translation
 that.words = {};
+// communication
 that.main = main; 
 
 function update(i) {
@@ -170,15 +171,15 @@ function showHostsTable() {
 function createHostHeader() {
     let text = '<tr>';
     // col for hostname
-    text += '<th style="width: 80px">hostname</th>'
+    text += '<th class="translate" style="width: 80px;">hostname</th>'
     // col for number of updates
-    text += '<th style="width: 20px">#</th>'
+    text += '<th style="width: 20px;">#</th>'
     // col for list of updates
-    text += '<th>updates</th>'
+    text += '<th style="overflow:hidden;" class="translate">updates</th>'
     // col for button Update
-    text += '<th style="width: 20px"> </th>'
+    text += '<th style="width: 15px;"> </th>'
     // col for button Reboot
-    text += '<th style="width: 20px"> </th>'
+    text += '<th style="width: 15px;"> </th>'
 
     text += '</tr>';
     return text;
@@ -191,11 +192,11 @@ function createHostRow(index) {
     // number of updates
     text += '<td>' + that.list[index]['numUpdates'] + '</td>'
     // list of updates
-    text += '<td title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
+    text += '<td style="overflow:hidden;" title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
     // button Update
-    text += '<td><button type="button" title="update" class="update" id="btnUpdate' + index + '">U</button></td>'
+    text += '<td><button type="button" title="update" class="btn update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot
-    text += '<td><button type="button" title="reboot" class="reboot" id="btnReboot' + index + '">R</button></td>'
+    text += '<td><button type="button" title="reboot" class="btn reboot" id="btnReboot' + index + '">R</button></td>'
     text += '</tr>';
 
     return text;
