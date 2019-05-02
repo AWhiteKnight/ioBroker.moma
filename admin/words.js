@@ -673,5 +673,65 @@ systemDictionary = {
     "es": "¿De verdad quieres reiniciar esta computadora? El reinicio se realizará de forma instantánea, así que asegúrese de que el reinicio sea posible sin dañar nada.",
     "pl": "Czy na pewno chcesz ponownie uruchomić komputer? Ponowne uruchomienie nastąpi natychmiast, więc upewnij się, że ponowne uruchomienie jest możliwe bez uszkodzenia czegokolwiek.",
     "zh-cn": "你真的想重启这台电脑吗？重启将立即发生，因此请确保可以重新启动而不会损坏任何内容。"
+  },
+  "dialogUpdateAll": {
+    "en": "Update of all computers",
+    "de": "Update aller Computer",
+    "ru": "Обновление всех компьютеров",
+    "pt": "Atualização de todos os computadores",
+    "nl": "Update van alle computers",
+    "fr": "Mise à jour de tous les ordinateurs",
+    "it": "Aggiornamento di tutti i computer",
+    "es": "Actualización de todas las computadoras",
+    "pl": "Aktualizacja wszystkich komputerów",
+    "zh-cn": "更新所有计算机"
+  },
+  "dialogRebootAll": {
+    "en": "Reboot of all computers",
+    "de": "Neustart aller Computer",
+    "ru": "Перезагрузка всех компьютеров",
+    "pt": "Reinicie de todos os computadores",
+    "nl": "Start alle computers opnieuw",
+    "fr": "Redémarrage de tous les ordinateurs",
+    "it": "Riavvia tutti i computer",
+    "es": "Reinicio de todas las computadoras",
+    "pl": "Uruchom ponownie wszystkie komputery",
+    "zh-cn": "重新启动所有计算机"
+  },
+  "dialogUpdate": {
+    "en": "Update of ",
+    "de": "Update von ",
+    "ru": "Обновление ",
+    "pt": "Atualização de ",
+    "nl": "Update van ",
+    "fr": "Mise à jour de ",
+    "it": "Aggiornamento di ",
+    "es": "Actualización de ",
+    "pl": "Aktualizacja ",
+    "zh-cn": "更新 "
+  },
+  "dialogReboot": {
+    "en": "Reboot of ",
+    "de": "Neustart von ",
+    "ru": "Перезагрузка ",
+    "pt": "Reinicialização de ",
+    "nl": "Herstart van ",
+    "fr": "Redémarrage de ",
+    "it": "Riavvia di ",
+    "es": "Reinicio de ",
+    "pl": "Uruchom ponownie ",
+    "zh-cn": "重启 "
+  },
+  "dialogDetails": {
+    "en": "Details for ",
+    "de": "Details für ",
+    "ru": "Детали для ",
+    "pt": "Detalhes para ",
+    "nl": "Details voor ",
+    "fr": "Détails pour ",
+    "it": "Dettagli per ",
+    "es": "Detalles para ",
+    "pl": "Szczegóły dla ",
+    "zh-cn": "细节 "
   }
 };

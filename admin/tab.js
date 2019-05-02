@@ -1,4 +1,5 @@
 'use strict';
+
 console.log('starting moma admin-tab script');
 
 //==== socket.io connection ======================================
@@ -44,12 +45,15 @@ let that = this;
 
 // access to admin-tab moma
 that.$tab = $('#tab-moma');
+that.$dialogUpdate = $('#dialog-update');
+that.$dialogReboot = $('#dialog-reboot');
+that.$dialogDetails = $('#dialog-details');
 // data for each host
 that.list;
 // translation
 that.words = {};
 // communication
-that.main = main; 
+that.main = main;
 
 function Moma() {
     // set global language dependant on browser settings
@@ -84,6 +88,8 @@ function Moma() {
         let $dialog = $('#dialog-update-all');
         if (!$dialog.data('inited')) {
             $dialog.data('inited', true);
+            $dialog.find('#dialog-updateAll-headline').text(_('dialogUpdateAll'));
+            $dialog.find('#textUpdateAll').text(_('textUpdateAll'));
             $dialog.modal();
         }
         $dialog.modal('open');
@@ -104,6 +110,8 @@ function Moma() {
         let $dialog = $('#dialog-reboot-all');
         if (!$dialog.data('inited')) {
             $dialog.data('inited', true);
+            $dialog.find('#dialog-rebootAll-headline').text(_('dialogRebootAll'));
+            $dialog.find('#textRebootAll').text(_('textRebootAll'));
             $dialog.modal();
         }
         $dialog.modal('open');
@@ -211,12 +219,13 @@ function createHostBody() {
                     console.log('update ' + i);
                     update(i);
                 }); 
-                let $dialog = $('#dialog-update');
-                if (!$dialog.data('inited')) {
-                    $dialog.data('inited', true);
-                    $dialog.modal();
+                if (!that.$dialogUpdate.data('inited')) {
+                    that.$dialogUpdate.data('inited', true);
+                    that.$dialogUpdate.find('#dialog-update-headline').text(_('dialogUpdate') + `"${that.list[i]['id']}"`);
+                    that.$dialogReboot.find('#textUpdateSingle').text(_('textUpdateSingle'));
+                    that.$dialogUpdate.modal();
                 }
-                $dialog.modal('open');
+                that.$dialogUpdate.modal('open');
             });
         } else {
             button.style.visibility='hidden';
@@ -229,24 +238,25 @@ function createHostBody() {
                     console.log('reboot ' + i);
                     reboot(i);
                 }); 
-                let $dialog = $('#dialog-reboot');
-                if (!$dialog.data('inited')) {
-                    $dialog.data('inited', true);
-                    $dialog.modal();
+                if (!that.$dialogReboot.data('inited')) {
+                    that.$dialogReboot.data('inited', true);
+                    that.$dialogReboot.find('#dialog-reboot-headline').text(_('dialogReboot') + `"${that.list[i]['id']}"`);
+                    that.$dialogReboot.find('#textRebootSingle').text(_('textRebootSingle'));
+                    that.$dialogReboot.modal();
                 }
-                $dialog.modal('open');
+                that.$dialogReboot.modal('open');
             });
         } else {
             button.style.visibility='hidden';
         }
         button= window.document.querySelector('#btnDetails'+i+'');
         button.addEventListener('click', (obj) => {
-            let $dialog = $('#dialog-details');
-            if (!$dialog.data('inited')) {
-                $dialog.data('inited', true);
-                $dialog.modal();
+            if (!that.$dialogDetails.data('inited')) {
+                that.$dialogDetails.data('inited', true);
+                that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i]['id']}"`);
+                that.$dialogDetails.modal();
             }
-            $dialog.modal('open');
+            that.$dialogDetails.modal('open');
         });
     }
 }

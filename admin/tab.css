@@ -73,3 +73,7 @@
 #table-hosts-body button.details:hover {
 	color: black;
 }
+
+h4[class^="dialog"] {
+	font-size: 2em;
+}
