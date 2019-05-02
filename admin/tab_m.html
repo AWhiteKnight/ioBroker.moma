@@ -15,20 +15,18 @@
 </head>
 
 <body>
-
+	<!-- page -->
 	<div id="tab-moma" class="m admin-tab" data-name="Moma">
+		<!-- toolbar -->
 		<div class="main-toolbar-table">
 			<div class="row navicon">
 				<div class="col s6 l4 main-toolbar-table-types-tools">
-<!--
-					<a class="btn-floating btn-small translateT" id="btn-view-mode" title="changeview"><i class="material-icons">view_module</i></a>
--->	
 					<a class="btn-floating btn-small translateT reload" id="btn-reload" title="reload"><i class="material-icons">refresh</i></a>
 					<a class="btn-floating btn-small translateT update" id="btn-update-all" title="update" style="font-size: 1.1em; font-weight: bold;">U</a>
 					<a class="btn-floating btn-small translateT reboot" id="btn-reboot-all" title="reboot" style="font-size: 1.1em; font-weight: bold;">R</a>
 					<span class="iob-toolbar-sep">&nbsp;</span>
 				</div>
-<!--
+<!-- Filter is not yet implemented
 				<div class="col l4 main-toolbar-table-types-tools">
 					<input class="filter-input translateP" placeholder="Filter" />
 					<a class="filter-clear btn-floating btn-very-small translateT red lighten-3" title="clear"><i class="material-icons">clear</i></a>
@@ -36,6 +34,7 @@
 -->
 			</div>
 		</div>
+		<!-- table -->
 		<table id="table-hosts" class="iob-list-table">
 			<thead id="table-hosts-head">
 			</thead>
@@ -53,8 +52,8 @@
 				</p>
 			</div>
 			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateAllOk">Ok</a>
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateAllOk">ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
 			</div>
 		</div>
 		<div id="dialog-reboot-all" class="modal modal-fixed-footer">
@@ -65,32 +64,32 @@
 				</p>
 			</div>
 			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootAllOk">Ok</a>
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootAllOk">ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
 			</div>
 		</div>
 		<div id="dialog-update" class="modal modal-fixed-footer">
 			<div class="modal-content">
 				<h4 class="dialog-title translate">update</h4>
 				<p>
-					<textarea readonly id="updateSingle"></textarea>
+					<textarea readonly id="textUpdateSingle"></textarea>
 				</p>
 			</div>
 			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateOk">Ok</a>
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateOk">ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
 			</div>
 		</div>
 		<div id="dialog-reboot" class="modal modal-fixed-footer">
 			<div class="modal-content">
 				<h4 class="dialog-title translate">reboot</h4>
 				<p>
-					<textarea readonly id="rebootSingle"></textarea>
+					<textarea readonly id="textRebootSingle"></textarea>
 				</p>
 			</div>
 			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootOk">Ok</a>
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootOk">ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
 			</div>
 		</div>
 		<div id="dialog-details" class="modal modal-fixed-footer">
@@ -98,7 +97,7 @@
 				<h4 class="dialog-title translate">details</h4>
 			</div>
 			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Close</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">close</a>
 			</div>
 		</div>
 	</div>	

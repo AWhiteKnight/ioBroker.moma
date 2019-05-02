@@ -51,23 +51,10 @@ that.words = {};
 // communication
 that.main = main; 
 
-function update(i) {
-    console.log('updating ' + that.list[i]['instance']);
-//    that.list[i].numUpdates = 0;
-//    window.document.querySelector('#btnUpdate'+i+'').style.visibility='hidden';
-    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
-        console.log(result);
-    });
-}
-
-function reboot(i) {
-    console.log('rebooting ' + that.list[i]['instance']);
-    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
-        console.log(result);
-    });
-}
-
 function Moma() {
+    // set global language dependant on browser settings
+    systemLang = navigator.language;
+    console.log('sprache: ' + systemLang);
     // cache translations for table lines /grid elements
     that.words['update'] = _('update');
     that.words['reboot'] = _('reboot');
@@ -77,13 +64,6 @@ function Moma() {
     showHostsTable();
 
     // connect and enable global buttons depending on data 
-/*
-    // button change view mode in main page headline
-    window.document.querySelector('#btn-view-mode').title = _('changeview');
-    $('#btn-view-mode').click(() => {
-        console.log('button ViewMode');
-    });
-*/
     // button reload in main page headline
     window.document.querySelector('#btn-reload').title = _('reload');
     $('#btn-reload').click(() => {
@@ -130,6 +110,24 @@ function Moma() {
     });
 }
 
+function update(i) {
+    console.log('updating ' + that.list[i]['instance']);
+    that.list[i].numUpdates = 0;
+    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
+        console.log(result);
+    });
+    createHostBody();
+}
+
+function reboot(i) {
+    console.log('rebooting ' + that.list[i]['instance']);
+    that.list[i].needsReboot = false;
+    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
+        console.log(result);
+    });
+    createHostBody();
+}
+
 function fetchData(callback) {
     that.list = [];
     that.main.socket.emit('getForeignObjects', 'moma.meta.hosts.*',  'channel', function (err, res) {
@@ -164,68 +162,11 @@ function fetchData(callback) {
 
 function showHostsTable() {
     // create table header
-    let text = createHostHeader();
-    let header = that.$tab.find('#table-hosts-head');
-    header.html(text);
-    header.show();
+    createHostHeader();
     
     // fetch data before creating table body
     fetchData(function() {
-        // console.log('preparing table ' + JSON.stringify(that.list));
-        text = '';
-        for (let i = 0; i < that.list.length; i++) {
-            text += createHostRow(i);
-        }
-        let body = that.$tab.find('#table-hosts-body');
-        body.html(text);
-        body.show();
-        for (let i = 0; i < that.list.length; i++) {
-            let button= window.document.querySelector('#btnUpdate'+i+'');
-            if(that.list[i].numUpdates > 0) {
-                button.style.visibility='visible';
-                button.addEventListener('click', (obj) => {
-                    $('#updateOk').click((obj) => {
-                        console.log('update ' + i);
-                        update(i);
-                    }); 
-                    let $dialog = $('#dialog-update');
-                    if (!$dialog.data('inited')) {
-                        $dialog.data('inited', true);
-                        $dialog.modal();
-                    }
-                    $dialog.modal('open');
-                });
-            } else {
-                button.style.visibility='hidden';
-            }
-            button= window.document.querySelector('#btnReboot'+i+'');
-            if(that.list[i].needsReboot) {
-                button.style.visibility='visible';
-                button.addEventListener('click', (obj) => {
-                    $('#rebootOk').click((obj) => {
-                        console.log('reboot ' + i);
-                        reboot(i);
-                    }); 
-                    let $dialog = $('#dialog-reboot');
-                    if (!$dialog.data('inited')) {
-                        $dialog.data('inited', true);
-                        $dialog.modal();
-                    }
-                    $dialog.modal('open');
-                });
-            } else {
-                button.style.visibility='hidden';
-            }
-            button= window.document.querySelector('#btnDetails'+i+'');
-            button.addEventListener('click', (obj) => {
-                let $dialog = $('#dialog-details');
-                if (!$dialog.data('inited')) {
-                    $dialog.data('inited', true);
-                    $dialog.modal();
-                }
-                $dialog.modal('open');
-            });
-        }
+        createHostBody();
     });
 }
 
@@ -245,7 +186,69 @@ function createHostHeader() {
     text += '<th style="width: 15px;"> </th>'
 
     text += '</tr>';
-    return text;
+
+    let header = that.$tab.find('#table-hosts-head');
+    header.html(text);
+    header.show();
+}
+
+function createHostBody() {
+    // console.log('preparing table ' + JSON.stringify(that.list));
+    let text = '';
+    for (let i = 0; i < that.list.length; i++) {
+        text += createHostRow(i);
+    }
+    let body = that.$tab.find('#table-hosts-body');
+    body.html(text);
+    body.show();
+    
+    for (let i = 0; i < that.list.length; i++) {
+        let button= window.document.querySelector('#btnUpdate'+i+'');
+        if(that.list[i].numUpdates > 0) {
+            button.style.visibility='visible';
+            button.addEventListener('click', (obj) => {
+                $('#updateOk').click((obj) => {
+                    console.log('update ' + i);
+                    update(i);
+                }); 
+                let $dialog = $('#dialog-update');
+                if (!$dialog.data('inited')) {
+                    $dialog.data('inited', true);
+                    $dialog.modal();
+                }
+                $dialog.modal('open');
+            });
+        } else {
+            button.style.visibility='hidden';
+        }
+        button= window.document.querySelector('#btnReboot'+i+'');
+        if(that.list[i].needsReboot) {
+            button.style.visibility='visible';
+            button.addEventListener('click', (obj) => {
+                $('#rebootOk').click((obj) => {
+                    console.log('reboot ' + i);
+                    reboot(i);
+                }); 
+                let $dialog = $('#dialog-reboot');
+                if (!$dialog.data('inited')) {
+                    $dialog.data('inited', true);
+                    $dialog.modal();
+                }
+                $dialog.modal('open');
+            });
+        } else {
+            button.style.visibility='hidden';
+        }
+        button= window.document.querySelector('#btnDetails'+i+'');
+        button.addEventListener('click', (obj) => {
+            let $dialog = $('#dialog-details');
+            if (!$dialog.data('inited')) {
+                $dialog.data('inited', true);
+                $dialog.modal();
+            }
+            $dialog.modal('open');
+        });
+    }
 }
 
 function createHostRow(index) {
@@ -261,7 +264,7 @@ function createHostRow(index) {
     // button Reboot
     text += '<td><button type="button" title="' + that.words['reboot'] + '" class="btn reboot" id="btnReboot' + index + '">R</button></td>'
     // button Details
-    text += '<td><button type="button" title="' + that.words['details'] + '" class="btn details" id="btnDetails' + index + '">I</button></td>'
+    text += '<td><button type="button" title="' + that.words['details']+ '" class="btn details" id="btnDetails'+index + '">I</button></td>'
     text += '</tr>';
 
     return text;

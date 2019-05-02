@@ -590,7 +590,7 @@ systemDictionary = {
     "pl": "Lista dostępnych aktualizacji",
     "zh-cn": "可用更新列表"
   },
-  "Ok": {
+  "ok": {
     "en": "Ok",
     "de": "OK",
     "ru": "Хорошо",
@@ -602,7 +602,7 @@ systemDictionary = {
     "pl": "Dobrze",
     "zh-cn": "好"
   },
-  "Cancel": {
+  "cancel": {
     "en": "Cancel",
     "de": "Abbruch",
     "ru": "отменить",
@@ -613,6 +613,18 @@ systemDictionary = {
     "es": "Cancelar",
     "pl": "Anuluj",
     "zh-cn": "取消"
+  },
+  "close": {
+    "en": "Close",
+    "de": "Schließen",
+    "ru": "близко",
+    "pt": "Perto",
+    "nl": "Dichtbij",
+    "fr": "Fermer",
+    "it": "Vicino",
+    "es": "Cerrar",
+    "pl": "Blisko",
+    "zh-cn": "关"
   },
   "textUpdateAll": {
     "en": "Do you really want to update all computers that need an update? This operation can not be undone!",
@@ -637,5 +649,29 @@ systemDictionary = {
     "es": "¿Realmente desea reiniciar todas las computadoras que necesitan un reinicio? El reinicio se realizará de forma instantánea, así que asegúrese de que el reinicio sea posible sin dañar nada.",
     "pl": "Czy na pewno chcesz ponownie uruchomić wszystkie komputery, które wymagają ponownego uruchomienia? Ponowne uruchomienie nastąpi natychmiast, więc upewnij się, że ponowne uruchomienie jest możliwe bez uszkodzenia czegokolwiek.",
     "zh-cn": "您真的想要重启所有需要重启的计算机吗？重启将立即发生，因此请确保可以重新启动而不会损坏任何内容。"
+  },
+  "textUpdateSingle": {
+    "en": "Do you really want to update this computer? This operation can not be undone!",
+    "de": "Möchten Sie diesen Computer wirklich aktualisieren? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+    "ru": "Вы действительно хотите обновить этот компьютер? Эта операция не может быть отменена!",
+    "pt": "Você realmente quer atualizar este computador? Esta operação não pode ser desfeita!",
+    "nl": "Wilt u deze computer echt updaten? Deze bewerking kan niet ongedaan worden gemaakt!",
+    "fr": "Voulez-vous vraiment mettre à jour cet ordinateur? Cette opération ne peut pas être annulée!",
+    "it": "Vuoi veramente aggiornare questo computer? Questa operazione non può essere annullata!",
+    "es": "¿Realmente quieres actualizar esta computadora? Esta operación no se puede deshacer!",
+    "pl": "Czy na pewno chcesz zaktualizować ten komputer? Ta operacja nie może zostać cofnięta!",
+    "zh-cn": "你真的想更新这台电脑吗？此操作无法撤消！"
+  },
+  "textRebootSingle": {
+    "en": "Do you really want to reboot this computer? Reboot will happen instantaneous so please ensure that reboot is possible without damaging anything.",
+    "de": "Möchten Sie diesen Computer wirklich neu starten? Der Neustart erfolgt sofort, stellen Sie also sicher, dass ein Neustart möglich ist, ohne dass dabei etwas beschädigt wird.",
+    "ru": "Вы действительно хотите перезагрузить этот компьютер? Перезагрузка произойдет мгновенно, поэтому, пожалуйста, убедитесь, что перезагрузка возможна без каких-либо повреждений.",
+    "pt": "Você realmente quer reiniciar este computador? A reinicialização será instantânea, por isso garanta que a reinicialização seja possível sem danificar nada.",
+    "nl": "Wilt u deze computer echt opnieuw opstarten? De reboot zal onmiddellijk gebeuren dus zorg ervoor dat opnieuw opstarten mogelijk is zonder iets te beschadigen.",
+    "fr": "Voulez-vous vraiment redémarrer cet ordinateur? Le redémarrage se produira instantanément. Assurez-vous que le redémarrage est possible sans endommager quoi que ce soit.",
+    "it": "Vuoi davvero riavviare il computer? Il riavvio avverrà istantaneamente quindi assicurati che il riavvio sia possibile senza danneggiare nulla.",
+    "es": "¿De verdad quieres reiniciar esta computadora? El reinicio se realizará de forma instantánea, así que asegúrese de que el reinicio sea posible sin dañar nada.",
+    "pl": "Czy na pewno chcesz ponownie uruchomić komputer? Ponowne uruchomienie nastąpi natychmiast, więc upewnij się, że ponowne uruchomienie jest możliwe bez uszkodzenia czegokolwiek.",
+    "zh-cn": "你真的想重启这台电脑吗？重启将立即发生，因此请确保可以重新启动而不会损坏任何内容。"
   }
 };
