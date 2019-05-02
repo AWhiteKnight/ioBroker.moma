@@ -43,7 +43,65 @@
 			</tbody>
 		</table>
 	</div>
-	
+	<!-- dialogs -->
+	<div class="materialize-dialogs m">
+		<div id="dialog-update-all" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4 class="dialog-title translate">update-all</h4>
+				<p>
+					<textarea readonly id="textUpdateAll"></textarea>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateAllOk">Ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+			</div>
+		</div>
+		<div id="dialog-reboot-all" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4 class="dialog-title translate">reboot-all</h4>
+				<p>
+					<textarea readonly id="textRebootAll"></textarea>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootAllOk">Ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+			</div>
+		</div>
+		<div id="dialog-update" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4 class="dialog-title translate">update</h4>
+				<p>
+					<textarea readonly id="updateSingle"></textarea>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateOk">Ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+			</div>
+		</div>
+		<div id="dialog-reboot" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4 class="dialog-title translate">reboot</h4>
+				<p>
+					<textarea readonly id="rebootSingle"></textarea>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootOk">Ok</a>
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Cancel</a>
+			</div>
+		</div>
+		<div id="dialog-details" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4 class="dialog-title translate">details</h4>
+			</div>
+			<div class="modal-footer">
+				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">Close</a>
+			</div>
+		</div>
+	</div>	
 	<!-- include scripting for tab -->
 	<script type="text/javascript" src="tab.js"></script>
 </body>

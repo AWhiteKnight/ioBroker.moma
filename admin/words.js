@@ -506,29 +506,29 @@ systemDictionary = {
     "pl": "aktualizacja informacji o adapterze",
     "zh-cn": "适配器信息更新"
   },
-  "update": {
-    "en": "update package information",
-    "de": "Aktualisiert die Paketinformationen",
-    "ru": "обновить информацию о пакете",
-    "pt": "atualizar informações do pacote",
-    "nl": "update pakketinformatie",
-    "fr": "mettre à jour les informations sur le paquet",
-    "it": "aggiornare le informazioni sul pacchetto",
-    "es": "actualizar la información del paquete",
-    "pl": "zaktualizuj informacje o pakiecie",
-    "zh-cn": "更新包信息"
+  "update-all": {
+    "en": "Update of all computers that need updates",
+    "de": "Update aller Computer, die Updates benötigen",
+    "ru": "Обновление всех компьютеров, которые нуждаются в обновлениях",
+    "pt": "Atualização de todos os computadores que precisam de atualizações",
+    "nl": "Update van alle computers die updates nodig hebben",
+    "fr": "Mise à jour de tous les ordinateurs nécessitant des mises à jour",
+    "it": "Aggiornamento di tutti i computer che necessitano di aggiornamenti",
+    "es": "Actualización de todas las computadoras que necesitan actualizaciones.",
+    "pl": "Aktualizacja wszystkich komputerów wymagających aktualizacji",
+    "zh-cn": "更新所有需要更新的计算机"
   },
-  "reboot": {
-    "en": "reboot machine",
-    "de": "Maschine neu starten",
-    "ru": "перезагрузить машину",
-    "pt": "reboot machine",
-    "nl": "herstart de machine",
-    "fr": "redémarrer la machine",
-    "it": "riavviare la macchina",
-    "es": "reiniciar la máquina",
-    "pl": "zrestartuj komputer",
-    "zh-cn": "重启机器"
+  "reboot-all": {
+    "en": "Reboot of all computers that need reboot",
+    "de": "Neustart aller Computer, die neu gestartet werden müssen",
+    "ru": "Перезагрузка всех компьютеров, которые нуждаются в перезагрузке",
+    "pt": "Reinicialize todos os computadores que precisam ser reinicializados",
+    "nl": "Herstart alle computers die opnieuw moeten worden opgestart",
+    "fr": "Redémarrage de tous les ordinateurs nécessitant un redémarrage",
+    "it": "Riavvia tutti i computer che devono essere riavviati",
+    "es": "Reinicio de todas las computadoras que necesitan reiniciar.",
+    "pl": "Uruchom ponownie wszystkie komputery, które wymagają ponownego uruchomienia",
+    "zh-cn": "重新启动需要重新启动的所有计算机"
   },
   "update": {
     "en": "update machine",
@@ -554,6 +554,18 @@ systemDictionary = {
     "pl": "zrestartuj komputer",
     "zh-cn": "重启机器"
   },
+  "details": {
+    "en": "detailed information about computer",
+    "de": "ausführliche Informationen zum Computer",
+    "ru": "подробная информация о компьютере",
+    "pt": "informações detalhadas sobre o computador",
+    "nl": "gedetailleerde informatie over de computer",
+    "fr": "informations détaillées sur l'ordinateur",
+    "it": "informazioni dettagliate sul computer",
+    "es": "información detallada sobre la computadora",
+    "pl": "szczegółowe informacje o komputerze",
+    "zh-cn": "有关计算机的详细信息"
+  },
   "hostname": {
     "en": "Hostname",
     "de": "Hostname",
@@ -577,5 +589,53 @@ systemDictionary = {
     "es": "Lista de actualizaciones disponibles",
     "pl": "Lista dostępnych aktualizacji",
     "zh-cn": "可用更新列表"
+  },
+  "Ok": {
+    "en": "Ok",
+    "de": "OK",
+    "ru": "Хорошо",
+    "pt": "Está bem",
+    "nl": "OK",
+    "fr": "D'accord",
+    "it": "Ok",
+    "es": "De acuerdo",
+    "pl": "Dobrze",
+    "zh-cn": "好"
+  },
+  "Cancel": {
+    "en": "Cancel",
+    "de": "Abbruch",
+    "ru": "отменить",
+    "pt": "Cancelar",
+    "nl": "annuleren",
+    "fr": "Annuler",
+    "it": "Annulla",
+    "es": "Cancelar",
+    "pl": "Anuluj",
+    "zh-cn": "取消"
+  },
+  "textUpdateAll": {
+    "en": "Do you really want to update all computers that need an update? This operation can not be undone!",
+    "de": "Möchten Sie wirklich alle Computer aktualisieren, für die ein Update erforderlich ist? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+    "ru": "Вы действительно хотите обновить все компьютеры, которые нуждаются в обновлении? Эта операция не может быть отменена!",
+    "pt": "Você realmente quer atualizar todos os computadores que precisam de uma atualização? Esta operação não pode ser desfeita!",
+    "nl": "Wilt u echt alle computers bijwerken die een update nodig hebben? Deze bewerking kan niet ongedaan worden gemaakt!",
+    "fr": "Voulez-vous vraiment mettre à jour tous les ordinateurs nécessitant une mise à jour? Cette opération ne peut pas être annulée!",
+    "it": "Vuoi veramente aggiornare tutti i computer che necessitano di un aggiornamento? Questa operazione non può essere annullata!",
+    "es": "¿Realmente quieres actualizar todas las computadoras que necesitan una actualización? Esta operación no se puede deshacer!",
+    "pl": "Czy na pewno chcesz zaktualizować wszystkie komputery, które wymagają aktualizacji? Ta operacja nie może zostać cofnięta!",
+    "zh-cn": "您真的想要更新所有需要更新的计算机吗？此操作无法撤消！"
+  },
+  "textRebootAll": {
+    "en": "Do you really want to reboot all computers that need a reboot? Reboot will happen instantaneous so please ensure that reboot is possible without damaging anything.",
+    "de": "Möchten Sie wirklich alle Computer neu starten, die einen Neustart benötigen? Der Neustart erfolgt sofort, stellen Sie also sicher, dass ein Neustart möglich ist, ohne dass dabei etwas beschädigt wird.",
+    "ru": "Вы действительно хотите перезагрузить все компьютеры, которые нуждаются в перезагрузке? Перезагрузка произойдет мгновенно, поэтому, пожалуйста, убедитесь, что перезагрузка возможна без каких-либо повреждений.",
+    "pt": "Você realmente deseja reiniciar todos os computadores que precisam de uma reinicialização? A reinicialização será instantânea, por isso garanta que a reinicialização seja possível sem danificar nada.",
+    "nl": "Wilt u echt alle computers opnieuw opstarten die opnieuw moeten worden opgestart? De reboot zal onmiddellijk gebeuren dus zorg ervoor dat opnieuw opstarten mogelijk is zonder iets te beschadigen.",
+    "fr": "Voulez-vous vraiment redémarrer tous les ordinateurs nécessitant un redémarrage? Le redémarrage se produira instantanément. Assurez-vous que le redémarrage est possible sans endommager quoi que ce soit.",
+    "it": "Vuoi davvero riavviare tutti i computer che hanno bisogno di un riavvio? Il riavvio avverrà istantaneamente quindi assicurati che il riavvio sia possibile senza danneggiare nulla.",
+    "es": "¿Realmente desea reiniciar todas las computadoras que necesitan un reinicio? El reinicio se realizará de forma instantánea, así que asegúrese de que el reinicio sea posible sin dañar nada.",
+    "pl": "Czy na pewno chcesz ponownie uruchomić wszystkie komputery, które wymagają ponownego uruchomienia? Ponowne uruchomienie nastąpi natychmiast, więc upewnij się, że ponowne uruchomienie jest możliwe bez uszkodzenia czegokolwiek.",
+    "zh-cn": "您真的想要重启所有需要重启的计算机吗？重启将立即发生，因此请确保可以重新启动而不会损坏任何内容。"
   }
 };

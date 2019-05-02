@@ -1,4 +1,4 @@
-//'use strict';
+'use strict';
 console.log('starting moma admin-tab script');
 
 //==== socket.io connection ======================================
@@ -53,10 +53,10 @@ that.main = main;
 
 function update(i) {
     console.log('updating ' + that.list[i]['instance']);
+//    that.list[i].numUpdates = 0;
+//    window.document.querySelector('#btnUpdate'+i+'').style.visibility='hidden';
     main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
         console.log(result);
-        that.list[i].numUpdates = 0;
-        window.document.querySelector('#btnUpdate'+i+'').style.visibility='hidden';
     });
 }
 
@@ -68,47 +68,65 @@ function reboot(i) {
 }
 
 function Moma() {
-    // cache translations
-    that.words['changeview']     = _('changeview');
-    that.words['reload']     = _('reload');
-    that.words['update']     = _('update');
-    that.words['reboot']     = _('reboot');
-    that.words['hostname']     = _('hostname');
-    that.words['updatelist']     = _('updatelist');
+    // cache translations for table lines /grid elements
+    that.words['update'] = _('update');
+    that.words['reboot'] = _('reboot');
+    that.words['details'] = _('details');
 
     // prepare the table below buttons
     showHostsTable();
 
     // connect and enable global buttons depending on data 
-/*    window.document.querySelector('#btn-view-mode').title = that.words['changeview'];
+/*
+    // button change view mode in main page headline
+    window.document.querySelector('#btn-view-mode').title = _('changeview');
     $('#btn-view-mode').click(() => {
         console.log('button ViewMode');
     });
 */
-    window.document.querySelector('#btn-reload').title = that.words['reload'];
+    // button reload in main page headline
+    window.document.querySelector('#btn-reload').title = _('reload');
     $('#btn-reload').click(() => {
-        console.log('button Reload');
         showHostsTable();        
     });
 
-    window.document.querySelector('#btn-update-all').title = that.words['update'];
-    $('#btn-update-all').click(() => {
-        console.log('button Update');
+    // confirm button in update all dialog
+    $('#updateAllOk').click(() => {
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['numUpdates'] > 0) {
                 update(i);
             }
         }
     });
+    // update all button in main page headline
+    window.document.querySelector('#btn-update-all').title = _('update-all');
+    $('#btn-update-all').click(() => {
+        let $dialog = $('#dialog-update-all');
+        if (!$dialog.data('inited')) {
+            $dialog.data('inited', true);
+            $dialog.modal();
+        }
+        $dialog.modal('open');
 
-    window.document.querySelector('#btn-reboot-all').title = that.words['reboot'];
-    $('#btn-reboot-all').click(() => {
-        console.log('button Reboot');
+    });
+
+    // confirm button in reboot all dialog
+    $('#rebootAllOk').click(() => {
         for (let i = 0; i < that.list.length; i++) {
             if(that.list[i]['needsReboot'] > 0) {
                 reboot(i);
             }
         }
+    });
+    // reboot all button in main page headline
+    window.document.querySelector('#btn-reboot-all').title = _('reboot-all');
+    $('#btn-reboot-all').click(() => {
+        let $dialog = $('#dialog-reboot-all');
+        if (!$dialog.data('inited')) {
+            $dialog.data('inited', true);
+            $dialog.modal();
+        }
+        $dialog.modal('open');
     });
 }
 
@@ -165,17 +183,48 @@ function showHostsTable() {
             let button= window.document.querySelector('#btnUpdate'+i+'');
             if(that.list[i].numUpdates > 0) {
                 button.style.visibility='visible';
-                button.addEventListener('click', function(obj) { update(i); } );
+                button.addEventListener('click', (obj) => {
+                    $('#updateOk').click((obj) => {
+                        console.log('update ' + i);
+                        update(i);
+                    }); 
+                    let $dialog = $('#dialog-update');
+                    if (!$dialog.data('inited')) {
+                        $dialog.data('inited', true);
+                        $dialog.modal();
+                    }
+                    $dialog.modal('open');
+                });
             } else {
                 button.style.visibility='hidden';
             }
             button= window.document.querySelector('#btnReboot'+i+'');
             if(that.list[i].needsReboot) {
                 button.style.visibility='visible';
-                button.addEventListener('click', function(obj) { reboot(i); } );
+                button.addEventListener('click', (obj) => {
+                    $('#rebootOk').click((obj) => {
+                        console.log('reboot ' + i);
+                        reboot(i);
+                    }); 
+                    let $dialog = $('#dialog-reboot');
+                    if (!$dialog.data('inited')) {
+                        $dialog.data('inited', true);
+                        $dialog.modal();
+                    }
+                    $dialog.modal('open');
+                });
             } else {
                 button.style.visibility='hidden';
             }
+            button= window.document.querySelector('#btnDetails'+i+'');
+            button.addEventListener('click', (obj) => {
+                let $dialog = $('#dialog-details');
+                if (!$dialog.data('inited')) {
+                    $dialog.data('inited', true);
+                    $dialog.modal();
+                }
+                $dialog.modal('open');
+            });
         }
     });
 }
@@ -183,14 +232,16 @@ function showHostsTable() {
 function createHostHeader() {
     let text = '<tr>';
     // col for hostname
-    text += '<th class="translate" style="width: 80px;">'+that.words['hostname']+'</th>'
+    text += '<th class="translate" style="width: 80px;">'+_('hostname') + '</th>'
     // col for number of updates
     text += '<th style="width: 20px;">#</th>'
     // col for list of updates
-    text += '<th style="overflow:hidden;" class="translate">'+that.words['updatelist']+'</th>'
+    text += '<th style="overflow:hidden;" class="translate">'+_('updatelist') + '</th>'
     // col for button Update
     text += '<th style="width: 15px;"> </th>'
     // col for button Reboot
+    text += '<th style="width: 15px;"> </th>'
+    // col for button Details
     text += '<th style="width: 15px;"> </th>'
 
     text += '</tr>';
@@ -209,6 +260,8 @@ function createHostRow(index) {
     text += '<td><button type="button" title="' + that.words['update'] + '" class="btn update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot
     text += '<td><button type="button" title="' + that.words['reboot'] + '" class="btn reboot" id="btnReboot' + index + '">R</button></td>'
+    // button Details
+    text += '<td><button type="button" title="' + that.words['details'] + '" class="btn details" id="btnDetails' + index + '">I</button></td>'
     text += '</tr>';
 
     return text;

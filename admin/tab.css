@@ -60,27 +60,6 @@
 	padding: 0px;
 	height: 17px;
 	width: 17px;
-/*
-	height: 11px;
-	width: 11px;
-	margin: -5px;
-	margin-top: -6px;
-	margin-left: -2px;
-	padding: 3px;
-
-    display: block;
-    top: 50%;
-    transform: translateY(-50%);
-    position: relative;
-
-	display: flex;
-    align-items: center;
-	justify-content: center;
-	text-align: top;
-	display: table-cell;
-	vertical-align: middle;
-	overflow-wrap: unset;
-/**/
 }
 
 #table-hosts-body button.update:hover {
@@ -89,4 +68,8 @@
 
 #table-hosts-body button.reboot:hover {
 	color:red;
+}
+
+#table-hosts-body button.details:hover {
+	color:greenyellow;
 }
