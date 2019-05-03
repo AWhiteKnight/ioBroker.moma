@@ -89,7 +89,7 @@ function Moma() {
         if (!$dialog.data('inited')) {
             $dialog.data('inited', true);
             $dialog.find('#dialog-updateAll-headline').text(_('dialogUpdateAll'));
-            $dialog.find('#textUpdateAll').text(_('textUpdateAll'));
+            $dialog.find('#textUpdateAll').text(_('textUpdateAll').replace('? ', '?\n'));
             $dialog.modal();
         }
         $dialog.modal('open');
@@ -111,7 +111,7 @@ function Moma() {
         if (!$dialog.data('inited')) {
             $dialog.data('inited', true);
             $dialog.find('#dialog-rebootAll-headline').text(_('dialogRebootAll'));
-            $dialog.find('#textRebootAll').text(_('textRebootAll'));
+            $dialog.find('#textRebootAll').text(_('textRebootAll').replace('? ', '?\n'));
             $dialog.modal();
         }
         $dialog.modal('open');
@@ -222,7 +222,7 @@ function createHostBody() {
                 if (!that.$dialogUpdate.data('inited')) {
                     that.$dialogUpdate.data('inited', true);
                     that.$dialogUpdate.find('#dialog-update-headline').text(_('dialogUpdate') + `"${that.list[i]['id']}"`);
-                    that.$dialogReboot.find('#textUpdateSingle').text(_('textUpdateSingle'));
+                    that.$dialogUpdate.find('#textUpdateSingle').text(_('textUpdateSingle').replace('? ', '?\n'));
                     that.$dialogUpdate.modal();
                 }
                 that.$dialogUpdate.modal('open');
@@ -241,7 +241,7 @@ function createHostBody() {
                 if (!that.$dialogReboot.data('inited')) {
                     that.$dialogReboot.data('inited', true);
                     that.$dialogReboot.find('#dialog-reboot-headline').text(_('dialogReboot') + `"${that.list[i]['id']}"`);
-                    that.$dialogReboot.find('#textRebootSingle').text(_('textRebootSingle'));
+                    that.$dialogReboot.find('#textRebootSingle').text(_('textRebootSingle').replace('? ', '?\n'));
                     that.$dialogReboot.modal();
                 }
                 that.$dialogReboot.modal('open');
