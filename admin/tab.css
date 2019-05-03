@@ -1,0 +1,79 @@
+/* You can delete those if you want. I just found them very helpful */
+/* {
+	box-sizing: border-box
+}
+*/
+.m {
+	/* Don't cut off dropdowns! */
+	overflow: initial;
+}
+
+/* Add your styles here */
+.m .col .select-wrapper + label {
+	top: -26px;
+}
+.m span {
+	font-size: 0.9em;
+}
+
+.update:hover {
+	color:orange;
+}
+
+.reboot:hover {
+	color:red;
+}
+
+#table-hosts th, tr td {
+	border: 1px dotted;
+}
+
+#table-hosts tr td {
+	border: 1px dotted;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#table-hosts-head {
+	line-height: 2px;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+#table-hosts-body {
+	line-height: 0px;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+#table-hosts-body button[id^="btn"] {
+	color:white;
+	font-size: 0.8em;
+	font-weight: bold;
+	line-height: 0px;
+	letter-spacing: 0px;
+	box-shadow: 1px 1px 1px 1px grey;
+	margin-top: 0px;
+	margin-left: -2px;
+	padding: 0px;
+	height: 17px;
+	width: 17px;
+}
+
+#table-hosts-body button.update:hover {
+	color:orange;
+}
+
+#table-hosts-body button.reboot:hover {
+	color:red;
+}
+
+#table-hosts-body button.details:hover {
+	color: black;
+}
+
+h4[class^="dialog"] {
+	font-size: 2em;
+}
