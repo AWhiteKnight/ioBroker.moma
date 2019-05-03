@@ -13,11 +13,11 @@ let main = {
         if (isSubscribe) {
             console.log('subscribe objects');
             main.socket.emit('subscribeObjects', 'moma.meta.*');
-            main.socket.emit('requireLog', true);
+            //main.socket.emit('requireLog', true);
         } else {
             console.log('unsubscribe objects');
             main.socket.emit('unsubscribeObjects', 'moma.meta.*');
-            main.socket.emit('requireLog', false);
+            //main.socket.emit('requireLog', false);
         }
     }
 };
