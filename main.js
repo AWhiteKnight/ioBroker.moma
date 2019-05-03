@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* jshint -W097 */
 /* jshint -W030 */
 /* jshint strict:true */
@@ -12,16 +11,18 @@
  *  @author: AWhiteKnight <awhiteknight@unity-mail.de>
  *  @license: MIT
  *
+ * Created with help of @iobroker/create-adapter v1.10.0
  */
 
- // you have to require the utils module and call adapter function
-const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+// The adapter-core module gives you access to the core ioBroker functions
+// you need to create an adapter
+const utils = require('@iobroker/adapter-core');
 
-// you have to call the adapter function and pass a options object
-// name has to be set and has to be equal to adapters folder name and main file name excluding extension
-// adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.moma.0
-const adapter = new utils.Adapter('moma');
+// Load your modules here, e.g.:
+// const fs = require('fs');
 
+/** @type {Moma | undefined} */
+let adapter = undefined;
 /** @type {number | undefined} */
 let timer0 = undefined;
 /** @type {number | undefined} */
@@ -80,125 +81,169 @@ function updateInterval_4(isInit = false) {
 	new Interval4().run(adapter, isInit);
 }
 
-// is called when adapter shuts down - callback has to be called under any circumstances!
-adapter.on('unload', function (callback) {
-	const message = 'cleaned everything up...';
-	try {
-		// clean up the timer
-		if(timer0) { clearInterval(timer0); timer0 = undefined; }
-		if(timer1) { clearInterval(timer1); timer1 = undefined; }
-		if(timer2) { clearInterval(timer2); timer2 = undefined; }
-		if(timer3) { clearInterval(timer3); timer3 = undefined; }
-		if(timer4) { clearInterval(timer4); timer4 = undefined; }
-		adapter.log.info(message);
-		callback();
-	} catch (e) {
-		adapter.log.error(message);
-		callback();
-	}
-});
-  
-// is called if a subscribed object changes
-adapter.on('objectChange', function (id, obj) {
-	if (obj) {
-		// The object was changed
-		adapter.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-	} else {
-		// The object was deleted
-		adapter.log.info(`object ${id} deleted`);
-	}
-});
 
-// is called if a subscribed state changes
-adapter.on('stateChange', function (id, state) {
-	if (state) {
-		// The state was changed
-		adapter.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-	} else {
-		// The state was deleted
-		adapter.log.info(`state ${id} deleted`);
+class Moma extends utils.Adapter {
+
+	/**
+	 * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+	 */
+	constructor(options) {
+		super({
+			...options,
+			name: 'moma',
+		});
+		// store references to the timers
+		adapter = this;
+		this.on('ready', this.onReady.bind(this));
+		this.on('objectChange', this.onObjectChange.bind(this));
+		this.on('stateChange', this.onStateChange.bind(this));
+		this.on('message', this.onMessage.bind(this));
+		this.on('unload', this.onUnload.bind(this));
 	}
-});
 
-// Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
-adapter.on('message', function (obj) {
-	if (typeof obj === 'object' && obj.message) {
-		adapter.log.debug(JSON.stringify(obj));
-		if (obj.command === 'send') {
-			 // e.g. send email or pushover or whatever
-			adapter.log.info('send command ' + obj.message);
-			if(obj.message == 'doUpdates') {
-				const Interval4 = require(__dirname + '/lib/Interval4.js');
-				new Interval4().doUpdates(adapter);
-			} else if(obj.message == 'scheduleReboot') {
-				const Interval4 = require(__dirname + '/lib/Interval4.js');
-				new Interval4().scheduleReboot(adapter);
-			}
+	/**
+	 * Is called when databases are connected and adapter received configuration.
+	 * So we do our initializations here and start the recurrent updates via timer events.
+	 */
+	onReady() {
+		// Initializiation of adapter
+		this.log.debug('starting adapter');
+		//this.log.debug('config: ' + JSON.stringify(this.config));
+		// Reset the connection indicator during startup
+		this.setState('info.connection', false, true);
 
-			 // Send response in callback if required
-			 if (obj.callback) adapter.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+		try {
+			const helper  = require(__dirname + '/lib/helper');
+			// create Entries moma.meta.<hostname>.*
+			helper.createMomaMetaEntries(this);
+			// create Entries moma.<instanceId>.*
+			helper.createMomaInstanceEntries(this);
+			// set the instance in moma.meta.<hostname>.instance
+			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryInstance, {val: this.namespace, ack: true});
+		  
+			// with this codeline all states changes inside the adapters namespace moma.<instance> are subscribed
+			// not those of moma.meta
+			//this.subscribeStates('*');
+	
+			// read 'static' values on restart for change of machine configuration
+			const Once = require(__dirname + '/lib/Once.js');
+			new Once().run(this, true);
+		} catch(err) {
+			this.log.error('Error on startup: ' + err);
+		}
+
+		// start the recurrent updates pf values
+		// if checked run each interval once and then start it with interval timer
+		if(this.config.i0 && this.config.interval0) {
+			updateInterval_0(true);
+			timer0 = setInterval(updateInterval_0, this.config.interval0*1000);
+		}
+		if(this.config.i1 && this.config.interval1) {
+			updateInterval_1(true);
+			timer1 = setInterval(updateInterval_1, this.config.interval1*1000);
+		}
+		if(this.config.i2 && this.config.interval2) {
+			updateInterval_2(true);
+			timer2 = setInterval(updateInterval_2, this.config.interval2*60*1000);
+		}
+		if(this.config.i3 && this.config.interval3) {
+			updateInterval_3(true);
+			timer3 = setInterval(updateInterval_3, this.config.interval3*60*60*1000);
+		}
+		if(this.config.i4 && this.config.interval4) {
+			updateInterval_4(true);
+			timer4 = setInterval(updateInterval_4, this.config.interval4*24*60*60*1000);
+		}
+
+		// Set the connection indicator after startup
+		this.setState('info.connection', true, true);
+	}
+
+	/**
+	 * Is called when adapter shuts down - callback has to be called under any circumstances!
+	 * @param {() => void} callback
+	 */
+	onUnload(callback) {
+		const message = 'cleaned everything up...';
+		try {
+			// clean up the timer
+			if(timer0) { clearInterval(timer0); timer0 = undefined; }
+			if(timer1) { clearInterval(timer1); timer1 = undefined; }
+			if(timer2) { clearInterval(timer2); timer2 = undefined; }
+			if(timer3) { clearInterval(timer3); timer3 = undefined; }
+			if(timer4) { clearInterval(timer4); timer4 = undefined; }
+			this.log.info(message);
+			callback();
+		} catch (e) {
+			this.log.error(message);
+			callback();
 		}
 	}
-});
-  
-// is called when databases are connected and adapter received configuration.
-adapter.on('ready', function () {
-	// do some preparations
-	adapter.log.debug('starting adapter');
-	// call main routine
-	main();
-});
-  
-function main() {
-	// Initializiation of adapter
-	adapter.log.debug('starting adapter');
-	//this.log.debug('config: ' + JSON.stringify(this.config));
-	// Reset the connection indicator during startup
-	adapter.setState('info.connection', false, true);
 
-	try {
-		const helper  = require(__dirname + '/lib/helper');
-		// create Entries moma.meta.<hostname>.*
-		helper.createMomaMetaEntries(adapter);
-		// create Entries moma.<instanceId>.*
-		helper.createMomaInstanceEntries(adapter);
-		// set the instance in moma.meta.<hostname>.instance
-		adapter.setForeignState(require(__dirname + '/lib/definitions').hostEntryInstance, {val: adapter.namespace, ack: true});
-		
-		// with this codeline all states changes inside the adapters namespace moma.<instance> are subscribed
-		// not those of moma.meta
-		//this.subscribeStates('*');
-
-		// read 'static' values on restart for change of machine configuration
-		const Once = require(__dirname + '/lib/Once.js');
-		new Once().run(adapter, true);
-	} catch(err) {
-		adapter.log.error('Error on startup: ' + err);
+	/**
+	 * Is called if a subscribed object changes
+	 * @param {string} id
+	 * @param {ioBroker.Object | null | undefined} obj
+	 */
+	onObjectChange(id, obj) {
+		if (obj) {
+			// The object was changed
+			this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
+		} else {
+			// The object was deleted
+			this.log.info(`object ${id} deleted`);
+		}
 	}
 
-	// start the recurrent updates pf values
-	// if checked run each interval once and then start it with interval timer
-	if(adapter.config.i0 && adapter.config.interval0) {
-		updateInterval_0(true);
-		timer0 = setInterval(updateInterval_0, adapter.config.interval0*1000);
-	}
-	if(adapter.config.i1 && adapter.config.interval1) {
-		updateInterval_1(true);
-		timer1 = setInterval(updateInterval_1, adapter.config.interval1*1000);
-	}
-	if(adapter.config.i2 && adapter.config.interval2) {
-		updateInterval_2(true);
-		timer2 = setInterval(updateInterval_2, adapter.config.interval2*60*1000);
-	}
-	if(adapter.config.i3 && adapter.config.interval3) {
-		updateInterval_3(true);
-		timer3 = setInterval(updateInterval_3, adapter.config.interval3*60*60*1000);
-	}
-	if(adapter.config.i4 && adapter.config.interval4) {
-		updateInterval_4(true);
-		timer4 = setInterval(updateInterval_4, adapter.config.interval4*24*60*60*1000);
+	/**
+	 * Is called if a subscribed state changes
+	 * @param {string} id
+	 * @param {ioBroker.State | null | undefined} state
+	 */
+	onStateChange(id, state) {
+		if (state) {
+			// The state was changed
+			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+		} else {
+			// The state was deleted
+			this.log.info(`state ${id} deleted`);
+		}
 	}
 
-	// Set the connection indicator after startup
-	adapter.setState('info.connection', true, true);
-} // end of main
+	/**
+	 * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
+	 * Using this method requires 'common.messagebox' property to be set to true in io-package.json
+	 * @param {ioBroker.Message} obj
+	 */
+	onMessage(obj) {
+		if (typeof obj === 'object' && obj.message) {
+			this.log.debug(JSON.stringify(obj));
+	 		if (obj.command === 'send') {
+	 			// e.g. send email or pushover or whatever
+				this.log.info('send command ' + obj.message);
+				if(obj.message == 'doUpdates') {
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().doUpdates(this);
+				} else if(obj.message == 'scheduleReboot') {
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().scheduleReboot(this);
+				}
+
+	 			// Send response in callback if required
+	 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+	 		}
+	 	}
+	}
+}
+
+// @ts-ignore
+if (module && module.parent) {
+	// Export the constructor in compact mode
+	/**
+	 * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+	 */
+	module.exports = (options) => new Moma(options);
+} else {
+	// otherwise start the instance directly
+	new Moma();
+}

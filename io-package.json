@@ -3,6 +3,10 @@
 		"name": "moma",
 		"version": "0.1.2",
 		"news": {
+            "0.1.2": {
+                "en": "Beautifying of moma admin-Tab. Some bugfixes.",
+                "de": "Aufhübschen des moma admin-tabs. Kleinere bugfixes"
+            },
             "0.1.1": {
                 "en": "First implementation of moma admin-tab",
                 "de": "Erste Implementierung des moma admin-tabs"
