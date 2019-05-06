@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "0.1.2",
+		"version": "0.1.3",
 		"news": {
+            "0.1.3": {
+                "en": "Bugfixes.",
+                "de": "Bugfixes"
+            },
             "0.1.2": {
                 "en": "Beautifying of moma admin-Tab. Some bugfixes.",
                 "de": "Aufhübschen des moma admin-tabs. Kleinere bugfixes"
@@ -12,44 +16,8 @@
                 "de": "Erste Implementierung des moma admin-tabs"
             },
             "0.1.0": {
-                "en": "First release for adapter list",
-                "de": "Erstes Release für die Adapter-Liste."
-            },
-            "0.0.10": {
-                "en": "Reduction of footprint. Restructuring.",
-                "de": "Fußabdruck reduziert. Restrukturiert."
-            },
-            "0.0.9": {
-                "en": "Upgrade of systeminfolib to 4.1.1 and added calls/variables, testing (re)enabled, merging to new template part2, chinese translation",
-                "de": "Upgrade der systeminfolib auf 4.1.1 und Aufrufe/Variablen hinzugefügt, Testing (re)aktiviert, Neues Template Teil2, Chinesische Übersetzung"
-            },
-            "0.0.8": {
-                "en": "List of packages to update. Moved to new template concept",
-                "de": "Liste mit zu aktualisiernden Paketen. Auf das neue Template umgestellt"
-            },
-            "0.0.7": {
-                "en": "Travis testing activated. Minor enhancements in meta data",
-                "de": "Travis-Tests aktiviert. Kleinere Erweiterungen der Meta-Daten"
-            },
-            "0.0.6": {
-                "en": "UI text and translations. Changed meta-path from moma.x to moma.meta",
-                "de": "UI-Texte und Übersetzungen. Pfad für Metadaten von moma.x in moma.meta geändert"
-            },
-            "0.0.5": {
-                "en": "Checking for updates in interval 4",
-                "de": "Auf Updates prüfen im Intervall 4"
-            },
-            "0.0.4": {
-                "en": "New intervals: 0 with high frequency, 4 daily. Extended configuration",
-                "de": "Neue Intervalle: 0 mit hoher Frequenz, 4 täglich. Erweiterte Konfiguration"
-            },
-            "0.0.3": {
-                "en": "Basic functions of 'systeminformation' implemented, some documentation",
-                "de": "Grund-Funktionen von 'systeminformation' implementiert, rudimentäre Dokumentation erstellt."
-            },
-            "0.0.2": {
-                "en": "Library 'systeminformation' integrated. First set of functions implemented",
-                "de": "Bibliothek 'systeminformation' als Basis integriert. Ersten Umfang der Funktionen implementiert"
+                "en": "First release for adapter list 'latest'",
+                "de": "Erstes Release für die Adapter-Liste 'latest'."
             },
 			"0.0.1": {
 				"en": "initial release",
