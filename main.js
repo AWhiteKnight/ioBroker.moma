@@ -23,18 +23,28 @@ const utils = require('@iobroker/adapter-core');
 
 /** @type {Moma | undefined} */
 let adapter = undefined;
-/** @type {number | NodeJS.Timeout | undefined} */
-let timerAlive = undefined;
-/** @type {number | NodeJS.Timeout | undefined} */
+const duration = 3000;
+const expiration = duration-20;
+/** @type {NodeJS.Timeout | undefined} */
+let timer = undefined;
+/** @type {NodeJS.Timeout | undefined} */
 let timer0 = undefined;
-/** @type {number | NodeJS.Timeout | undefined} */
+/** @type {NodeJS.Timeout | undefined} */
 let timer1 = undefined;
-/** @type {number | NodeJS.Timeout | undefined} */
+/** @type {NodeJS.Timeout | undefined} */
 let timer2 = undefined;
-/** @type {number | NodeJS.Timeout | undefined} */
+/** @type {NodeJS.Timeout | undefined} */
 let timer3 = undefined;
-/** @type {number | NodeJS.Timeout | undefined} */
+/** @type {NodeJS.Timeout | undefined} */
 let timer4 = undefined;
+
+/*
+ * call for updated states in interval_0 (default once per second)
+ */
+function updateIntervalAlive() {
+	// @ts-ignore
+	adapter.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: true, ack: true, expire: expiration});
+}
 
 /*
  * call for updated states in interval_0 (default once per second)
@@ -122,6 +132,7 @@ class Moma extends utils.Adapter {
 			helper.createMomaInstanceEntries(this);
 			// set the instance in moma.meta.<hostname>.instance
 			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryInstance, {val: this.namespace, ack: true});
+			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: true, ack: true, expire: expiration});
 		  
 			// with this codeline all states changes inside the adapters namespace moma.<instance> are subscribed
 			// not those of moma.meta
@@ -133,33 +144,37 @@ class Moma extends utils.Adapter {
 		} catch(err) {
 			this.log.error('Error on startup: ' + err);
 		}
-		let duration= 5000;
-		timerAlive = setInterval(() => {
-			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: true, ack: true, expire: duration});
-		}, duration-10);
 
 		// start the recurrent updates pf values
 		// if checked run each interval once and then start it with interval timer
 		if(this.config.i0 && this.config.interval0) {
 			updateInterval_0(true);
+			// @ts-ignore
 			timer0 = setInterval(updateInterval_0, this.config.interval0*1000);
 		}
+
 		if(this.config.i1 && this.config.interval1) {
 			updateInterval_1(true);
+			// @ts-ignore
 			timer1 = setInterval(updateInterval_1, this.config.interval1*1000);
 		}
 		if(this.config.i2 && this.config.interval2) {
 			updateInterval_2(true);
+			// @ts-ignore
 			timer2 = setInterval(updateInterval_2, this.config.interval2*60*1000);
 		}
 		if(this.config.i3 && this.config.interval3) {
 			updateInterval_3(true);
+			// @ts-ignore
 			timer3 = setInterval(updateInterval_3, this.config.interval3*60*60*1000);
 		}
 		if(this.config.i4 && this.config.interval4) {
 			updateInterval_4(true);
+			// @ts-ignore
 			timer4 = setInterval(updateInterval_4, this.config.interval4*24*60*60*1000);
 		}
+
+		timer = setInterval(updateIntervalAlive, duration);
 
 		// Set the connection indicator after startup
 		this.setState('info.connection', true, true);
@@ -172,24 +187,20 @@ class Moma extends utils.Adapter {
 	onUnload(callback) {
 		const message = 'cleaned everything up...';
 		try {
+			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: false, ack: true});
 			// clean up the timer
-			// @ts-ignore
-			if(timerAlive) { clearInterval(timerAlive); timerAlive = undefined; }
-			// @ts-ignore
 			if(timer0) { clearInterval(timer0); timer0 = undefined; }
-			// @ts-ignore
 			if(timer1) { clearInterval(timer1); timer1 = undefined; }
-			// @ts-ignore
 			if(timer2) { clearInterval(timer2); timer2 = undefined; }
-			// @ts-ignore
 			if(timer3) { clearInterval(timer3); timer3 = undefined; }
-			// @ts-ignore
 			if(timer4) { clearInterval(timer4); timer4 = undefined; }
+			if(timer) { clearInterval(timer); timer = undefined; }
 			this.log.info(message);
 			callback();
 		} catch (e) {
-			this.log.error(message);
 			callback();
+			if(timer) { clearInterval(timer); timer = undefined; }
+			this.log.error(message);
 		}
 	}
 

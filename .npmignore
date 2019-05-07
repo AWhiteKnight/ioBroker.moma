@@ -25,4 +25,4 @@ admin/i18n
 # maintenance scripts
 maintenance/**
 
-ideas*.js
+ideas*

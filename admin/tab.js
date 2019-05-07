@@ -12,12 +12,12 @@ let main = {
         if (!main.socket) return;
         if (isSubscribe) {
             console.log('subscribe objects');
-            main.socket.emit('subscribeObjects', 'moma.meta.*');
-            //main.socket.emit('requireLog', true);
+            // main.socket.emit('subscribeObjects', 'moma.meta.*');
+            // main.socket.emit('requireLog', false);
         } else {
             console.log('unsubscribe objects');
-            main.socket.emit('unsubscribeObjects', 'moma.meta.*');
-            //main.socket.emit('requireLog', false);
+            // main.socket.emit('unsubscribeObjects', 'moma.meta.*');
+            // main.socket.emit('requireLog', false);
         }
     }
 };
@@ -147,6 +147,7 @@ function reboot(i) {
 
 function fetchData(callback) {
     that.list = [];
+
     that.main.socket.emit('getForeignObjects', 'moma.meta.hosts.*',  'channel', function (err, res) {
         if(res) {
             // console.log(res);
@@ -162,19 +163,37 @@ function fetchData(callback) {
                             let name = state.split('.')[4];
                             host[name] = res2[state]['val'];
                         }
-                        // console.log(host);
-                        that.list.push(host);
-                        // console.log('list', that.list);
-                        if (callback) callback();
-                    } else if (err2) {
+                    } else if(err2) {
                         console.log('err2: ' + JSON.stringify(err2));
                     }
+                    console.log('before host', host);
+                    // get system information
+                    that.main.socket.emit('getForeignStates', 'system.host.'+host.id+'.*', function (err3, res3) {
+                        console.log(JSON.stringify(res3));
+                        if(res3) {
+                            for(let state in res3) {
+                                //console.log(JSON.stringify(state));
+                                let name = state.split('.')[3];
+                                console.log(name);
+                                if(res3[state]) {
+                                    host[name] = res3[state]['val'];
+                                }
+                            }
+                            console.log('after host', host);
+                            that.list.push(host);
+                            if(callback) callback();
+                        } else  if(err3){
+                            console.log('err3: ' + JSON.stringify(err3));
+                        }
+                    });
                 });
             }
         } else if (err) {
             console.log('err: ' + JSON.stringify(err));
         }
+        console.log('list', that.list);
     });
+
 }
 
 function showHostsTable() {
@@ -274,8 +293,8 @@ function createHostBody() {
 
 function createHostRow(index) {
     let obj = that.list[index];
-    let machineAlive = true;    // to be implemented
-    let instanceAlive= obj['alive'];
+    let machineAlive = obj['alive'];
+    let instanceAlive= obj['momaAlive'];
     // console.log(JSON.stringify(instance));
     let state= machineAlive ? (instanceAlive ? 'online' : 'partly') : 'offline';
     let _class = machineAlive ? (instanceAlive ? 'led-green' : 'led-yellow') : 'led-red';
