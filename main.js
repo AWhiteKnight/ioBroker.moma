@@ -173,11 +173,17 @@ class Moma extends utils.Adapter {
 		const message = 'cleaned everything up...';
 		try {
 			// clean up the timer
+			// @ts-ignore
 			if(timerAlive) { clearInterval(timerAlive); timerAlive = undefined; }
+			// @ts-ignore
 			if(timer0) { clearInterval(timer0); timer0 = undefined; }
+			// @ts-ignore
 			if(timer1) { clearInterval(timer1); timer1 = undefined; }
+			// @ts-ignore
 			if(timer2) { clearInterval(timer2); timer2 = undefined; }
+			// @ts-ignore
 			if(timer3) { clearInterval(timer3); timer3 = undefined; }
+			// @ts-ignore
 			if(timer4) { clearInterval(timer4); timer4 = undefined; }
 			this.log.info(message);
 			callback();
