@@ -64,6 +64,7 @@ function Moma() {
     that.words['reboot'] = _('reboot');
     that.words['details'] = _('details');
     that.words['online'] = _('online');
+    that.words['partly'] = _('partly');
     that.words['offline'] = _('offline');
 
     // prepare the table below buttons
@@ -273,10 +274,11 @@ function createHostBody() {
 
 function createHostRow(index) {
     let obj = that.list[index];
-    console.log(JSON.stringify(obj));
-    let alive = obj['alive'];
-    let state= alive ? 'online' : 'offline'
-    let _class = alive ? 'led-green' : 'led-red';
+    let machineAlive = true;    // to be implemented
+    let instanceAlive= obj['alive'];
+    // console.log(JSON.stringify(instance));
+    let state= machineAlive ? (instanceAlive ? 'online' : 'partly') : 'offline';
+    let _class = machineAlive ? (instanceAlive ? 'led-green' : 'led-yellow') : 'led-red';
     let text = '<tr>';
     //LED
     text += '<td><button type="button" title="' + that.words[state] + '" class="led ' + _class + '" id="' + state + index + '"></button></td>'

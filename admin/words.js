@@ -746,6 +746,18 @@ systemDictionary = {
     "pl": "online",
     "zh-cn": "线上"
   },
+  "partly": {
+    "en": "only partly online",
+    "de": "Nur teilweise online",
+    "ru": "только частично онлайн",
+    "pt": "apenas parcialmente on-line",
+    "nl": "slechts gedeeltelijk online",
+    "fr": "seulement partiellement en ligne",
+    "it": "solo in parte online",
+    "es": "solo parcialmente en linea",
+    "pl": "tylko częściowo online",
+    "zh-cn": "只是部分在线"
+  },
   "offline": {
     "en": "offline",
     "de": "Offline",
