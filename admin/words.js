@@ -733,5 +733,29 @@ systemDictionary = {
     "es": "Detalles para ",
     "pl": "Szczegóły dla ",
     "zh-cn": "细节 "
+  },
+  "online": {
+    "en": "online",
+    "de": "Online",
+    "ru": "онлайн",
+    "pt": "conectados",
+    "nl": "online",
+    "fr": "en ligne",
+    "it": "in linea",
+    "es": "en línea",
+    "pl": "online",
+    "zh-cn": "线上"
+  },
+  "offline": {
+    "en": "offline",
+    "de": "Offline",
+    "ru": "не в сети",
+    "pt": "desligada",
+    "nl": "offline",
+    "fr": "hors ligne",
+    "it": "disconnesso",
+    "es": "desconectado",
+    "pl": "offline",
+    "zh-cn": "离线"
   }
 };

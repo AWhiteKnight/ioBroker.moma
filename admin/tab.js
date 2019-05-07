@@ -63,6 +63,8 @@ function Moma() {
     that.words['update'] = _('update');
     that.words['reboot'] = _('reboot');
     that.words['details'] = _('details');
+    that.words['online'] = _('online');
+    that.words['offline'] = _('offline');
 
     // prepare the table below buttons
     showHostsTable();
@@ -120,20 +122,26 @@ function Moma() {
 
 function update(i) {
     console.log('updating ' + that.list[i]['instance']);
-    that.list[i].numUpdates = 0;
+//    that.list[i].numUpdates = 0;
     main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
         console.log(result);
+        // fetch data before creating table body
+        fetchData(function() {
+            createHostBody();
+        });
     });
-    createHostBody();
 }
 
 function reboot(i) {
     console.log('rebooting ' + that.list[i]['instance']);
-    that.list[i].needsReboot = false;
+//    that.list[i].needsReboot = false;
     main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
         console.log(result);
+        // fetch data before creating table body
+        fetchData(function() {
+            createHostBody();
+        });
     });
-    createHostBody();
 }
 
 function fetchData(callback) {
@@ -180,8 +188,10 @@ function showHostsTable() {
 
 function createHostHeader() {
     let text = '<tr>';
+    // col for host-state led
+    text += '<th style="width: 15px;"></th>'
     // col for hostname
-    text += '<th class="translate" style="width: 80px;">'+_('hostname') + '</th>'
+    text += '<th class="translate" style="width: 100px;">'+_('hostname') + '</th>'
     // col for number of updates
     text += '<th style="width: 20px;">#</th>'
     // col for list of updates
@@ -262,13 +272,20 @@ function createHostBody() {
 }
 
 function createHostRow(index) {
+    let obj = that.list[index];
+    console.log(JSON.stringify(obj));
+    let alive = obj['alive'];
+    let state= alive ? 'online' : 'offline'
+    let _class = alive ? 'led-green' : 'led-red';
     let text = '<tr>';
+    //LED
+    text += '<td><button type="button" title="' + that.words[state] + '" class="led ' + _class + '" id="' + state + index + '"></button></td>'
     // hostname
-    text += '<td>' + that.list[index]['id'] + '</td>'
+    text += '<td>' + obj['id'] + '</td>'
     // number of updates
-    text += '<td>' + that.list[index]['numUpdates'] + '</td>'
+    text += '<td>' + obj['numUpdates'] + '</td>'
     // list of updates
-    text += '<td style="overflow:hidden;" title="' + that.list[index]['updates'] +'">' + that.list[index]['updates'] + '</td>'
+    text += '<td style="overflow:hidden;" title="' + that.words['updates'] +'">' + obj['updates'] + '</td>'
     // button Update
     text += '<td><button type="button" title="' + that.words['update'] + '" class="btn update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot

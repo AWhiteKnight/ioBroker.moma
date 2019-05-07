@@ -23,15 +23,17 @@ const utils = require('@iobroker/adapter-core');
 
 /** @type {Moma | undefined} */
 let adapter = undefined;
-/** @type {number | undefined} */
+/** @type {number | NodeJS.Timeout | undefined} */
+let timerAlive = undefined;
+/** @type {number | NodeJS.Timeout | undefined} */
 let timer0 = undefined;
-/** @type {number | undefined} */
+/** @type {number | NodeJS.Timeout | undefined} */
 let timer1 = undefined;
-/** @type {number | undefined} */
+/** @type {number | NodeJS.Timeout | undefined} */
 let timer2 = undefined;
-/** @type {number | undefined} */
+/** @type {number | NodeJS.Timeout | undefined} */
 let timer3 = undefined;
-/** @type {number | undefined} */
+/** @type {number | NodeJS.Timeout | undefined} */
 let timer4 = undefined;
 
 /*
@@ -131,6 +133,10 @@ class Moma extends utils.Adapter {
 		} catch(err) {
 			this.log.error('Error on startup: ' + err);
 		}
+		let duration= 5000;
+		timerAlive = setInterval(() => {
+			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: true, ack: true, expire: duration});
+		}, duration-10);
 
 		// start the recurrent updates pf values
 		// if checked run each interval once and then start it with interval timer
@@ -167,6 +173,7 @@ class Moma extends utils.Adapter {
 		const message = 'cleaned everything up...';
 		try {
 			// clean up the timer
+			if(timerAlive) { clearInterval(timerAlive); timerAlive = undefined; }
 			if(timer0) { clearInterval(timer0); timer0 = undefined; }
 			if(timer1) { clearInterval(timer1); timer1 = undefined; }
 			if(timer2) { clearInterval(timer2); timer2 = undefined; }
