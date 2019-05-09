@@ -60,6 +60,9 @@ main.socket.on('stateChange', (id, obj) => {
         for(let i = 0; i<that.list.length; i++) {
             if(that.list[i].id == hostname) {
                 that.list[i][statename] = value;
+                if(statename == 'alive') {
+                    createHostBody();
+                }
             } 
         }
         // console.log('system: ', hostname, statename, value);
