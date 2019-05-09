@@ -132,13 +132,16 @@ class Moma extends utils.Adapter {
 
 		try {
 			const helper  = require(__dirname + '/lib/helper');
+			const defs = require(__dirname + '/lib/definitions');
+			this.setForeignState(defs.hostEntryNeedsAttention, {val: true, ack: true});
 			// create Entries moma.meta.<hostname>.*
 			helper.createMomaMetaEntries(this);
 			// create Entries moma.<instanceId>.*
 			helper.createMomaInstanceEntries(this);
 			// set the instance in moma.meta.<hostname>.instance
-			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryInstance, {val: this.namespace, ack: true});
-			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: true, ack: true, expire: expiration});
+			this.setForeignState(defs.hostEntryNeedsAttention, {val: true, ack: true});
+			this.setForeignState(defs.hostEntryInstance, {val: this.namespace, ack: true});
+			this.setForeignState(defs.hostEntryAlive, {val: true, ack: true, expire: expiration});
 		  
 			// with this codeline all states changes inside the adapters namespace moma.<instance> are subscribed
 			// not those of moma.meta
@@ -248,7 +251,7 @@ class Moma extends utils.Adapter {
 	onMessage(obj) {
 		if (typeof obj === 'object' && obj.message) {
 			this.log.debug(JSON.stringify(obj));
-	 		if (obj.command === 'send') {
+	 		if (obj.command === 'execute') {
 	 			// e.g. send email or pushover or whatever
 				this.log.info('send command ' + obj.message);
 				if(obj.message == 'doUpdates') {

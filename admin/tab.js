@@ -154,18 +154,18 @@ function Moma() {
 
 function update(i) {
     console.log('updating ' + that.list[i]['instance']);
-    that.list[i].numUpdates = 0;
+    // that.list[i].numUpdates = 0;
     $('#btnUpdate'+i).disabled=true;
-    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
+    main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'doUpdates', (result) => {
         console.log(result);
     });
 }
 
 function reboot(i) {
     console.log('rebooting ' + that.list[i]['instance']);
-    that.list[i].needsReboot = false;
+    // that.list[i].needsReboot = false;
     $('#btnReboot'+i).disabled=true;
-    main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
+    main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'scheduleReboot', (result) => {
         console.log(result);
     });
 }
@@ -276,6 +276,7 @@ function createHostBody() {
                     $('#updateOk').click((obj) => {
                         // console.log('update ' + i);
                         update(i);
+                        createHostBody();
                     }); 
                     if (!that.$dialogUpdate.data('inited')) {
                         that.$dialogUpdate.data('inited', true);
@@ -299,6 +300,7 @@ function createHostBody() {
                     $('#rebootOk').click((obj) => {
                         // console.log('reboot ' + i);
                         reboot(i);
+                        createHostBody();
                     }); 
                     if (!that.$dialogReboot.data('inited')) {
                         that.$dialogReboot.data('inited', true);
@@ -311,7 +313,7 @@ function createHostBody() {
             } else {
                 button.disabled = true;
             }
-    } else {
+        } else {
             button.style.visibility='hidden';
         }
         button= window.document.querySelector('#btnDetails'+i+'');
@@ -338,7 +340,7 @@ function createHostRow(index) {
     let text = '<tr>';
     //LED
     // text += '<td><button type="button" title="' + that.words[state] + '" class="led ' + _class + '" id="' + state + index + '"></button></td>'
-    text += '<td><button type="button" title="' + that.words[state] + '" class="led" id="' + state + index + '"></button></td>'
+    text += '<td><button type="button" disabled title="' + that.words[state] + '" class="led" id="' + state + index + '"></button></td>'
     // hostname
     text += '<td>' + obj['id'] + '</td>'
     // number of updates
