@@ -746,18 +746,30 @@ systemDictionary = {
     "pl": "online",
     "zh-cn": "线上"
   },
-  "partly": {
-    "en": "only partly online",
-    "de": "Nur teilweise online",
-    "ru": "только частично онлайн",
-    "pt": "apenas parcialmente on-line",
-    "nl": "slechts gedeeltelijk online",
-    "fr": "seulement partiellement en ligne",
-    "it": "solo in parte online",
-    "es": "solo parcialmente en linea",
-    "pl": "tylko częściowo online",
-    "zh-cn": "只是部分在线"
+  "needsAttention": {
+    "en": "This machine needs maintenance",
+    "de": "Diese Maschine muss gewartet werden",
+    "ru": "Эта машина нуждается в обслуживании",
+    "pt": "Esta máquina precisa de manutenção",
+    "nl": "Deze machine heeft onderhoud nodig",
+    "fr": "Cette machine a besoin d'entretien",
+    "it": "Questa macchina ha bisogno di manutenzione",
+    "es": "Esta máquina necesita mantenimiento.",
+    "pl": "Ta maszyna wymaga konserwacji",
+    "zh-cn": "这台机器需要维护"
   },
+  "momaOffline": {
+    "en": "Adapter MoMa is offline",
+    "de": "Adapter MoMa ist offline",
+    "ru": "Адаптер MoMa отсутствует",
+    "pt": "Adaptador MoMa está offline",
+    "nl": "Adapter MoMa is offline",
+    "fr": "Adapter MoMa est déconnecté",
+    "it": "Adapter MoMa è offline",
+    "es": "Adaptador MoMa está desconectado",
+    "pl": "Adapter MoMa jest w trybie offline",
+    "zh-cn": "适配器MoMa处于脱机状态"
+},
   "offline": {
     "en": "offline",
     "de": "Offline",

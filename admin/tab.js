@@ -92,7 +92,8 @@ function Moma() {
     that.words['reboot'] = _('reboot');
     that.words['details'] = _('details');
     that.words['online'] = _('online');
-    that.words['partly'] = _('partly');
+    that.words['needsAttention'] = _('needsAttention');
+    that.words['momaOffline'] = _('momaOffline');
     that.words['offline'] = _('offline');
 
     // prepare the table below buttons
@@ -328,13 +329,16 @@ function createHostBody() {
 function createHostRow(index) {
     let obj = that.list[index];
     let machineAlive = obj['alive'];
-    let instanceAlive= obj['momaAlive'];
+    let momaAlive = obj['momaAlive'];
+    let allOk = !obj['needsAttention'];
     // console.log(JSON.stringify(instance));
-    let state= machineAlive ? (instanceAlive ? 'online' : 'partly') : 'offline';
-    let _class = machineAlive ? (instanceAlive ? 'led-green' : 'led-yellow') : 'led-red';
+    let state = machineAlive ? (momaAlive ? (allOk ? 'online' : 'needsAttention') : 'momaOffline') : 'offline';
+    // let state= machineAlive ? (momaAlive ? 'online' : 'moma') : 'offline';
+    // let _class = machineAlive ? (momaAlive ? (momaAlive ? 'led-green' : 'led-yellow') : 'led-orange') : 'led-red';
     let text = '<tr>';
     //LED
-    text += '<td><button type="button" title="' + that.words[state] + '" class="led ' + _class + '" id="' + state + index + '"></button></td>'
+    // text += '<td><button type="button" title="' + that.words[state] + '" class="led ' + _class + '" id="' + state + index + '"></button></td>'
+    text += '<td><button type="button" title="' + that.words[state] + '" class="led" id="' + state + index + '"></button></td>'
     // hostname
     text += '<td>' + obj['id'] + '</td>'
     // number of updates
