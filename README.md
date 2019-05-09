@@ -31,8 +31,8 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
-### 0.1.3 (2019-??-??)
-* (AWhiteKnight) Bugfixes.
+### 0.1.3 (2019-05-10)
+* (AWhiteKnight) State-LED for machines, bugfixes.
 
 ### 0.1.2 (2019-05-03)
 * (AWhiteKnight) Beautifying of moma admin-Tab. Some bugfixes.
