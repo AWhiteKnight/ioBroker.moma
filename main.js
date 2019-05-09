@@ -47,7 +47,9 @@ function updateIntervalAlive() {
 	adapter.setForeignState(defs.hostEntryAlive, {val: true, ack: true, expire: expiration});
 	// todo: implement check!
 	// @ts-ignore
-	adapter.setForeignState(defs.hostEntryNeedsAttention, {val: false, ack: true, expire: expiration});
+	adapter.setForeignState(defs.hostEntryNeedsAttention, {val: false, ack: true});
+	// @ts-ignore
+	adapter.setForeignState(defs.hostNeedsAttention, {val: false, ack: true});
 }
 
 /*
