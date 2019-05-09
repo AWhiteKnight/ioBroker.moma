@@ -4,8 +4,8 @@
 		"version": "0.1.3",
 		"news": {
             "0.1.3": {
-                "en": "Bugfixes.",
-                "de": "Bugfixes"
+                "en": "State-LED, Bugfixes",
+                "de": "Status-LED, Bugfixes"
             },
             "0.1.2": {
                 "en": "Beautifying of moma admin-Tab. Some bugfixes.",
