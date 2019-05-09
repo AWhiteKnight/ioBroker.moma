@@ -11,13 +11,15 @@ let main = {
     subscribe: (isSubscribe) => {
         if (!main.socket) return;
         if (isSubscribe) {
-            console.log('subscribe objects');
-            // main.socket.emit('subscribeObjects', 'moma.meta.*');
-            // main.socket.emit('requireLog', false);
+            // console.log('subscribe objects');
+            main.socket.emit('subscribeObjects', 'moma.meta.*');
+            main.socket.emit('subscribeStates', 'moma.meta.*');
+            main.socket.emit('requireLog', true);
         } else {
-            console.log('unsubscribe objects');
-            // main.socket.emit('unsubscribeObjects', 'moma.meta.*');
-            // main.socket.emit('requireLog', false);
+            // console.log('unsubscribe objects');
+            main.socket.emit('unsubscribeObjects', 'moma.meta.*');
+            main.socket.emit('unsubscribeStates', 'moma.meta.*');
+            main.socket.emit('requireLog', false);
         }
     }
 };
@@ -31,11 +33,37 @@ main.socket.on('disconnect', () => {
 });
 
 main.socket.on('objectChange', (id, obj) => {
-    console.log(id);
+    // console.log('obj: ', id);//, obj);
+    createHostBody();
 });
 
 main.socket.on('stateChange', (id, obj) => {
-    console.log(id);
+    // console.log('state: ', id);//, obj);
+    let arr = id.split('.'); 
+    // moma.meta.hosts.mint-master.momaAlive
+    if (arr[0] == 'moma' && arr[1] == 'meta' && arr[2] == 'hosts'){
+        let hostname = arr[3]
+        let statename = arr[4];
+        let value = obj['val'];
+        for(let i = 0; i<that.list.length; i++) {
+            if(that.list[i].id == hostname) {
+                that.list[i][statename] = value;
+            } 
+        }
+        // console.log('moma: ', hostname, statename, value);
+        createHostBody();
+    // system.host.mint-master.alive
+    } else if(arr[0] == 'system' && arr[1] == 'host') {
+        let hostname = arr[2]
+        let statename = arr[3];
+        let value = obj['val'];
+        for(let i = 0; i<that.list.length; i++) {
+            if(that.list[i].id == hostname) {
+                that.list[i][statename] = value;
+            } 
+        }
+        // console.log('system: ', hostname, statename, value);
+    }
 });
 
 //==== moma tab ==================================================
@@ -84,6 +112,7 @@ function Moma() {
                 update(i);
             }
         }
+        createHostBody();
     });
     // update all button in main page headline
     window.document.querySelector('#btn-update-all').title = _('update-all');
@@ -106,6 +135,7 @@ function Moma() {
                 reboot(i);
             }
         }
+        createHostBody();
     });
     // reboot all button in main page headline
     window.document.querySelector('#btn-reboot-all').title = _('reboot-all');
@@ -123,25 +153,19 @@ function Moma() {
 
 function update(i) {
     console.log('updating ' + that.list[i]['instance']);
-//    that.list[i].numUpdates = 0;
+    that.list[i].numUpdates = 0;
+    $('#btnUpdate'+i).disabled=true;
     main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'doUpdates', (result) => {
         console.log(result);
-        // fetch data before creating table body
-        fetchData(function() {
-            createHostBody();
-        });
     });
 }
 
 function reboot(i) {
     console.log('rebooting ' + that.list[i]['instance']);
-//    that.list[i].needsReboot = false;
+    that.list[i].needsReboot = false;
+    $('#btnReboot'+i).disabled=true;
     main.socket.emit('sendTo', that.list[i]['instance'], 'send', 'scheduleReboot', (result) => {
         console.log(result);
-        // fetch data before creating table body
-        fetchData(function() {
-            createHostBody();
-        });
     });
 }
 
@@ -161,25 +185,27 @@ function fetchData(callback) {
                         for(let state in res2) {
                             // console.log('state: ' + JSON.stringify(state));
                             let name = state.split('.')[4];
-                            host[name] = res2[state]['val'];
-                        }
+                            if(res2[state]) {
+                                host[name] = res2[state]['val'];
+                            }
+                    }
                     } else if(err2) {
                         console.log('err2: ' + JSON.stringify(err2));
                     }
-                    console.log('before host', host);
+                    // console.log('before host', host);
                     // get system information
                     that.main.socket.emit('getForeignStates', 'system.host.'+host.id+'.*', function (err3, res3) {
-                        console.log(JSON.stringify(res3));
+                        // console.log(JSON.stringify(res3));
                         if(res3) {
                             for(let state in res3) {
                                 //console.log(JSON.stringify(state));
                                 let name = state.split('.')[3];
-                                console.log(name);
+                                // console.log(name);
                                 if(res3[state]) {
                                     host[name] = res3[state]['val'];
                                 }
                             }
-                            console.log('after host', host);
+                            // console.log('after host', host);
                             that.list.push(host);
                             if(callback) callback();
                         } else  if(err3){
@@ -191,7 +217,7 @@ function fetchData(callback) {
         } else if (err) {
             console.log('err: ' + JSON.stringify(err));
         }
-        console.log('list', that.list);
+        // console.log('list', that.list);
     });
 
 }
@@ -244,39 +270,47 @@ function createHostBody() {
         let button= window.document.querySelector('#btnUpdate'+i+'');
         if(that.list[i].numUpdates > 0) {
             button.style.visibility='visible';
-            button.addEventListener('click', (obj) => {
-                $('#updateOk').click((obj) => {
-                    console.log('update ' + i);
-                    update(i);
-                }); 
-                if (!that.$dialogUpdate.data('inited')) {
-                    that.$dialogUpdate.data('inited', true);
-                    that.$dialogUpdate.find('#dialog-update-headline').text(_('dialogUpdate') + `"${that.list[i]['id']}"`);
-                    that.$dialogUpdate.find('#textUpdateSingle').text(_('textUpdateSingle').replace('? ', '?\n'));
-                    that.$dialogUpdate.modal();
-                }
-                that.$dialogUpdate.modal('open');
-            });
+            if(that.list[i].alive && that.list[i].momaAlive) {
+                button.addEventListener('click', (obj) => {
+                    $('#updateOk').click((obj) => {
+                        // console.log('update ' + i);
+                        update(i);
+                    }); 
+                    if (!that.$dialogUpdate.data('inited')) {
+                        that.$dialogUpdate.data('inited', true);
+                        that.$dialogUpdate.find('#dialog-update-headline').text(_('dialogUpdate') + `"${that.list[i]['id']}"`);
+                        that.$dialogUpdate.find('#textUpdateSingle').text(_('textUpdateSingle').replace('? ', '?\n'));
+                        that.$dialogUpdate.modal();
+                    }
+                    that.$dialogUpdate.modal('open');
+                });
+            } else {
+                button.disabled = true;
+            }
         } else {
             button.style.visibility='hidden';
         }
         button= window.document.querySelector('#btnReboot'+i+'');
         if(that.list[i].needsReboot) {
             button.style.visibility='visible';
-            button.addEventListener('click', (obj) => {
-                $('#rebootOk').click((obj) => {
-                    console.log('reboot ' + i);
-                    reboot(i);
-                }); 
-                if (!that.$dialogReboot.data('inited')) {
-                    that.$dialogReboot.data('inited', true);
-                    that.$dialogReboot.find('#dialog-reboot-headline').text(_('dialogReboot') + `"${that.list[i]['id']}"`);
-                    that.$dialogReboot.find('#textRebootSingle').text(_('textRebootSingle').replace('? ', '?\n'));
-                    that.$dialogReboot.modal();
-                }
-                that.$dialogReboot.modal('open');
-            });
-        } else {
+            if(that.list[i].alive && that.list[i].momaAlive) {
+                button.addEventListener('click', (obj) => {
+                    $('#rebootOk').click((obj) => {
+                        // console.log('reboot ' + i);
+                        reboot(i);
+                    }); 
+                    if (!that.$dialogReboot.data('inited')) {
+                        that.$dialogReboot.data('inited', true);
+                        that.$dialogReboot.find('#dialog-reboot-headline').text(_('dialogReboot') + `"${that.list[i]['id']}"`);
+                        that.$dialogReboot.find('#textRebootSingle').text(_('textRebootSingle').replace('? ', '?\n'));
+                        that.$dialogReboot.modal();
+                    }
+                    that.$dialogReboot.modal('open');
+                });
+            } else {
+                button.disabled = true;
+            }
+    } else {
             button.style.visibility='hidden';
         }
         button= window.document.querySelector('#btnDetails'+i+'');
