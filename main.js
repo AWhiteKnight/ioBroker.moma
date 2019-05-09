@@ -39,11 +39,15 @@ let timer3 = undefined;
 let timer4 = undefined;
 
 /*
- * call for updated states in interval_0 (default once per second)
+ * call for update machine state
  */
 function updateIntervalAlive() {
+	let defs = require(__dirname + '/lib/definitions');
 	// @ts-ignore
-	adapter.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: true, ack: true, expire: expiration});
+	adapter.setForeignState(defs.hostEntryAlive, {val: true, ack: true, expire: expiration});
+	// todo: implement check!
+	// @ts-ignore
+	adapter.setForeignState(defs.hostEntryNeedsAttention, {val: false, ack: true, expire: expiration});
 }
 
 /*
