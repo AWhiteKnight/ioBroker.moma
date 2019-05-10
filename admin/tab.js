@@ -158,7 +158,8 @@ function Moma() {
 function update(i) {
     console.log('updating ' + that.list[i]['instance']);
     // that.list[i].numUpdates = 0;
-    $('#btnUpdate'+i).disabled=true;
+    // $('#btnUpdate'+i).disabled=true;
+    that.list[i].buttonsDisabled = true;
     main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'doUpdates', (result) => {
         console.log(result);
     });
@@ -167,7 +168,8 @@ function update(i) {
 function reboot(i) {
     console.log('rebooting ' + that.list[i]['instance']);
     // that.list[i].needsReboot = false;
-    $('#btnReboot'+i).disabled=true;
+    // $('#btnReboot'+i).disabled=true;
+    that.list[i].buttonsDisabled = true;
     main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'scheduleReboot', (result) => {
         console.log(result);
     });
@@ -183,6 +185,7 @@ function fetchData(callback) {
                 // console.log(line);
                 let host = {};
                 host.id = line.split('.')[3];
+                host['buttonsDisabled'] = false;
                 that.main.socket.emit('getForeignStates', line + '.*', function (err2, res2) {
                     if(res2) {
                         // console.log('res2: ' + JSON.stringify(res2));
@@ -274,6 +277,7 @@ function createHostBody() {
         let button= window.document.querySelector('#btnUpdate'+i+'');
         if(that.list[i].numUpdates > 0) {
             button.style.visibility='visible';
+            button.disabled = that.list[i].buttonsDisabled;
             if(that.list[i].alive && that.list[i].momaAlive) {
                 button.addEventListener('click', (obj) => {
                     $('#updateOk').click((obj) => {
@@ -298,6 +302,7 @@ function createHostBody() {
         button= window.document.querySelector('#btnReboot'+i+'');
         if(that.list[i].needsReboot) {
             button.style.visibility='visible';
+            button.disabled = that.list[i].buttonsDisabled;
             if(that.list[i].alive && that.list[i].momaAlive) {
                 button.addEventListener('click', (obj) => {
                     $('#rebootOk').click((obj) => {
