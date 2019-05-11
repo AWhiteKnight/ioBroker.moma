@@ -19,87 +19,104 @@
 const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
-// const fs = require('fs');
-
 /** @type {Moma | undefined} */
 let adapter = undefined;
 const duration = 3000;
-const expiration = duration-20;
+const expiration = duration+20;
 /** @type {NodeJS.Timeout | undefined} */
 let timer = undefined;
 /** @type {NodeJS.Timeout | undefined} */
 let timer0 = undefined;
+let duration0 = 1000;
 /** @type {NodeJS.Timeout | undefined} */
 let timer1 = undefined;
+let duration1 = 10000;
 /** @type {NodeJS.Timeout | undefined} */
 let timer2 = undefined;
+let duration2 = 60000;
 /** @type {NodeJS.Timeout | undefined} */
 let timer3 = undefined;
+let duration3 = 3600000;
 /** @type {NodeJS.Timeout | undefined} */
 let timer4 = undefined;
+let duration4 = 24*3600000;
+
+let isInit = true;
+
+let alive = require(__dirname + '/lib/definitions').hostEntryAlive;
+let attention = require(__dirname + '/lib/definitions').hostEntryNeedsAttention;
+let instance = require(__dirname + '/lib/definitions').hostEntryInstance;
+let aHostNeedsAttention = require(__dirname + '/lib/definitions').hostNeedsAttention;
 
 /*
  * call for update machine state
  */
 function updateIntervalAlive() {
-	let defs = require(__dirname + '/lib/definitions');
 	// @ts-ignore
-	adapter.setForeignState(defs.hostEntryAlive, {val: true, ack: true, expire: expiration});
+	adapter.setForeignState(alive, {val: true, ack: true, expire: expiration});
 	// todo: implement check!
 	// @ts-ignore
-	adapter.setForeignState(defs.hostEntryNeedsAttention, {val: false, ack: true});
+	adapter.setForeignState(attention, {val: false, ack: true});
 	// @ts-ignore
-	adapter.setForeignState(defs.hostNeedsAttention, {val: false, ack: true});
+	adapter.setForeignState(aHostNeedsAttention, {val: false, ack: true});
+
+	timer = setTimeout(updateIntervalAlive, duration);
 }
 
 /*
  * call for updated states in interval_0 (default once per second)
  */
-function updateInterval_0(isInit = false) {
+function updateInterval0() {
 	// updating values
 	const Interval0 = require(__dirname + '/lib/Interval0.js');
 	new Interval0().run(adapter, isInit);
+	timer0 = setTimeout(updateInterval0, duration0);
 }
 
 	
 /*
  * call for updated states in interval_1 (default once per 10 sec)
  */
-function updateInterval_1(isInit = false) {
+function updateInterval1() {
 	// updating values
 	const Interval1 = require(__dirname + '/lib/Interval1.js');
 	new Interval1().run(adapter, isInit);
+	timer1 = setTimeout(updateInterval1, duration1);
 }
 	
 /*
  * call for updated states in interval_2 (default once per minute)
  */
-function updateInterval_2(isInit = false) {
+function updateInterval2() {
 	// updating values
 	const Interval2 = require(__dirname + '/lib/Interval2.js');
 	new Interval2().run(adapter, isInit);
+	timer2 = setTimeout(updateInterval2, duration2);
 }
-
 
 /*
  * call for updated states in interval_3 (default once per hour)
  */
-function updateInterval_3(isInit = false) {
+function updateInterval3() {
 	// updating values
 	const Interval3 = require(__dirname + '/lib/Interval3.js');
 	new Interval3().run(adapter, isInit);
+	timer3 = setTimeout(updateInterval3, duration3);
 }
 	
 /*
  * call for updated states in interval_4 (default once per day)
  */
-function updateInterval_4(isInit = false) {
+function updateInterval4() {
 	// updating values
 	const Interval4 = require(__dirname + '/lib/Interval4.js');
 	new Interval4().run(adapter, isInit);
+	timer4 = setTimeout(updateInterval4, duration4);
 }
 
-
+/**
+ * 
+ */
 class Moma extends utils.Adapter {
 
 	/**
@@ -110,7 +127,6 @@ class Moma extends utils.Adapter {
 			...options,
 			name: 'moma',
 		});
-		// store references to the timers
 		adapter = this;
 		this.on('ready', this.onReady.bind(this));
 		this.on('objectChange', this.onObjectChange.bind(this));
@@ -123,25 +139,21 @@ class Moma extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 * So we do our initializations here and start the recurrent updates via timer events.
 	 */
-	onReady() {
+	async onReady() {
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
-		//this.log.debug('config: ' + JSON.stringify(this.config));
 		// Reset the connection indicator during startup
 		this.setState('info.connection', false, true);
+		this.setForeignState(alive, {val: true, ack: true, expire: expiration});
+		this.setForeignState(attention, {val: true, ack: true});
 
 		try {
-			const helper  = require(__dirname + '/lib/helper');
-			const defs = require(__dirname + '/lib/definitions');
-			this.setForeignState(defs.hostEntryNeedsAttention, {val: true, ack: true});
 			// create Entries moma.meta.<hostname>.*
-			helper.createMomaMetaEntries(this);
+			await require(__dirname + '/lib/helper').createMomaMetaEntries(this);
 			// create Entries moma.<instanceId>.*
-			helper.createMomaInstanceEntries(this);
+			await require(__dirname + '/lib/helper').createMomaInstanceEntries(this);
 			// set the instance in moma.meta.<hostname>.instance
-			this.setForeignState(defs.hostEntryNeedsAttention, {val: true, ack: true});
-			this.setForeignState(defs.hostEntryInstance, {val: this.namespace, ack: true});
-			this.setForeignState(defs.hostEntryAlive, {val: true, ack: true, expire: expiration});
+			this.setForeignState(instance, {val: this.namespace, ack: true});
 		  
 			// with this codeline all states changes inside the adapters namespace moma.<instance> are subscribed
 			// not those of moma.meta
@@ -149,41 +161,42 @@ class Moma extends utils.Adapter {
 	
 			// read 'static' values on restart for change of machine configuration
 			const Once = require(__dirname + '/lib/Once.js');
-			new Once().run(this, true);
+			await new Once().run(this, true);
 		} catch(err) {
 			this.log.error('Error on startup: ' + err);
 		}
 
-		// start the recurrent updates pf values
+		// start the recurrent updates of values
 		// if checked run each interval once and then start it with interval timer
-		if(this.config.i0 && this.config.interval0) {
-			updateInterval_0(true);
-			// @ts-ignore
-			timer0 = setInterval(updateInterval_0, this.config.interval0*1000);
+		// start with the longest interval
+		if(this.config.i4 && this.config.interval4) {
+			duration4 = this.config.interval4*24*60*60*1000;
+			await updateInterval4();
+		}
+
+		if(this.config.i3 && this.config.interval3) {
+			duration3 = this.config.interval3*60*60*1000;
+			await updateInterval3();
+		}
+
+		if(this.config.i2 && this.config.interval2) {
+			duration2 = this.config.interval2*60*1000;
+			await updateInterval2();
 		}
 
 		if(this.config.i1 && this.config.interval1) {
-			updateInterval_1(true);
-			// @ts-ignore
-			timer1 = setInterval(updateInterval_1, this.config.interval1*1000);
-		}
-		if(this.config.i2 && this.config.interval2) {
-			updateInterval_2(true);
-			// @ts-ignore
-			timer2 = setInterval(updateInterval_2, this.config.interval2*60*1000);
-		}
-		if(this.config.i3 && this.config.interval3) {
-			updateInterval_3(true);
-			// @ts-ignore
-			timer3 = setInterval(updateInterval_3, this.config.interval3*60*60*1000);
-		}
-		if(this.config.i4 && this.config.interval4) {
-			updateInterval_4(true);
-			// @ts-ignore
-			timer4 = setInterval(updateInterval_4, this.config.interval4*24*60*60*1000);
+			duration1 = this.config.interval1*1000;
+			await updateInterval1();
 		}
 
-		timer = setInterval(updateIntervalAlive, duration);
+		if(this.config.i0 && this.config.interval0) {
+			duration0 = this.config.interval0*1000;
+			await updateInterval0();
+		}
+
+		// init is done
+		isInit = false;
+		updateIntervalAlive();
 
 		// Set the connection indicator after startup
 		this.setState('info.connection', true, true);
@@ -194,22 +207,20 @@ class Moma extends utils.Adapter {
 	 * @param {() => void} callback
 	 */
 	onUnload(callback) {
-		const message = 'cleaned everything up...';
 		try {
-			this.setForeignState(require(__dirname + '/lib/definitions').hostEntryAlive, {val: false, ack: true});
+			this.setForeignState(alive, {val: false, ack: true});
 			// clean up the timer
-			if(timer0) { clearInterval(timer0); timer0 = undefined; }
-			if(timer1) { clearInterval(timer1); timer1 = undefined; }
-			if(timer2) { clearInterval(timer2); timer2 = undefined; }
-			if(timer3) { clearInterval(timer3); timer3 = undefined; }
 			if(timer4) { clearInterval(timer4); timer4 = undefined; }
+			if(timer3) { clearInterval(timer3); timer3 = undefined; }
+			if(timer2) { clearInterval(timer2); timer2 = undefined; }
+			if(timer1) { clearInterval(timer1); timer1 = undefined; }
+			if(timer0) { clearInterval(timer0); timer0 = undefined; }
 			if(timer) { clearInterval(timer); timer = undefined; }
-			this.log.info(message);
-			callback();
 		} catch (e) {
+			this.log.error(e);
+		} finally {
 			callback();
-			if(timer) { clearInterval(timer); timer = undefined; }
-			this.log.error(message);
+			this.log.info('cleaned everything up...');
 		}
 	}
 
@@ -250,7 +261,7 @@ class Moma extends utils.Adapter {
 	 */
 	onMessage(obj) {
 		if (typeof obj === 'object' && obj.message) {
-			this.log.debug(JSON.stringify(obj));
+			// this.log.debug(JSON.stringify(obj));
 	 		if (obj.command === 'execute') {
 	 			// e.g. send email or pushover or whatever
 				this.log.info('send command ' + obj.message);
