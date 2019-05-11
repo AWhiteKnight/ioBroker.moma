@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('starting moma admin-tab script');
+// console.log('starting moma admin-tab script');
 
 //==== socket.io connection ======================================
 let firstConnect = true;
@@ -89,7 +89,7 @@ that.main = main;
 function Moma() {
     // set global language dependant on browser settings
     systemLang = navigator.language;
-    console.log('sprache: ' + systemLang);
+    // console.log('sprache: ' + systemLang);
     // cache translations for table lines /grid elements
     that.words['update'] = _('update');
     that.words['reboot'] = _('reboot');
@@ -112,7 +112,7 @@ function Moma() {
     // confirm button in update all dialog
     $('#updateAllOk').click(() => {
         for (let i = 0; i < that.list.length; i++) {
-            if(that.list[i]['numUpdates'] > 0) {
+            if(that.list[i]['numUpdates'] > 0 && !that.list[i].buttonsDisabled) {
                 update(i);
             }
         }
@@ -135,7 +135,7 @@ function Moma() {
     // confirm button in reboot all dialog
     $('#rebootAllOk').click(() => {
         for (let i = 0; i < that.list.length; i++) {
-            if(that.list[i]['needsReboot'] > 0) {
+            if(that.list[i]['needsReboot'] && !that.list[i].buttonsDisabled) {
                 reboot(i);
             }
         }
@@ -242,25 +242,49 @@ function showHostsTable() {
 function createHostHeader() {
     let text = '<tr>';
     // col for host-state led
-    text += '<th style="width: 15px;"></th>'
+    text += '<th scope="col" style="width: 15px;"></th>'
     // col for hostname
-    text += '<th class="translate" style="width: 100px;">'+_('hostname') + '</th>'
+    text += '<th scope="col" class="translate" style="width: 100px;">'+_('hostname') + '</th>'
     // col for number of updates
-    text += '<th style="width: 20px;">#</th>'
+    text += '<th scope="col" style="width: 20px;">#</th>'
     // col for list of updates
-    text += '<th style="overflow:hidden;" class="translate">'+_('updatelist') + '</th>'
+    text += '<th scope="col" style="overflow:hidden;" class="translate">'+_('updatelist') + '</th>'
     // col for button Update
-    text += '<th style="width: 15px;"> </th>'
+    text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Reboot
-    text += '<th style="width: 15px;"> </th>'
+    text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Details
-    text += '<th style="width: 15px;"> </th>'
+    text += '<th scope="col" style="width: 15px;"> </th>'
 
     text += '</tr>';
 
     let header = that.$tab.find('#table-hosts-head');
     header.html(text);
     header.show();
+}
+
+function createHostFooter() {
+    let text = '<tr>';
+    // col for host-state led
+    text += '<td></td>'
+    // col for hostname
+    text += '<td></td>'
+    // col for number of updates
+    text += '<td></td>'
+    // col for list of updates
+    text += '<td></td>'
+    // col for button Update
+    text += '<td></td>'
+    // col for button Reboot
+    text += '<td></td>'
+    // col for button Details
+    text += '<td></td>'
+
+    text += '</tr>';
+
+    let footer = that.$tab.find('#table-hosts-foot');
+    footer.html(text);
+    footer.show();
 }
 
 function createHostBody() {
@@ -350,7 +374,7 @@ function createHostRow(index) {
     // text += '<td><button type="button" title="' + that.words[state] + '" class="led ' + _class + '" id="' + state + index + '"></button></td>'
     text += '<td><button type="button" disabled title="' + that.words[state] + '" class="led" id="' + state + index + '"></button></td>'
     // hostname
-    text += '<td>' + obj['id'] + '</td>'
+    text += '<th scope="row">' + obj['id'] + '</th>'
     // number of updates
     text += '<td>' + obj['numUpdates'] + '</td>'
     // list of updates

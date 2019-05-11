@@ -24,14 +24,14 @@
 	color:red;
 }
 
-#table-hosts th, tr td {
-	border: 1px dotted;
-}
-
 #table-hosts tr td {
 	border: 1px dotted;
 	padding-top: 0px;
 	padding-bottom: 0px;
+}
+
+#table-hosts th, tr td {
+	border: 1px dotted;
 }
 
 #table-hosts-head {
@@ -39,6 +39,10 @@
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
+}
+
+#table-hosts-head th {
+	font-weight: bold;
 }
 
 #table-hosts-body {
