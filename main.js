@@ -216,11 +216,10 @@ class Moma extends utils.Adapter {
 			if(timer1) { clearInterval(timer1); timer1 = undefined; }
 			if(timer0) { clearInterval(timer0); timer0 = undefined; }
 			if(timer) { clearInterval(timer); timer = undefined; }
-		} catch (e) {
-			this.log.error(e);
-		} finally {
-			callback();
 			this.log.info('cleaned everything up...');
+			callback();
+		} catch (e) {
+			callback();
 		}
 	}
 
