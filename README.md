@@ -31,7 +31,7 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
-### 1.0.1 (2019-??-??)
+### 1.0.1 (2019-05-12)
 * (AWhiteKnight) Fix for #24.
 
 ### 1.0.0 (2019-05-11)

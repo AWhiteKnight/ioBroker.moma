@@ -4,8 +4,8 @@
 		"version": "1.0.1",
 		"news": {
             "1.0.1": {
-                "en": "Fix #24",
-                "de": "Fix #24"
+                "en": "Fix for #24",
+                "de": "Fix for #24"
             },
             "1.0.0": {
                 "en": "First release for adapter list 'stable'",
