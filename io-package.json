@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"news": {
+            "1.0.2": {
+                "en": "Next try to fix #24",
+                "de": "Nächster Versuch #24 zu beheben"
+            },
             "1.0.1": {
                 "en": "Fix for #24",
                 "de": "Fix for #24"
