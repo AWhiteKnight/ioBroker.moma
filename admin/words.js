@@ -194,7 +194,7 @@ systemDictionary = {
     "pl": "Informacje o kartach graficznych komputerów i podłączonych monitorach",
     "zh-cn": "有关计算机图形卡和连接的监视器的信息"
 	},
-  "osInfo": {
+  "os": {
     "en": "Information about computers operating system",
     "de": "Informationen zum Betriebssystem des Computers",
     "ru": "Информация о компьютерах операционной системы",
@@ -229,7 +229,19 @@ systemDictionary = {
     "es": "Frecuencias reales de cpu y core",
     "pl": "Rzeczywista częstotliwość procesora i rdzenia",
     "zh-cn": "实际cpu和核心频率"
-	},
+  },
+  "inetLatency": {
+    "en": "Response-time (ms) to external resource (using IP 8.8.8.8)",
+    "de": "Reaktionszeit (ms) zu externer Ressource (unter Verwendung von IP 8.8.8.8)",
+    "ru": "Время отклика (мс) на внешний ресурс (с использованием IP 8.8.8.8)",
+    "pt": "Tempo de resposta (ms) ao recurso externo (usando o IP 8.8.8.8)",
+    "nl": "Reactietijd (ms) voor externe bron (met IP 8.8.8.8)",
+    "fr": "Temps de réponse (ms) à une ressource externe (utilisant IP 8.8.8.8)",
+    "it": "Tempo di risposta (ms) a risorsa esterna (utilizzando IP 8.8.8.8)",
+    "es": "Tiempo de respuesta (ms) al recurso externo (usando IP 8.8.8.8)",
+    "pl": "Czas odpowiedzi (ms) na zasoby zewnętrzne (przy użyciu IP 8.8.8.8)",
+    "zh-cn": "对外部资源的响应时间（ms）（使用IP 8.8.8.8）"
+  },
   "networkConnections": {
     "en": "Actual network connections",
     "de": "Aktuelle Netzwerkverbindungen",
@@ -290,7 +302,7 @@ systemDictionary = {
     "pl": "Stan naładowania i informacje o akumulatorze",
     "zh-cn": "充电状态和有关电池的信息"
 	},
-  "cpuTemperature": {
+  "temp": {
     "en": "Temperatures of cpu and cores",
     "de": "Temperaturen von CPU und Kernen",
     "ru": "Температура процессора и ядер",
@@ -313,18 +325,6 @@ systemDictionary = {
     "es": "Estadísticas de red",
     "pl": "Statystyki sieciowe",
     "zh-cn": "网络统计"
-	},
-  "fullLoad": {
-    "en": "Average load since last boot",
-    "de": "Durchschnittslast seit dem letzten Start",
-    "ru": "Средняя загрузка с момента последней загрузки",
-    "pt": "Carga média desde a última inicialização",
-    "nl": "Gemiddelde belasting sinds laatste start",
-    "fr": "Charge moyenne depuis le dernier démarrage",
-    "it": "Carico medio dall'ultimo avvio",
-    "es": "Carga media desde el último arranque",
-    "pl": "Średnie obciążenie od ostatniego rozruchu",
-    "zh-cn": "上次启动后的平均负载"
 	},
   "users": {
     "en": "Current user sessions",
@@ -350,18 +350,6 @@ systemDictionary = {
     "pl": "Informacje o systemie plików komputerów",
     "zh-cn": "有关计算机文件系统的信息"
 	},
-  "blockDevices": {
-    "en": "Connected block devices",
-    "de": "Angeschlossene Blockgeräte",
-    "ru": "Подключенные блочные устройства",
-    "pt": "Dispositivos de bloco conectados",
-    "nl": "Verbonden blokapparaten",
-    "fr": "Blocs périphériques connectés",
-    "it": "Dispositivi a blocchi connessi",
-    "es": "Dispositivos de bloque conectados",
-    "pl": "Połączone urządzenia blokowe",
-    "zh-cn": "连接块设备"
-	},
   "fsStats": {
     "en": "File access statistics",
     "de": "Dateizugriffsstatistik",
@@ -386,19 +374,7 @@ systemDictionary = {
     "pl": "Statystyki IO urządzeń blokowych",
     "zh-cn": "块设备的IO统计信息"
 	},
-  "networkInterfaceDefault": {
-    "en": "Default network interface",
-    "de": "Standard-Netzwerkschnittstelle",
-    "ru": "Сетевой интерфейс по умолчанию",
-    "pt": "Interface de rede padrão",
-    "nl": "Standaard netwerkinterface",
-    "fr": "Interface réseau par défaut",
-    "it": "Interfaccia di rete predefinita",
-    "es": "Interfaz de red predeterminada",
-    "pl": "Domyślny interfejs sieciowy",
-    "zh-cn": "默认网络接口"
-	},
-	"networkInterfaces": {
+	"net": {
     "en": "Available network interfaces",
     "de": "Verfügbare Netzwerkschnittstellen",
     "ru": "Доступные сетевые интерфейсы",
@@ -433,18 +409,6 @@ systemDictionary = {
     "es": "UUID's de instalación",
     "pl": "Identyfikatory UUID instalacji",
     "zh-cn": "UUID的安装"
-	},
-	"shell": {
-    "en": "Default system shell",
-    "de": "Standard-Systemshell",
-    "ru": "Системная оболочка по умолчанию",
-    "pt": "Shell do sistema padrão",
-    "nl": "Standaard systeemshell",
-    "fr": "Shell système par défaut",
-    "it": "Shell di sistema predefinita",
-    "es": "Shell del sistema predeterminado",
-    "pl": "Domyślna powłoka systemu",
-    "zh-cn": "默认系统shell"
 	},
 	"versions": {
     "en": "Versions of installed software packages",

@@ -119,7 +119,10 @@
         "i3": true,
         "interval3": 1,
         "i4": true,
-        "interval4": 1
+		"interval4": 1,
+		"version": true,
+		"v8": true,
+		"node": true
 	},
     "objects": [
         {

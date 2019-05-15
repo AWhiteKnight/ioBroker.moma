@@ -20,7 +20,7 @@ const utils = require('@iobroker/adapter-core');
 
 // @ts-ignore
 const si = require('systeminformation');
-const Interval = require(__dirname + '/lib/Interval.js');
+const Systeminfo = require(__dirname + '/lib/Systeminfo.js');
 
 // Load your modules here, e.g.:
 /** @type {Moma | undefined} */
@@ -55,7 +55,7 @@ function updateIntervalAlive() {
 	adapter.setForeignState(alive, {val: true, ack: true, expire: duration + 50});
 	// todo: implement check!
 	// @ts-ignore
-	adapter.setForeignState(attention, {val: false, ack: true});
+	// adapter.setForeignState(attention, {val: false, ack: true});
 	// @ts-ignore
 	// adapter.setForeignState(aHostNeedsAttention, {val: false, ack: true});
 }
@@ -63,56 +63,48 @@ function updateIntervalAlive() {
 /*
  * call for updated states in interval_0 (default once per second)
  */
-function updateInterval0(isInit = false) {
+function updateInterval0() {
 	// updating values
-	// const Interval0 = require(__dirname + '/lib/Interval0.js');
-	// new Interval0().run(adapter, isInit);
 	// @ts-ignore
-	Interval.getDynamicData(adapter, 0, isInit);
+	Systeminfo.getData(0);
 }
 
 	
 /*
  * call for updated states in interval_1 (default once per 10 sec)
  */
-function updateInterval1(isInit = false) {
+function updateInterval1() {
 	// updating values
-	// const Interval1 = require(__dirname + '/lib/Interval1.js');
-	// new Interval1().run(adapter, isInit);
 	// @ts-ignore
-	Interval.getDynamicData(adapter, 1, isInit);
+	Systeminfo.getData(1);
 }
 	
 /*
  * call for updated states in interval_2 (default once per minute)
  */
-function updateInterval2(isInit = false) {
+function updateInterval2() {
 	// updating values
-	// const Interval2 = require(__dirname + '/lib/Interval2.js');
-	// new Interval2().run(adapter, isInit);
 	// @ts-ignore
-	Interval.getDynamicData(adapter, 2, isInit);
+	Systeminfo.getData(2);
 }
 
 /*
  * call for updated states in interval_3 (default once per hour)
  */
-function updateInterval3(isInit = false) {
+function updateInterval3() {
 	// updating values
-	// const Interval3 = require(__dirname + '/lib/Interval3.js');
-	// new Interval3().run(adapter, isInit);
 	// @ts-ignore
-	Interval.getDynamicData(adapter, 3, isInit);
+	Systeminfo.getData(3);
 }
 	
 /*
  * call for updated states in interval_4 (default once per day)
  */
-function updateInterval4(isInit = false) {
+function updateInterval4() {
 	// updating values
-	const Interval4 = require(__dirname + '/lib/Interval4.js');
-	new Interval4().run(adapter, isInit);
-	// adapter.log.debug('running Interval4');
+	Systeminfo.getData(4);
+	const Interval4 = require(__dirname + '/lib/Systemmaintenance.js');
+	new Interval4().run(adapter, false);
 	// Interval.getStaticData(adapter, false);
 	// Interval.getDynamicData(adapter, 4, isInit);
 	
@@ -177,7 +169,11 @@ class Moma extends utils.Adapter {
 			// read 'static' values on restart for change of machine configuration
 			// const Once = require(__dirname + '/lib/Once.js');
 			// new Once().run(this, true);
-			Interval.getStaticData(adapter, true);
+			// Systeminfo.getDynamicData(adapter, 5, true);
+			Systeminfo.init(adapter);
+			const Interval4 = require(__dirname + '/lib/Systemmaintenance.js');
+			// new Interval4().run(adapter, true);
+			new Interval4().init(adapter);
 		} catch(err) {
 			this.log.error('Error on startup: ' + err);
 		}
@@ -186,42 +182,34 @@ class Moma extends utils.Adapter {
 		// if checked run each interval once and then start it with interval timer
 		// start with the longest interval
 		if(this.config.i4 && this.config.interval4) {
-			updateInterval4(true);
-			await sleep(1000);
 			// @ts-ignore
 			timer4 = setInterval(updateInterval4, this.config.interval4*24*60*60*1000);
 		}
 
 		if(this.config.i3 && this.config.interval3) {
-			updateInterval3(true);
-			await sleep(1000);
 			// @ts-ignore
 			timer3 = setInterval(updateInterval3, this.config.interval3*60*60*1000);
 		}
 
 		if(this.config.i2 && this.config.interval2) {
-			updateInterval2(true);
-			await sleep(1000);
 			// @ts-ignore
 			timer2 = setInterval(updateInterval2, this.config.interval2*60*1000);
 		}
 
 		if(this.config.i1 && this.config.interval1) {
-			updateInterval1(true);
-			await sleep(1000);
 			// @ts-ignore
 			timer1 = setInterval(updateInterval1, this.config.interval1*1000);
 		}
 
 		if(this.config.i0 && this.config.interval0) {
-			updateInterval0(true);
 			// @ts-ignore
 			timer0 = setInterval(updateInterval0, this.config.interval0*1000);
 		}
 
 		// init is done
-		timer = setInterval(updateIntervalAlive, 2000);
+		// timer = setInterval(updateIntervalAlive, 2000);
 
+		this.setForeignState(attention, {val: false, ack: true});
 		// Set the connection indicator after startup
 		this.setState('info.connection', true, true);
 	}
@@ -289,11 +277,11 @@ class Moma extends utils.Adapter {
 	 			// e.g. send email or pushover or whatever
 				this.log.info('send command ' + obj.message);
 				if(obj.message == 'doUpdates') {
-					const Interval4 = require(__dirname + '/lib/Interval4.js');
-					new Interval4().doUpdates(this);
+					const Systemmaintenance = require(__dirname + '/lib/Systemmaintenance.js');
+					new Systemmaintenance().doUpdates(this);
 				} else if(obj.message == 'scheduleReboot') {
-					const Interval4 = require(__dirname + '/lib/Interval4.js');
-					new Interval4().scheduleReboot(this);
+					const Systemmaintenance = require(__dirname + '/lib/Systemmaintenance.js');
+					new Systemmaintenance().scheduleReboot(this);
 				}
 
 	 			// Send response in callback if required
