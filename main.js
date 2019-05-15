@@ -18,6 +18,10 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 
+// @ts-ignore
+const si = require('systeminformation');
+const Interval = require(__dirname + '/lib/Interval.js');
+
 // Load your modules here, e.g.:
 /** @type {Moma | undefined} */
 let adapter = undefined;
@@ -46,6 +50,8 @@ let duration = 2000;
  */
 function updateIntervalAlive() {
 	// @ts-ignore
+	adapter.log.debug('running IntervalAlive');
+	// @ts-ignore
 	adapter.setForeignState(alive, {val: true, ack: true, expire: duration + 50});
 	// todo: implement check!
 	// @ts-ignore
@@ -59,8 +65,10 @@ function updateIntervalAlive() {
  */
 function updateInterval0(isInit = false) {
 	// updating values
-	const Interval0 = require(__dirname + '/lib/Interval0.js');
-	new Interval0().run(adapter, isInit);
+	// const Interval0 = require(__dirname + '/lib/Interval0.js');
+	// new Interval0().run(adapter, isInit);
+	// @ts-ignore
+	Interval.getDynamicData(adapter, 0, isInit);
 }
 
 	
@@ -69,8 +77,10 @@ function updateInterval0(isInit = false) {
  */
 function updateInterval1(isInit = false) {
 	// updating values
-	const Interval1 = require(__dirname + '/lib/Interval1.js');
-	new Interval1().run(adapter, isInit);
+	// const Interval1 = require(__dirname + '/lib/Interval1.js');
+	// new Interval1().run(adapter, isInit);
+	// @ts-ignore
+	Interval.getDynamicData(adapter, 1, isInit);
 }
 	
 /*
@@ -78,8 +88,10 @@ function updateInterval1(isInit = false) {
  */
 function updateInterval2(isInit = false) {
 	// updating values
-	const Interval2 = require(__dirname + '/lib/Interval2.js');
-	new Interval2().run(adapter, isInit);
+	// const Interval2 = require(__dirname + '/lib/Interval2.js');
+	// new Interval2().run(adapter, isInit);
+	// @ts-ignore
+	Interval.getDynamicData(adapter, 2, isInit);
 }
 
 /*
@@ -87,8 +99,10 @@ function updateInterval2(isInit = false) {
  */
 function updateInterval3(isInit = false) {
 	// updating values
-	const Interval3 = require(__dirname + '/lib/Interval3.js');
-	new Interval3().run(adapter, isInit);
+	// const Interval3 = require(__dirname + '/lib/Interval3.js');
+	// new Interval3().run(adapter, isInit);
+	// @ts-ignore
+	Interval.getDynamicData(adapter, 3, isInit);
 }
 	
 /*
@@ -98,6 +112,10 @@ function updateInterval4(isInit = false) {
 	// updating values
 	const Interval4 = require(__dirname + '/lib/Interval4.js');
 	new Interval4().run(adapter, isInit);
+	// adapter.log.debug('running Interval4');
+	// Interval.getStaticData(adapter, false);
+	// Interval.getDynamicData(adapter, 4, isInit);
+	
 }
 
 /**
@@ -157,8 +175,9 @@ class Moma extends utils.Adapter {
 			//this.subscribeStates('*');
 	
 			// read 'static' values on restart for change of machine configuration
-			const Once = require(__dirname + '/lib/Once.js');
-			new Once().run(this, true);
+			// const Once = require(__dirname + '/lib/Once.js');
+			// new Once().run(this, true);
+			Interval.getStaticData(adapter, true);
 		} catch(err) {
 			this.log.error('Error on startup: ' + err);
 		}
@@ -168,35 +187,34 @@ class Moma extends utils.Adapter {
 		// start with the longest interval
 		if(this.config.i4 && this.config.interval4) {
 			updateInterval4(true);
-			await sleep(500);
+			await sleep(1000);
 			// @ts-ignore
 			timer4 = setInterval(updateInterval4, this.config.interval4*24*60*60*1000);
 		}
 
 		if(this.config.i3 && this.config.interval3) {
 			updateInterval3(true);
-			await sleep(500);
+			await sleep(1000);
 			// @ts-ignore
 			timer3 = setInterval(updateInterval3, this.config.interval3*60*60*1000);
 		}
 
 		if(this.config.i2 && this.config.interval2) {
 			updateInterval2(true);
-			await sleep(500);
+			await sleep(1000);
 			// @ts-ignore
 			timer2 = setInterval(updateInterval2, this.config.interval2*60*1000);
 		}
 
 		if(this.config.i1 && this.config.interval1) {
 			updateInterval1(true);
-			await sleep(500);
+			await sleep(1000);
 			// @ts-ignore
 			timer1 = setInterval(updateInterval1, this.config.interval1*1000);
 		}
 
 		if(this.config.i0 && this.config.interval0) {
 			updateInterval0(true);
-			await sleep(500);
 			// @ts-ignore
 			timer0 = setInterval(updateInterval0, this.config.interval0*1000);
 		}

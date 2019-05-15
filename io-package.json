@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.0.2",
+		"version": "1.0.3",
 		"news": {
+            "1.0.3": {
+                "en": "Default frequency of Interval 0 changed to 2",
+                "de": "Standarwert für Frequenz von Intervall 0 auf 2 gesetzt"
+            },
             "1.0.2": {
                 "en": "Next try to fix #24",
                 "de": "Nächster Versuch #24 zu beheben"
@@ -107,7 +111,7 @@
 	},
 	"native": {
 	    "i0": true,
-        "interval0": 1,
+        "interval0": 2,
         "i1": true,
         "interval1": 10,
         "i2": true,
