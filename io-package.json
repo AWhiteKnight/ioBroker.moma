@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.0.2",
+		"version": "1.0.3",
 		"news": {
+            "1.0.3": {
+                "en": "Performance optimization to fix #24",
+                "de": "Performance-Optimierung zu #24"
+            },
             "1.0.2": {
                 "en": "Next try to fix #24",
                 "de": "Nächster Versuch #24 zu beheben"

@@ -40,7 +40,7 @@ let instance = require(__dirname + '/lib/definitions').hostEntryInstance;
 // @ts-ignore
 // let aHostNeedsAttention = require(__dirname + '/lib/definitions').hostNeedsAttention;
 
-let duration = 2000;
+let duration = 3000;
 /*
  * call for update machine state
  */
@@ -49,9 +49,9 @@ function updateIntervalAlive() {
 	adapter.setForeignState(alive, {val: true, ack: true, expire: duration + 50});
 	// todo: implement check!
 	// @ts-ignore
-	adapter.setForeignState(attention, {val: false, ack: true});
+	// adapter.setForeignStateChanged(attention, {val: false, ack: true});
 	// @ts-ignore
-	// adapter.setForeignState(aHostNeedsAttention, {val: false, ack: true});
+	// adapter.setForeignStateChanged(aHostNeedsAttention, {val: false, ack: true});
 }
 
 /*
@@ -136,21 +136,21 @@ class Moma extends utils.Adapter {
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
 		// Reset the connection indicator during startup
-		this.setState('info.connection', false, true);
-		this.setForeignState(alive, {val: true, ack: true, expire: duration + 50});
-		this.setForeignState(attention, {val: true, ack: true});
+		this.setStateChanged('info.connection', false, true);
+		this.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 50});
+		this.setForeignStateChanged(attention, {val: true, ack: true});
 
 		try {
 			// create Entries moma.meta.<hostname>.*
 			require(__dirname + '/lib/helper').createMomaMetaEntries(this);
 			// wait a few seconds to give the broker a chance to finish creation
-			await sleep(2000);
+			await sleep(500);
 			// set the instance in moma.meta.<hostname>.instance
-			this.setForeignState(instance, {val: this.namespace, ack: true});
+			this.setForeignStateChanged(instance, {val: this.namespace, ack: true});
 			// create Entries moma.<instanceId>.*
 			require(__dirname + '/lib/helper').createMomaInstanceEntries(this);
 			// wait a few seconds to give the broker a chance to finish creation
-			await sleep(3000);
+			await sleep(1000);
 		  
 			// with this codeline all states changes inside the adapters namespace moma.<instance> are subscribed
 			// not those of moma.meta
@@ -168,44 +168,45 @@ class Moma extends utils.Adapter {
 		// start with the longest interval
 		if(this.config.i4 && this.config.interval4) {
 			updateInterval4(true);
-			await sleep(500);
+			await sleep(100);
 			// @ts-ignore
 			timer4 = setInterval(updateInterval4, this.config.interval4*24*60*60*1000);
 		}
 
 		if(this.config.i3 && this.config.interval3) {
 			updateInterval3(true);
-			await sleep(500);
+			await sleep(100);
 			// @ts-ignore
 			timer3 = setInterval(updateInterval3, this.config.interval3*60*60*1000);
 		}
 
 		if(this.config.i2 && this.config.interval2) {
 			updateInterval2(true);
-			await sleep(500);
+			await sleep(100);
 			// @ts-ignore
 			timer2 = setInterval(updateInterval2, this.config.interval2*60*1000);
 		}
 
 		if(this.config.i1 && this.config.interval1) {
 			updateInterval1(true);
-			await sleep(500);
+			await sleep(100);
 			// @ts-ignore
 			timer1 = setInterval(updateInterval1, this.config.interval1*1000);
 		}
 
 		if(this.config.i0 && this.config.interval0) {
 			updateInterval0(true);
-			await sleep(500);
+			await sleep(100);
 			// @ts-ignore
 			timer0 = setInterval(updateInterval0, this.config.interval0*1000);
 		}
 
 		// init is done
-		timer = setInterval(updateIntervalAlive, 2000);
+		timer = setInterval(updateIntervalAlive, duration);
 
+		this.setForeignStateChanged(attention, {val: false, ack: true});
 		// Set the connection indicator after startup
-		this.setState('info.connection', true, true);
+		this.setStateChanged('info.connection', true, true);
 	}
 
 	/**
