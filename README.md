@@ -31,6 +31,11 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
+### 1.0.4 (2019-05-17)
+* (AWhiteKnight) Performance optimization. 
+
+**Attention:** Change in some states - please delete objects of instance before restart of instance.
+
 ### 1.0.3 (2019-05-15)
 * (AWhiteKnight) Performance optimization to fix #24.
 
