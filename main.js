@@ -18,10 +18,6 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 
-// @ts-ignore
-const si = require('systeminformation');
-const Systeminfo = require(__dirname + '/lib/Systeminfo.js');
-
 // Load your modules here, e.g.:
 /** @type {Moma | undefined} */
 let adapter = undefined;
@@ -272,11 +268,11 @@ class Moma extends utils.Adapter {
 	 			// e.g. send email or pushover or whatever
 				this.log.info('send command ' + obj.message);
 				if(obj.message == 'doUpdates') {
-					const Systemmaintenance = require(__dirname + '/lib/Systemmaintenance.js');
-					new Systemmaintenance().doUpdates(this);
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().doUpdates(this);
 				} else if(obj.message == 'scheduleReboot') {
-					const Systemmaintenance = require(__dirname + '/lib/Systemmaintenance.js');
-					new Systemmaintenance().scheduleReboot(this);
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().scheduleReboot(this);
 				}
 
 	 			// Send response in callback if required
