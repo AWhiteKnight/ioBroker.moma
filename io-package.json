@@ -115,7 +115,7 @@
 	},
 	"native": {
 	    "i0": true,
-        "interval0": 2,
+        "interval0": 1,
         "i1": true,
         "interval1": 10,
         "i2": true,
@@ -123,10 +123,7 @@
         "i3": true,
         "interval3": 1,
         "i4": true,
-		"interval4": 1,
-		"version": true,
-		"v8": true,
-		"node": true
+        "interval4": 1
 	},
     "objects": [
         {
