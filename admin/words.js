@@ -409,7 +409,19 @@ systemDictionary = {
     "es": "Interfaces de red disponibles",
     "pl": "Dostępne interfejsy sieciowe",
     "zh-cn": "可用的网络接口"
-	},
+  },
+  "inetLatency": {
+    "en": "internet latency checked against 8.8.8.8",
+    "de": "Internet-Latenzzeit gegen 8.8.8.8 geprüft",
+    "ru": "задержка интернета проверена по 8.8.8.8",
+    "pt": "latência da internet verificada em relação a 8.8.8.8",
+    "nl": "internetlatentie gecontroleerd tegen 8.8.8.8",
+    "fr": "latence internet vérifiée contre 8.8.8.8",
+    "it": "latenza internet controllata contro 8.8.8.8",
+    "es": "Latencia de internet verificada contra 8.8.8.8",
+    "pl": "opóźnienie Internetu sprawdzone z 8.8.8.8",
+    "zh-cn": "网络延迟检查8.8.8.8"
+  },
   "updates": {
     "en": "Check for available updates",
     "de": "Nach verfügbaren Updates suchen",
