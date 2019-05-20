@@ -152,14 +152,17 @@ class Moma extends utils.Adapter {
 		this.setForeignStateChanged(attention, {val: true, ack: true});
 
 		try {
+			let helper = require(__dirname + '/lib/helper');
+			// cleanup old stuuf
+			helper.releasePreparation(this);
 			// create Entries moma.meta.<hostname>.*
-			require(__dirname + '/lib/helper').createMomaMetaEntries(this);
+			helper.createMomaMetaEntries(this);
 			// wait a few seconds to give the broker a chance to finish creation
 			await sleep(500);
 			// set the instance in moma.meta.<hostname>.instance
 			this.setForeignStateChanged(instance, {val: this.namespace, ack: true});
 			// create Entries moma.<instanceId>.*
-			require(__dirname + '/lib/helper').createMomaInstanceEntries(this);
+			helper.createMomaInstanceEntries(this);
 			// wait a few seconds to give the broker a chance to finish creation
 			await sleep(1000);
 		  
