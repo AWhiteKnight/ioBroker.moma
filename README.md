@@ -31,19 +31,8 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
-### 1.0.4 (2019-05-17)
-* (AWhiteKnight) Performance optimization. 
-
-**Attention:** Change in some states - please delete objects of instance before restart of instance.
-
-### 1.0.3 (2019-05-15)
-* (AWhiteKnight) Performance optimization to fix #24.
-
-### 1.0.2 (2019-05-13)
-* (AWhiteKnight) Next try to fix #24.
-
-### 1.0.1 (2019-05-12)
-* (AWhiteKnight) Fix for #24.
+### 1.1.0 (2019-05-17)
+* (AWhiteKnight) Performance optimization. Fix of issue #24. Check internet latency.
 
 ### 1.0.0 (2019-05-11)
 * (AWhiteKnight) First release for adapter list 'stable'.
@@ -120,6 +109,7 @@ Following functions of library systeminformation are called in interval 3 (defau
 * networkInterfaceDefault - Default network interface
 * networkInterfaces - Avilable network interfaces
 * graphics - Information about computers graphics cards and connected monitors
+* inetLatency - Check internet latency against 8.8.8.8
 
 
 Following functions of library systeminformation are called in interval 4 (default every day):
