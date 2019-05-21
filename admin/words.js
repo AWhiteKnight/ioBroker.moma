@@ -422,6 +422,18 @@ systemDictionary = {
     "pl": "opóźnienie Internetu sprawdzone z 8.8.8.8",
     "zh-cn": "网络延迟检查8.8.8.8"
   },
+  "dockerContainers": {
+    "en": "List of all docker containers in the docker environment of this machine. Needs 'adduser iobroker docker'!",
+    "de": "Liste aller Docker-Container in der Docker-Umgebung dieses Systems. Benötigt 'adduser iobroker docker'!",
+    "ru": "Список всех Docker-контейнеров в Docker-среде этой машины. Нужен аддусер иоброкер докер!",
+    "pt": "Lista de todos os contêineres docker no ambiente de encaixe desta máquina. Precisa do adduser iobroker docker '!",
+    "nl": "Lijst van alle dockercontainers in de dockeromgeving van deze machine. Heeft 'adduser iobroker docker' nodig!",
+    "fr": "Liste de tous les conteneurs de menu fixe dans l'environnement de menu fixe de cette machine. Besoin docker adduser iobroker '!",
+    "it": "Elenco di tutti i contenitori finestra mobile nell'ambiente finestra mobile di questa macchina. Richiede 'adduser iobroker docker'!",
+    "es": "Lista de todos los contenedores de la ventana acoplable en el entorno de la máquina acoplable. Necesita 'adduser iobroker docker'!",
+    "pl": "Lista wszystkich kontenerów dokowania w środowisku dokowania tego komputera. Potrzebuje „dokera adduser iobroker”!",
+    "zh-cn": "此机器的docker环境中所有docker容器的列表。需要'adduser iobroker docker'！"
+  },
   "updates": {
     "en": "Check for available updates",
     "de": "Nach verfügbaren Updates suchen",

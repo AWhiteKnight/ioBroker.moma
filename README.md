@@ -110,6 +110,7 @@ Following functions of library systeminformation are called in interval 3 (defau
 * networkInterfaces - Avilable network interfaces
 * graphics - Information about computers graphics cards and connected monitors
 * inetLatency - Check internet latency against 8.8.8.8
+* dockerContainers - List of all docker Containers - needs an "adduser iobroker docker" on the machine before it will work properly
 
 
 Following functions of library systeminformation are called in interval 4 (default every day):
