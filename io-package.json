@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.1.0",
+		"version": "1.1.1",
 		"news": {
+            "1.1.1": {
+                "en": "Docker, systeminformation 4.5.1, ",
+                "de": ""
+            },
             "1.1.0": {
                 "en": "Performance optimization. Fix of issue #24. Check internet latency.",
                 "de": "Performance-Optimierung. Fix von Issue #24. Internet-Latenz prüfen"

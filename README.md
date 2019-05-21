@@ -31,6 +31,9 @@ MoMa needs at least nodejs version 8 / ES6.
 
 ## Changelog
 
+### 1.1.1 (2019-??-??)
+* (AWhiteKnight) dockerContainers in Interval 3. Library 'systeminformation' version 4.5.1
+
 ### 1.1.0 (2019-05-20)
 * (AWhiteKnight) Performance optimization. Fix of issue #24. Check internet latency.
 
