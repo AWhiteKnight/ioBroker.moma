@@ -104,8 +104,8 @@ Following functions of library systeminformation are called in interval 2 (defau
 * users - Current user sessions
 * fsSize - Information about computers file system
 * blockDevices - Connected block devices
-* fsStats - File access statistics
-* disksIO - IO statistics of block devices
+* fsStats - File access statistics - not supported with Windows
+* disksIO - IO statistics of block devices - not supported with Windows
 
 
 Following functions of library systeminformation are called in interval 3 (default every hour):
@@ -119,7 +119,7 @@ Following functions of library systeminformation are called in interval 3 (defau
 Following functions of library systeminformation are called in interval 4 (default every day):
 * osInfo - Information about computers operating system
 * uuid - UUID's of installation
-* shell - Default system shell
+* shell - Default system shell - not supported with Windows
 * versions - Versions of installed software packages
 
 
