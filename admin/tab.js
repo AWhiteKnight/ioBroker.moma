@@ -255,6 +255,8 @@ function createHostHeader() {
     text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Details
     text += '<th scope="col" style="width: 15px;"> </th>'
+    // col for button Update JS-Controller
+    text += '<th scope="col" style="width: 15px;"> </th>'
 
     text += '</tr>';
 
@@ -278,6 +280,8 @@ function createHostFooter() {
     // col for button Reboot
     text += '<td></td>'
     // col for button Details
+    text += '<td></td>'
+    // col for button Update JS-Controller
     text += '<td></td>'
 
     text += '</tr>';
@@ -357,6 +361,20 @@ function createHostBody() {
             }
             that.$dialogDetails.modal('open');
         });
+
+        button= window.document.querySelector('#btnJSController'+i+'');
+        button.addEventListener('click', (obj) => {
+            // if (!that.$dialogDetails.data('inited')) {
+            //     that.$dialogDetails.data('inited', true);
+            //     that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i]['id']}"`);
+            //     that.$dialogDetails.modal();
+            // }
+            // that.$dialogDetails.modal('open');
+            that.list[i].buttonsDisabled = true;
+            main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateJSController', (result) => {
+                console.log(result);
+            });
+        });
     }
 }
 
@@ -385,6 +403,8 @@ function createHostRow(index) {
     text += '<td><button type="button" title="' + that.words['reboot'] + '" class="btn reboot" id="btnReboot' + index + '">R</button></td>'
     // button Details
     text += '<td><button type="button" title="' + that.words['details']+ '" class="btn details" id="btnDetails'+index + '">I</button></td>'
+    // button Update JS-Controller
+    text += '<td><button type="button" title="' + that.words['jscontroller']+ '" class="btn jscontrooler" id="btnJSController'+index + '">C</button></td>'
     text += '</tr>';
 
     return text;
