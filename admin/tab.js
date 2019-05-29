@@ -249,13 +249,13 @@ function createHostHeader() {
     text += '<th scope="col" style="width: 20px;">#</th>'
     // col for list of updates
     text += '<th scope="col" style="overflow:hidden;" class="translate">'+_('updatelist') + '</th>'
+    // col for button Update JS-Controller
+    text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Update
     text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Reboot
     text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Details
-    text += '<th scope="col" style="width: 15px;"> </th>'
-    // col for button Update JS-Controller
     text += '<th scope="col" style="width: 15px;"> </th>'
 
     text += '</tr>';
@@ -275,13 +275,13 @@ function createHostFooter() {
     text += '<td></td>'
     // col for list of updates
     text += '<td></td>'
+    // col for button Update JS-Controller
+    text += '<td></td>'
     // col for button Update
     text += '<td></td>'
     // col for button Reboot
     text += '<td></td>'
     // col for button Details
-    text += '<td></td>'
-    // col for button Update JS-Controller
     text += '<td></td>'
 
     text += '</tr>';
@@ -302,7 +302,21 @@ function createHostBody() {
     body.show();
     
     for (let i = 0; i < that.list.length; i++) {
-        let button= window.document.querySelector('#btnUpdate'+i+'');
+        let button= window.document.querySelector('#btnJSController'+i+'');
+        button.addEventListener('click', (obj) => {
+            // if (!that.$dialogDetails.data('inited')) {
+            //     that.$dialogDetails.data('inited', true);
+            //     that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i]['id']}"`);
+            //     that.$dialogDetails.modal();
+            // }
+            // that.$dialogDetails.modal('open');
+            that.list[i].buttonsDisabled = true;
+            main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateJSController', (result) => {
+                console.log(result);
+            });
+        });
+
+        button= window.document.querySelector('#btnUpdate'+i+'');
         if(that.list[i].numUpdates > 0) {
             button.style.visibility='visible';
             button.disabled = that.list[i].buttonsDisabled;
@@ -361,20 +375,6 @@ function createHostBody() {
             }
             that.$dialogDetails.modal('open');
         });
-
-        button= window.document.querySelector('#btnJSController'+i+'');
-        button.addEventListener('click', (obj) => {
-            // if (!that.$dialogDetails.data('inited')) {
-            //     that.$dialogDetails.data('inited', true);
-            //     that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i]['id']}"`);
-            //     that.$dialogDetails.modal();
-            // }
-            // that.$dialogDetails.modal('open');
-            that.list[i].buttonsDisabled = true;
-            main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateJSController', (result) => {
-                console.log(result);
-            });
-        });
     }
 }
 
@@ -404,7 +404,7 @@ function createHostRow(index) {
     // button Details
     text += '<td><button type="button" title="' + that.words['details']+ '" class="btn details" id="btnDetails'+index + '">I</button></td>'
     // button Update JS-Controller
-    text += '<td><button type="button" title="' + that.words['jscontroller']+ '" class="btn jscontrooler" id="btnJSController'+index + '">C</button></td>'
+    text += '<td><button type="button" title="' + that.words['jscontroller']+ '" class="btn jscontroller" id="btnJSController'+index + '">C</button></td>'
     text += '</tr>';
 
     return text;

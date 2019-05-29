@@ -126,6 +126,9 @@
 	color: black;
 }
 
+#table-hosts-body button.jscontroller:hover {
+	color:red;
+}
 
 h4[class^="dialog"] {
 	font-size: 2em;
