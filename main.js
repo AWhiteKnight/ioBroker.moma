@@ -153,7 +153,8 @@ class Moma extends utils.Adapter {
 
 		try {
 			let helper = require(__dirname + '/lib/helper');
-			// cleanup old stuuf
+			// cleanup old stuff
+			this.log.silly('preparation');
 			helper.releasePreparation(this);
 			// create Entries moma.meta.<hostname>.*
 			helper.createMomaMetaEntries(this);
@@ -171,6 +172,7 @@ class Moma extends utils.Adapter {
 			//this.subscribeStates('*');
 	
 			// read 'static' values on restart for change of machine configuration
+			this.log.silly('starting IntervalOnce');
 			const Once = require(__dirname + '/lib/IntervalOnce.js');
 			new Once().run(this, true);
 		} catch(err) {
@@ -181,31 +183,38 @@ class Moma extends utils.Adapter {
 		// if checked run each interval once and then start it with interval timer
 		// start with the longest interval
 		if(this.config.i4 && this.config.interval4) {
+			this.log.silly('starting Interval4');
 			updateInterval4(true);
 		}
 
 		if(this.config.i3 && this.config.interval3) {
+			this.log.silly('starting Interval3');
 			updateInterval3(true);
 		}
 
 		if(this.config.i2 && this.config.interval2) {
+			this.log.silly('starting Interval2');
 			updateInterval2(true);
 		}
 
 		if(this.config.i1 && this.config.interval1) {
+			this.log.silly('starting Interval1');
 			updateInterval1(true);
 		}
 
 		if(this.config.i0 && this.config.interval0) {
+			this.log.silly('starting Interval0');
 			updateInterval0(true);
 		}
 
 		// init is done
+		this.log.silly('starting IntervalAlive');
 		timer = setInterval(updateIntervalAlive, duration);
 
 		this.setForeignStateChanged(attention, {val: false, ack: true});
 		// Set the connection indicator after startup
 		this.setStateChanged('info.connection', true, true);
+		this.log.silly('up and running');
 	}
 
 	/**
