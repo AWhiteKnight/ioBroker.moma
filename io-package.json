@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.1.1",
+		"version": "1.1.2",
 		"news": {
+            "1.1.2": {
+                "en": "debug mode silly to find issue #24",
+                "de": "debug mode silly um issu #24 aufzuspüren"
+            },
             "1.1.1": {
                 "en": "Docker, systeminformation 4.5.1",
                 "de": "Docker, systeminformation 4.5.1"

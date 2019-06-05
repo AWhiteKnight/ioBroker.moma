@@ -303,6 +303,7 @@ function createHostBody() {
     
     for (let i = 0; i < that.list.length; i++) {
         let button= window.document.querySelector('#btnJSController'+i+'');
+        button.style.visibility='hidden';
         button.addEventListener('click', (obj) => {
             // if (!that.$dialogDetails.data('inited')) {
             //     that.$dialogDetails.data('inited', true);
