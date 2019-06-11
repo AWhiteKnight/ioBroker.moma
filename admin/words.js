@@ -422,16 +422,28 @@ systemDictionary = {
     "pl": "opóźnienie Internetu sprawdzone z 8.8.8.8",
     "zh-cn": "网络延迟检查8.8.8.8"
   },
+  "dockerInfo": {
+    "en": "General info about the docker environment of this machine. Needs 'adduser iobroker docker'!",
+    "de": "Allgemeine Informationen zur Docker-Umgebung dieses Systems. Benötigt 'adduser iobroker docker'!",
+    "ru": "Общая информация о среде докера этой машины. Нужен аддусер иоброкер докер!",
+    "pt": "Informações gerais sobre o ambiente docker desta máquina. Precisa do 'adduser iobroker docker'!",
+    "nl": "Algemene informatie over de dockeromgeving van deze machine.  Heeft 'adduser iobroker docker' nodig!",
+    "fr": "Informations générales sur l'environnement de menu fixe de cette machine. Besoin 'docker adduser iobroker'!",
+    "it": "Informazioni generali sull'ambiente di finestra mobile di questa macchina. Richiede 'adduser iobroker docker'!",
+    "es": "Información general sobre el entorno docker de esta máquina. Necesita 'adduser iobroker docker'!",
+    "pl": "Ogólne informacje o środowisku dokowania tego komputera. Potrzebuje 'adduser iobroker docker'!",
+    "zh-cn": "有关此机器的docker环境的一般信息。需要'adduser iobroker docker'！"
+  },
   "dockerContainers": {
     "en": "List of all docker containers in the docker environment of this machine. Needs 'adduser iobroker docker'!",
     "de": "Liste aller Docker-Container in der Docker-Umgebung dieses Systems. Benötigt 'adduser iobroker docker'!",
     "ru": "Список всех Docker-контейнеров в Docker-среде этой машины. Нужен аддусер иоброкер докер!",
-    "pt": "Lista de todos os contêineres docker no ambiente de encaixe desta máquina. Precisa do adduser iobroker docker '!",
+    "pt": "Lista de todos os contêineres docker no ambiente de encaixe desta máquina. Precisa do 'adduser iobroker docker'!",
     "nl": "Lijst van alle dockercontainers in de dockeromgeving van deze machine. Heeft 'adduser iobroker docker' nodig!",
-    "fr": "Liste de tous les conteneurs de menu fixe dans l'environnement de menu fixe de cette machine. Besoin docker adduser iobroker '!",
+    "fr": "Liste de tous les conteneurs de menu fixe dans l'environnement de menu fixe de cette machine. Besoin 'docker adduser iobroker'!",
     "it": "Elenco di tutti i contenitori finestra mobile nell'ambiente finestra mobile di questa macchina. Richiede 'adduser iobroker docker'!",
     "es": "Lista de todos los contenedores de la ventana acoplable en el entorno de la máquina acoplable. Necesita 'adduser iobroker docker'!",
-    "pl": "Lista wszystkich kontenerów dokowania w środowisku dokowania tego komputera. Potrzebuje „dokera adduser iobroker”!",
+    "pl": "Lista wszystkich kontenerów dokowania w środowisku dokowania tego komputera. Potrzebuje 'adduser iobroker docker'!",
     "zh-cn": "此机器的docker环境中所有docker容器的列表。需要'adduser iobroker docker'！"
   },
   "updates": {
