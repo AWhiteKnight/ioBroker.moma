@@ -46,70 +46,36 @@
 	</div>
 	<!-- dialogs -->
 	<div class="materialize-dialogs m">
-		<div id="dialog-update-all" class="modal modal-fixed-footer">
+		<div id="dialog-confirm" class="modal modal-fixed-footer">
 			<div class="modal-content">
-				<h4 id="dialog-updateAll-headline" class="dialog-title translate">updateAll</h4>
+				<h4 id="dialog-confirm-headline" class="dialog-title translate">confirmation</h4>
 				<p>
-					<textarea readonly id="textUpdateAll"></textarea>
+					<textarea readonly id="dialog-confirm-text"></textarea>
 				</p>
 			</div>
 			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateAllOk">ok</a>
+				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="confirmOk">ok</a>
 				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
 			</div>
 		</div>
-		<div id="dialog-reboot-all" class="modal modal-fixed-footer">
-			<div class="modal-content">
-				<h4 id="dialog-rebootAll-headline" class="dialog-title translate">rebootAll</h4>
-				<p>
-					<textarea readonly id="textRebootAll"></textarea>
-				</p>
-			</div>
-			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootAllOk">ok</a>
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
-			</div>
-		</div>
-		<div id="dialog-update" class="modal modal-fixed-footer">
-			<div class="modal-content">
-				<h4 id="dialog-update-headline" class="dialog-title translate">update</h4>
-				<p>
-					<textarea readonly id="textUpdateSingle"></textarea>
-				</p>
-			</div>
-			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="updateOk">ok</a>
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
-			</div>
-		</div>
-		<div id="dialog-reboot" class="modal modal-fixed-footer">
-			<div class="modal-content">
-				<h4 id="dialog-reboot-headline" class="dialog-title translate">reboot</h4>
-				<p>
-					<textarea readonly id="textRebootSingle"></textarea>
-				</p>
-			</div>
-			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-green btn-flat translate" id="rebootOk">ok</a>
-				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">cancel</a>
-			</div>
-		</div>
+		
 		<div id="dialog-details" class="modal modal-fixed-footer">
 			<div class="modal-content">
 				<h4 id="dialog-details-headline" class="dialog-title translate">details</h4>
 				<p>
-					tbd!
+					<textarea readonly id="dialog-details-content"></textarea>
 				</p>
 			</div>
 			<div class="modal-footer">
 				<a class="modal-action modal-close waves-effect waves-green gray btn-flat translate">close</a>
 			</div>
 		</div>
+
 		<div id="dialog-message" class="modal modal-fixed-footer">
 			<div class="modal-content">
 				<h4 id="dialog-message-headline" class="dialog-title translate">message</h4>
 				<p>
-					<textarea readonly id="textMessage"></textarea>
+					<textarea readonly id="dialog-message-text"></textarea>
 				</p>
 			</div>
 			<div class="modal-footer">

@@ -39,6 +39,9 @@ main.socket.on('objectChange', (id, obj) => {
 
 main.socket.on('stateChange', (id, obj) => {
     // console.log('state: ', id);//, obj);
+    if(obj == null) {
+        return;
+    }
     let arr = id.split('.'); 
     // moma.meta.hosts.mint-master.momaAlive
     if (arr[0] == 'moma' && arr[1] == 'meta' && arr[2] == 'hosts'){
@@ -76,8 +79,9 @@ let that = this;
 
 // access to admin-tab moma
 that.$tab = $('#tab-moma');
-that.$dialogUpdate = $('#dialog-update');
-that.$dialogReboot = $('#dialog-reboot');
+that.$dialogConfirm = $('#dialog-confirm');
+that.$currentConfirmation = 'none';
+that.$currentHost = -1;
 that.$dialogDetails = $('#dialog-details');
 // data for each host
 that.list;
@@ -91,13 +95,14 @@ function Moma() {
     systemLang = navigator.language;
     // console.log('sprache: ' + systemLang);
     // cache translations for table lines /grid elements
-    that.words['update'] = _('update');
-    that.words['reboot'] = _('reboot');
-    that.words['details'] = _('details');
     that.words['online'] = _('online');
     that.words['needsAttention'] = _('needsAttention');
     that.words['momaOffline'] = _('momaOffline');
     that.words['offline'] = _('offline');
+    that.words['update'] = _('update');
+    that.words['reboot'] = _('reboot');
+    that.words['details'] = _('details');
+    that.words['updateJSC'] = _('updateJSC');
 
     // prepare the table below buttons
     showHostsTable();
@@ -109,48 +114,59 @@ function Moma() {
         showHostsTable();        
     });
 
-    // confirm button in update all dialog
-    $('#updateAllOk').click(() => {
-        for (let i = 0; i < that.list.length; i++) {
-            if(that.list[i]['numUpdates'] > 0 && !that.list[i].buttonsDisabled) {
-                update(i);
+    // confirm button in confirm dialog
+    $('#confirmOk').click(() => {
+        if(that.$currentConfirmation == 'updateAll') {
+            for (let i = 0; i < that.list.length; i++) {
+                if(that.list[i]['numUpdates'] > 0 && !that.list[i].buttonsDisabled) {
+                    update(i);
+                }
+            }
+        } else if(that.$currentConfirmation == 'rebootAll') {
+            for (let i = 0; i < that.list.length; i++) {
+                if(that.list[i]['needsReboot'] && !that.list[i].buttonsDisabled) {
+                    reboot(i);
+                }
+            }
+        } else if(that.$currentHost >= 0) {
+            if(that.$currentConfirmation == 'update') {
+                update(that.$currentHost);
+            } else if(that.$currentConfirmation == 'reboot') {
+                reboot(that.$currentHost);
+            } else if(that.$currentConfirmation == 'updateJSC') {
+                updateJSC(that.$currentHost);
             }
         }
+        that.$currentConfirmation = 'none';
+        that.$currentHost = -1;
         createHostBody();
     });
+
     // update all button in main page headline
     window.document.querySelector('#btn-update-all').title = _('update-all');
     $('#btn-update-all').click(() => {
-        let $dialog = $('#dialog-update-all');
+        let $dialog = that.$dialogConfirm;
+        that.$currentConfirmation = 'updateAll';
         if (!$dialog.data('inited')) {
             $dialog.data('inited', true);
-            $dialog.find('#dialog-updateAll-headline').text(_('dialogUpdateAll'));
-            $dialog.find('#textUpdateAll').text(_('textUpdateAll').replace('? ', '?\n'));
-            $dialog.modal();
         }
+        $dialog.find('#dialog-confirm-headline').text(_('dialogUpdateAll'));
+        $dialog.find('#dialog-confirm-text').text(_('textUpdateAll').replace('? ', '?\n'));
+        $dialog.modal();
         $dialog.modal('open');
-
     });
 
-    // confirm button in reboot all dialog
-    $('#rebootAllOk').click(() => {
-        for (let i = 0; i < that.list.length; i++) {
-            if(that.list[i]['needsReboot'] && !that.list[i].buttonsDisabled) {
-                reboot(i);
-            }
-        }
-        createHostBody();
-    });
     // reboot all button in main page headline
     window.document.querySelector('#btn-reboot-all').title = _('reboot-all');
     $('#btn-reboot-all').click(() => {
-        let $dialog = $('#dialog-reboot-all');
+        let $dialog = that.$dialogConfirm;
+        that.$currentConfirmation = 'rebootAll';
         if (!$dialog.data('inited')) {
             $dialog.data('inited', true);
-            $dialog.find('#dialog-rebootAll-headline').text(_('dialogRebootAll'));
-            $dialog.find('#textRebootAll').text(_('textRebootAll').replace('? ', '?\n'));
-            $dialog.modal();
         }
+        $dialog.find('#dialog-confirm-headline').text(_('dialogRebootAll'));
+        $dialog.find('#dialog-confirm-text').text(_('textRebootAll').replace('? ', '?\n'));
+        $dialog.modal();
         $dialog.modal('open');
     });
 }
@@ -174,6 +190,17 @@ function reboot(i) {
         console.log(result);
     });
 }
+
+function updateJSC(i) {
+    console.log('updating JS-Controller ' + that.list[i]['instance']);
+    // that.list[i].numUpdates = 0;
+    // $('#btnUpdate'+i).disabled=true;
+    that.list[i].buttonsDisabled = true;
+    main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateJSController', (result) => {
+        console.log(result);
+    });
+}
+
 
 function fetchData(callback) {
     that.list = [];
@@ -303,18 +330,20 @@ function createHostBody() {
     
     for (let i = 0; i < that.list.length; i++) {
         let button= window.document.querySelector('#btnJSController'+i+'');
+        // to be implemented
         button.style.visibility='hidden';
         button.addEventListener('click', (obj) => {
-            // if (!that.$dialogDetails.data('inited')) {
-            //     that.$dialogDetails.data('inited', true);
-            //     that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i]['id']}"`);
-            //     that.$dialogDetails.modal();
-            // }
-            // that.$dialogDetails.modal('open');
             that.list[i].buttonsDisabled = true;
-            main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateJSController', (result) => {
-                console.log(result);
-            });
+            let $dialog = that.$dialogConfirm;
+            that.$currentConfirmation = 'updateJSC';
+            that.$currentHost = i;
+            if (!$dialog.data('inited')) {
+                $dialog.data('inited', true);
+            }
+            $dialog.find('#dialog-confirm-headline').text(_('dialogUpdateJSController'));
+            $dialog.find('#dialog-confirm-text').text(_('textUpdateJSController').replace('? ', '?\n'));
+            $dialog.modal();
+            $dialog.modal('open');
         });
 
         button= window.document.querySelector('#btnUpdate'+i+'');
@@ -323,18 +352,16 @@ function createHostBody() {
             button.disabled = that.list[i].buttonsDisabled;
             if(that.list[i].alive && that.list[i].momaAlive) {
                 button.addEventListener('click', (obj) => {
-                    $('#updateOk').click((obj) => {
-                        // console.log('update ' + i);
-                        update(i);
-                        createHostBody();
-                    }); 
-                    if (!that.$dialogUpdate.data('inited')) {
-                        that.$dialogUpdate.data('inited', true);
-                        that.$dialogUpdate.find('#dialog-update-headline').text(_('dialogUpdate') + `"${that.list[i]['id']}"`);
-                        that.$dialogUpdate.find('#textUpdateSingle').text(_('textUpdateSingle').replace('? ', '?\n'));
-                        that.$dialogUpdate.modal();
+                    let $dialog = that.$dialogConfirm;
+                    that.$currentConfirmation = 'update';
+                    that.$currentHost = i;
+                    if (!$dialog.data('inited')) {
+                        $dialog.data('inited', true);
                     }
-                    that.$dialogUpdate.modal('open');
+                    $dialog.find('#dialog-confirm-headline').text(_('dialogUpdate'));
+                    $dialog.find('#dialog-confirm-text').text(_('textUpdateSingle').replace('? ', '?\n'));
+                    $dialog.modal();
+                    $dialog.modal('open');
                 });
             } else {
                 button.disabled = true;
@@ -348,18 +375,16 @@ function createHostBody() {
             button.disabled = that.list[i].buttonsDisabled;
             if(that.list[i].alive && that.list[i].momaAlive) {
                 button.addEventListener('click', (obj) => {
-                    $('#rebootOk').click((obj) => {
-                        // console.log('reboot ' + i);
-                        reboot(i);
-                        createHostBody();
-                    }); 
-                    if (!that.$dialogReboot.data('inited')) {
-                        that.$dialogReboot.data('inited', true);
-                        that.$dialogReboot.find('#dialog-reboot-headline').text(_('dialogReboot') + `"${that.list[i]['id']}"`);
-                        that.$dialogReboot.find('#textRebootSingle').text(_('textRebootSingle').replace('? ', '?\n'));
-                        that.$dialogReboot.modal();
+                    let $dialog = that.$dialogConfirm;
+                    that.$currentConfirmation = 'reboot';
+                    that.$currentHost = i;
+                    if (!$dialog.data('inited')) {
+                        $dialog.data('inited', true);
                     }
-                    that.$dialogReboot.modal('open');
+                    $dialog.find('#dialog-confirm-headline').text(_('dialogReboot'));
+                    $dialog.find('#dialog-confirm-text').text(_('textRebootSingle').replace('? ', '?\n'));
+                    $dialog.modal();
+                    $dialog.modal('open');
                 });
             } else {
                 button.disabled = true;
