@@ -21,18 +21,18 @@ const utils = require('@iobroker/adapter-core');
 // Load your modules here, e.g.:
 /** @type {Moma | undefined} */
 let adapter = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer0 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer1 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer2 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer3 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer4 = undefined;
+// /** @type {NodeJS.Timeout | undefined} */
+// let timer = undefined;
+// /** @type {NodeJS.Timeout | undefined} */
+// let timer0 = undefined;
+// /** @type {NodeJS.Timeout | undefined} */
+// let timer1 = undefined;
+// /** @type {NodeJS.Timeout | undefined} */
+// let timer2 = undefined;
+// /** @type {NodeJS.Timeout | undefined} */
+// let timer3 = undefined;
+// /** @type {NodeJS.Timeout | undefined} */
+// let timer4 = undefined;
 
 let alive = require(__dirname + '/lib/definitions').hostEntryAlive;
 let attention = require(__dirname + '/lib/definitions').hostEntryNeedsAttention;
@@ -52,6 +52,8 @@ function updateIntervalAlive() {
 	// adapter.setForeignStateChanged(attention, {val: false, ack: true});
 	// @ts-ignore
 	// adapter.setForeignStateChanged(aHostNeedsAttention, {val: false, ack: true});
+	// timer = setTimeout(updateIntervalAlive, duration);
+	setTimeout(updateIntervalAlive, duration);
 }
 
 /*
@@ -62,7 +64,8 @@ function updateInterval0(isInit = false) {
 	const Interval0 = require(__dirname + '/lib/Interval0.js');
 	new Interval0().run(adapter, isInit);
 	// @ts-ignore
-	timer0 = setTimeout(updateInterval0, adapter.config.interval0*1000);
+	// timer0 = setTimeout(updateInterval0, adapter.config.interval0*1000);
+	setTimeout(updateInterval0, adapter.config.interval0*1000);
 
 }
 
@@ -75,7 +78,8 @@ function updateInterval1(isInit = false) {
 	const Interval1 = require(__dirname + '/lib/Interval1.js');
 	new Interval1().run(adapter, isInit);
 	// @ts-ignore
-	timer1 = setTimeout(updateInterval1, adapter.config.interval1*1000);
+	// timer1 = setTimeout(updateInterval1, adapter.config.interval1*1000);
+	setTimeout(updateInterval1, adapter.config.interval1*1000);
 }
 	
 /*
@@ -86,7 +90,8 @@ function updateInterval2(isInit = false) {
 	const Interval2 = require(__dirname + '/lib/Interval2.js');
 	new Interval2().run(adapter, isInit);
 	// @ts-ignore
-	timer2 = setTimeout(updateInterval2, adapter.config.interval2*60000);
+	// timer2 = setTimeout(updateInterval2, adapter.config.interval2*60000);
+	setTimeout(updateInterval2, adapter.config.interval2*60000);
 }
 
 /*
@@ -97,7 +102,8 @@ function updateInterval3(isInit = false) {
 	const Interval3 = require(__dirname + '/lib/Interval3.js');
 	new Interval3().run(adapter, isInit);
 	// @ts-ignore
-	timer3 = setTimeout(updateInterval3, adapter.config.interval3*3600000);
+	// timer3 = setTimeout(updateInterval3, adapter.config.interval3*3600000);
+	setTimeout(updateInterval3, adapter.config.interval3*3600000);
 }
 	
 /*
@@ -108,7 +114,8 @@ function updateInterval4(isInit = false) {
 	const Interval4 = require(__dirname + '/lib/Interval4.js');
 	new Interval4().run(adapter, isInit);
 	// @ts-ignore
-	timer4 = setTimeout(updateInterval4, adapter.config.interval4*24*3600000);
+	// timer4 = setTimeout(updateInterval4, adapter.config.interval4*24*3600000);
+	setTimeout(updateInterval4, adapter.config.interval4*24*3600000);
 }
 
 /**
@@ -209,7 +216,8 @@ class Moma extends utils.Adapter {
 
 		// init is done
 		this.log.silly('starting IntervalAlive');
-		timer = setInterval(updateIntervalAlive, duration);
+		// timer = setInterval(updateIntervalAlive, duration);
+		updateIntervalAlive();
 
 		this.setForeignStateChanged(attention, {val: false, ack: true});
 		// Set the connection indicator after startup
@@ -225,12 +233,12 @@ class Moma extends utils.Adapter {
 		try {
 			this.setForeignState(alive, {val: false, ack: true});
 			// clean up the timer
-			if(timer4) { clearInterval(timer4); timer4 = undefined; }
-			if(timer3) { clearInterval(timer3); timer3 = undefined; }
-			if(timer2) { clearInterval(timer2); timer2 = undefined; }
-			if(timer1) { clearInterval(timer1); timer1 = undefined; }
-			if(timer0) { clearInterval(timer0); timer0 = undefined; }
-			if(timer) { clearInterval(timer); timer = undefined; }
+			//if(timer4) { clearInterval(timer4); timer4 = undefined; }
+			//if(timer3) { clearInterval(timer3); timer3 = undefined; }
+			//if(timer2) { clearInterval(timer2); timer2 = undefined; }
+			//if(timer1) { clearInterval(timer1); timer1 = undefined; }
+			//if(timer0) { clearInterval(timer0); timer0 = undefined; }
+			//if(timer) { clearInterval(timer); timer = undefined; }
 			this.log.info('cleaned everything up...');
 			callback();
 		} catch (e) {
