@@ -422,7 +422,7 @@ function createHostRow(index) {
     // number of updates
     text += '<td>' + obj['numUpdates'] + '</td>'
     // list of updates
-    text += '<td style="overflow:hidden;" title="' + that.words['updates'] +'">' + obj['updates'] + '</td>'
+    text += '<td style="overflow:hidden;" title="' + obj['updates'] +'">' + obj['updates'] + '</td>'
     // button Update
     text += '<td><button type="button" title="' + that.words['update'] + '" class="btn update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot
