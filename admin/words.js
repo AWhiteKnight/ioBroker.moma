@@ -590,6 +590,30 @@ systemDictionary = {
     "pl": "zrestartuj komputer",
     "zh-cn": "重启机器"
   },
+  "updateAdapter": {
+    "en": "update of all adapter",
+    "de": "update aller Adapter",
+    "ru": "обновление всего адаптера",
+    "pt": "atualização de todo adaptador",
+    "nl": "update van alle adapter",
+    "fr": "mise à jour de tout adaptateur",
+    "it": "aggiornamento di tutti gli adattatori",
+    "es": "actualización de todos los adaptadores",
+    "pl": "aktualizacja wszystkich adapterów",
+    "zh-cn": "更新所有适配器"
+  },
+  "updateJSC": {
+    "en": "update of the js-controller",
+    "de": "update des js-controller",
+    "ru": "обновление js-контроллера",
+    "pt": "atualização do js-controller",
+    "nl": "update van de js-controller",
+    "fr": "mise à jour du contrôleur js",
+    "it": "aggiornamento del controller js",
+    "es": "actualización del controlador js",
+    "pl": "aktualizacja kontrolera js",
+    "zh-cn": "更新js控制器"
+    },
   "details": {
     "en": "detailed information about computer",
     "de": "ausführliche Informationen zum Computer",
@@ -805,7 +829,7 @@ systemDictionary = {
     "es": "Adaptador MoMa está desconectado",
     "pl": "Adapter MoMa jest w trybie offline",
     "zh-cn": "适配器MoMa处于脱机状态"
-},
+  },
   "offline": {
     "en": "offline",
     "de": "Offline",

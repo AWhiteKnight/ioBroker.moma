@@ -101,8 +101,9 @@ function Moma() {
     that.words['offline'] = _('offline');
     that.words['update'] = _('update');
     that.words['reboot'] = _('reboot');
-    that.words['details'] = _('details');
+    that.words['updateAdapter'] = _('updateAdapter');
     that.words['updateJSC'] = _('updateJSC');
+    that.words['details'] = _('details');
 
     // prepare the table below buttons
     showHostsTable();
@@ -133,6 +134,8 @@ function Moma() {
                 update(that.$currentHost);
             } else if(that.$currentConfirmation == 'reboot') {
                 reboot(that.$currentHost);
+            } else if(that.$currentConfirmation == 'updateAdapter') {
+                updateAdapter(that.$currentHost);
             } else if(that.$currentConfirmation == 'updateJSC') {
                 updateJSC(that.$currentHost);
             }
@@ -191,16 +194,25 @@ function reboot(i) {
     });
 }
 
+function updateAdapter(i) {
+    console.log('updating Adapter ' + that.list[i]['instance']);
+    that.list[i].updateAdapter = false;
+    $('#btnAdapter'+i).disabled=true;
+    that.list[i].buttonsDisabled = true;
+    main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateAdapter', (result) => {
+        console.log(result);
+    });
+}
+
 function updateJSC(i) {
     console.log('updating JS-Controller ' + that.list[i]['instance']);
-    // that.list[i].numUpdates = 0;
-    // $('#btnUpdate'+i).disabled=true;
+    that.list[i].updateJSC = false;
+    $('#btnJSController'+i).disabled=true;
     that.list[i].buttonsDisabled = true;
     main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateJSController', (result) => {
         console.log(result);
     });
 }
-
 
 function fetchData(callback) {
     that.list = [];
@@ -276,11 +288,13 @@ function createHostHeader() {
     text += '<th scope="col" style="width: 20px;">#</th>'
     // col for list of updates
     text += '<th scope="col" style="overflow:hidden;" class="translate">'+_('updatelist') + '</th>'
-    // col for button Update JS-Controller
-    text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Update
     text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Reboot
+    text += '<th scope="col" style="width: 15px;"> </th>'
+    // col for button Update Adapter
+    text += '<th scope="col" style="width: 15px;"> </th>'
+    // col for button Update JS-Controller
     text += '<th scope="col" style="width: 15px;"> </th>'
     // col for button Details
     text += '<th scope="col" style="width: 15px;"> </th>'
@@ -302,11 +316,13 @@ function createHostFooter() {
     text += '<td></td>'
     // col for list of updates
     text += '<td></td>'
-    // col for button Update JS-Controller
-    text += '<td></td>'
     // col for button Update
     text += '<td></td>'
     // col for button Reboot
+    text += '<td></td>'
+    // col for button Update Adapter
+    text += '<td></td>'
+    // col for button Update JS-Controller
     text += '<td></td>'
     // col for button Details
     text += '<td></td>'
@@ -329,24 +345,7 @@ function createHostBody() {
     body.show();
     
     for (let i = 0; i < that.list.length; i++) {
-        let button= window.document.querySelector('#btnJSController'+i+'');
-        // to be implemented
-        button.style.visibility='hidden';
-        button.addEventListener('click', (obj) => {
-            that.list[i].buttonsDisabled = true;
-            let $dialog = that.$dialogConfirm;
-            that.$currentConfirmation = 'updateJSC';
-            that.$currentHost = i;
-            if (!$dialog.data('inited')) {
-                $dialog.data('inited', true);
-            }
-            $dialog.find('#dialog-confirm-headline').text(_('dialogUpdateJSController'));
-            $dialog.find('#dialog-confirm-text').text(_('textUpdateJSController').replace('? ', '?\n'));
-            $dialog.modal();
-            $dialog.modal('open');
-        });
-
-        button= window.document.querySelector('#btnUpdate'+i+'');
+        let button= window.document.querySelector('#btnUpdate'+i+'');
         if(that.list[i].numUpdates > 0) {
             button.style.visibility='visible';
             button.disabled = that.list[i].buttonsDisabled;
@@ -392,6 +391,49 @@ function createHostBody() {
         } else {
             button.style.visibility='hidden';
         }
+        
+        button= window.document.querySelector('#btnAdapter'+i+'');
+        if(true) {
+            // to be implemented
+            button.style.visibility='visible';
+            button.addEventListener('click', (obj) => {
+                that.list[i].buttonsDisabled = true;
+                let $dialog = that.$dialogConfirm;
+                that.$currentConfirmation = 'updateAdapter';
+                that.$currentHost = i;
+                if (!$dialog.data('inited')) {
+                    $dialog.data('inited', true);
+                }
+                $dialog.find('#dialog-confirm-headline').text(_('dialogUpdateAdapter'));
+                $dialog.find('#dialog-confirm-text').text(_('textUpdateAdapter').replace('? ', '?\n'));
+                $dialog.modal();
+                $dialog.modal('open');
+            });
+        } else {
+            button.style.visibility='hidden';
+        }
+
+        button= window.document.querySelector('#btnJSController'+i+'');
+        if(true) {
+            // to be implemented
+            button.style.visibility='visible';
+            button.addEventListener('click', (obj) => {
+                that.list[i].buttonsDisabled = true;
+                let $dialog = that.$dialogConfirm;
+                that.$currentConfirmation = 'updateJSC';
+                that.$currentHost = i;
+                if (!$dialog.data('inited')) {
+                    $dialog.data('inited', true);
+                }
+                $dialog.find('#dialog-confirm-headline').text(_('dialogUpdateJSController'));
+                $dialog.find('#dialog-confirm-text').text(_('textUpdateJSController').replace('? ', '?\n'));
+                $dialog.modal();
+                $dialog.modal('open');
+            });
+        } else {
+            button.style.visibility='hidden';
+        }
+
         button= window.document.querySelector('#btnDetails'+i+'');
         button.addEventListener('click', (obj) => {
             if (!that.$dialogDetails.data('inited')) {
@@ -427,10 +469,12 @@ function createHostRow(index) {
     text += '<td><button type="button" title="' + that.words['update'] + '" class="btn update" id="btnUpdate' + index + '">U</button></td>'
     // button Reboot
     text += '<td><button type="button" title="' + that.words['reboot'] + '" class="btn reboot" id="btnReboot' + index + '">R</button></td>'
+    // button Update Adapter
+    text += '<td><button type="button" title="' + that.words['updateAdapter']+ '" class="btn adapter" id="btnAdapter'+index + '">A</button></td>'
+    // button Update JS-Controller
+    text += '<td><button type="button" title="' + that.words['updateJSC']+ '" class="btn jscontroller" id="btnJSController'+index + '">C</button></td>'
     // button Details
     text += '<td><button type="button" title="' + that.words['details']+ '" class="btn details" id="btnDetails'+index + '">I</button></td>'
-    // button Update JS-Controller
-    text += '<td><button type="button" title="' + that.words['jscontroller']+ '" class="btn jscontroller" id="btnJSController'+index + '">C</button></td>'
     text += '</tr>';
 
     return text;

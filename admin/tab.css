@@ -122,12 +122,16 @@
 	color:red;
 }
 
-#table-hosts-body button.details:hover {
-	color: black;
+#table-hosts-body button.adapter:hover {
+	color:orange;
 }
 
 #table-hosts-body button.jscontroller:hover {
 	color:red;
+}
+
+#table-hosts-body button.details:hover {
+	color: black;
 }
 
 h4[class^="dialog"] {
