@@ -278,17 +278,17 @@ class Moma extends utils.Adapter {
 	 			// e.g. send email or pushover or whatever
 				this.log.info('send command ' + obj.message);
 				if(obj.message == 'doUpdates') {
-					const Interval4 = require(__dirname + '/lib/Interval4.js');
-					new Interval4().doUpdates(this);
+					const Messages = require(__dirname + '/lib/Messages.js');
+					new Messages().doUpdates(this);
 				} else if(obj.message == 'scheduleReboot') {
-					const Interval4 = require(__dirname + '/lib/Interval4.js');
-					new Interval4().scheduleReboot(this);
+					const Messages = require(__dirname + '/lib/Messages.js');
+					new Messages().scheduleReboot(this);
 				} else if(obj.message == 'updateAdapter') {
-					const Interval4 = require(__dirname + '/lib/Interval4.js');
-					new Interval4().updateAdapter(this);
+					const Messages = require(__dirname + '/lib/Messages.js');
+					new Messages().updateAdapter(this);
 				} else if(obj.message == 'updateJSController') {
-					const Interval4 = require(__dirname + '/lib/Interval4.js');
-					new Interval4().updateJsController(this);
+					const Messages = require(__dirname + '/lib/Messages.js');
+					new Messages().updateJsController(this);
 				}
 
 	 			// Send response in callback if required
