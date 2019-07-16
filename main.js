@@ -283,6 +283,9 @@ class Moma extends utils.Adapter {
 				} else if(obj.message == 'scheduleReboot') {
 					const Interval4 = require(__dirname + '/lib/Interval4.js');
 					new Interval4().scheduleReboot(this);
+				} else if(obj.message == 'updateAdapter') {
+					const Interval4 = require(__dirname + '/lib/Interval4.js');
+					new Interval4().updateAdapter(this);
 				} else if(obj.message == 'updateJSController') {
 					const Interval4 = require(__dirname + '/lib/Interval4.js');
 					new Interval4().updateJsController(this);

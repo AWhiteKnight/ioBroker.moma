@@ -234,11 +234,10 @@ function fetchData(callback) {
                             if(res2[state]) {
                                 host[name] = res2[state]['val'];
                             }
-                    }
+                        }
                     } else if(err2) {
                         console.log('err2: ' + JSON.stringify(err2));
                     }
-                    // console.log('before host', host);
                     // get system information
                     that.main.socket.emit('getForeignStates', 'system.host.'+host.id+'.*', function (err3, res3) {
                         // console.log(JSON.stringify(res3));
@@ -251,12 +250,27 @@ function fetchData(callback) {
                                     host[name] = res3[state]['val'];
                                 }
                             }
-                            // console.log('after host', host);
-                            that.list.push(host);
-                            if(callback) callback();
                         } else  if(err3){
                             console.log('err3: ' + JSON.stringify(err3));
                         }
+                        that.main.socket.emit('getForeignStates', host.instance.replace('moma', 'admin')+'.info.*', function (err4, res4) {
+                            // console.log(JSON.stringify(res4));
+                            if(res4) {
+                                for(let state in res4) {
+                                    // console.log(JSON.stringify(state));
+                                    let name = state.split('.')[3];
+                                    // console.log(name);
+                                    if(res4[state]) {
+                                        host[name + 'Admin'] = res4[state]['val'];
+                                    }
+                                }
+                                if(callback) callback();
+                            } else  if(err4){
+                                console.log('err4: ' + JSON.stringify(err4));
+                            }
+                            // console.log(JSON.stringify(host));
+                            that.list.push(host);
+                        });
                     });
                 });
             }
@@ -283,22 +297,21 @@ function createHostHeader() {
     // col for host-state led
     text += '<th scope="col" style="width: 15px;"></th>'
     // col for hostname
-    text += '<th scope="col" class="translate" style="width: 100px;">'+_('hostname') + '</th>'
+    text += '<th scope="col" style="width: 100px;" class="translate">'+_('hostname') + '</th>'
     // col for number of updates
     text += '<th scope="col" style="width: 20px;">#</th>'
     // col for list of updates
     text += '<th scope="col" style="overflow:hidden;" class="translate">'+_('updatelist') + '</th>'
     // col for button Update
-    text += '<th scope="col" style="width: 15px;"> </th>'
+    text += '<th scope="col" style="width: 15px;">U</th>'
     // col for button Reboot
-    text += '<th scope="col" style="width: 15px;"> </th>'
+    text += '<th scope="col" style="width: 15px;">R</th>'
     // col for button Update Adapter
-    text += '<th scope="col" style="width: 15px;"> </th>'
+    text += '<th scope="col" style="width: 15px;">A</th>'
     // col for button Update JS-Controller
-    text += '<th scope="col" style="width: 15px;"> </th>'
+    text += '<th scope="col" style="width: 15px;">C</th>'
     // col for button Details
-    text += '<th scope="col" style="width: 15px;"> </th>'
-
+    text += '<th scope="col" style="width: 15px;">I</th>'
     text += '</tr>';
 
     let header = that.$tab.find('#table-hosts-head');
@@ -343,6 +356,8 @@ function createHostBody() {
     let body = that.$tab.find('#table-hosts-body');
     body.html(text);
     body.show();
+
+    // console.log(JSON.stringify(that.list));
     
     for (let i = 0; i < that.list.length; i++) {
         let button= window.document.querySelector('#btnUpdate'+i+'');
@@ -354,9 +369,6 @@ function createHostBody() {
                     let $dialog = that.$dialogConfirm;
                     that.$currentConfirmation = 'update';
                     that.$currentHost = i;
-                    if (!$dialog.data('inited')) {
-                        $dialog.data('inited', true);
-                    }
                     $dialog.find('#dialog-confirm-headline').text(_('dialogUpdate'));
                     $dialog.find('#dialog-confirm-text').text(_('textUpdateSingle').replace('? ', '?\n'));
                     $dialog.modal();
@@ -393,17 +405,13 @@ function createHostBody() {
         }
         
         button= window.document.querySelector('#btnAdapter'+i+'');
-        if(true) {
-            // to be implemented
+        if(that.list[i].updatesNumberAdmin > 0) {
             button.style.visibility='visible';
             button.addEventListener('click', (obj) => {
                 that.list[i].buttonsDisabled = true;
                 let $dialog = that.$dialogConfirm;
                 that.$currentConfirmation = 'updateAdapter';
                 that.$currentHost = i;
-                if (!$dialog.data('inited')) {
-                    $dialog.data('inited', true);
-                }
                 $dialog.find('#dialog-confirm-headline').text(_('dialogUpdateAdapter'));
                 $dialog.find('#dialog-confirm-text').text(_('textUpdateAdapter').replace('? ', '?\n'));
                 $dialog.modal();
@@ -422,9 +430,6 @@ function createHostBody() {
                 let $dialog = that.$dialogConfirm;
                 that.$currentConfirmation = 'updateJSC';
                 that.$currentHost = i;
-                if (!$dialog.data('inited')) {
-                    $dialog.data('inited', true);
-                }
                 $dialog.find('#dialog-confirm-headline').text(_('dialogUpdateJSController'));
                 $dialog.find('#dialog-confirm-text').text(_('textUpdateJSController').replace('? ', '?\n'));
                 $dialog.modal();
@@ -436,11 +441,8 @@ function createHostBody() {
 
         button= window.document.querySelector('#btnDetails'+i+'');
         button.addEventListener('click', (obj) => {
-            if (!that.$dialogDetails.data('inited')) {
-                that.$dialogDetails.data('inited', true);
-                that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i]['id']}"`);
-                that.$dialogDetails.modal();
-            }
+            that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i]['id']}"`);
+            that.$dialogDetails.modal();
             that.$dialogDetails.modal('open');
         });
     }
