@@ -196,8 +196,8 @@ function reboot(i) {
 
 function updateAdapter(i) {
     console.log('updating Adapter ' + that.list[i]['instance']);
-    that.list[i].updateAdapter = false;
-    $('#btnAdapter'+i).disabled=true;
+    // that.list[i].updateAdapter = false;
+    // $('#btnAdapter'+i).disabled=true;
     that.list[i].buttonsDisabled = true;
     main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateAdapter', (result) => {
         console.log(result);
@@ -206,8 +206,8 @@ function updateAdapter(i) {
 
 function updateJSC(i) {
     console.log('updating JS-Controller ' + that.list[i]['instance']);
-    that.list[i].updateJSC = false;
-    $('#btnJSController'+i).disabled=true;
+    // that.list[i].updateJSC = false;
+    // $('#btnJSController'+i).disabled=true;
     that.list[i].buttonsDisabled = true;
     main.socket.emit('sendTo', that.list[i]['instance'], 'execute', 'updateJSController', (result) => {
         console.log(result);
@@ -223,6 +223,7 @@ function fetchData(callback) {
             for(let line in res) {
                 // console.log(line);
                 let host = {};
+                that.list.push(host);
                 host.id = line.split('.')[3];
                 host['buttonsDisabled'] = false;
                 that.main.socket.emit('getForeignStates', line + '.*', function (err2, res2) {
@@ -269,7 +270,6 @@ function fetchData(callback) {
                                 console.log('err4: ' + JSON.stringify(err4));
                             }
                             // console.log(JSON.stringify(host));
-                            that.list.push(host);
                         });
                     });
                 });
@@ -407,6 +407,7 @@ function createHostBody() {
         button= window.document.querySelector('#btnAdapter'+i+'');
         if(that.list[i].updatesNumberAdmin > 0) {
             button.style.visibility='visible';
+            button.disabled = that.list[i].buttonsDisabled;
             button.addEventListener('click', (obj) => {
                 that.list[i].buttonsDisabled = true;
                 let $dialog = that.$dialogConfirm;
@@ -422,9 +423,10 @@ function createHostBody() {
         }
 
         button= window.document.querySelector('#btnJSController'+i+'');
-        if(true) {
+        if(false) {
             // to be implemented
             button.style.visibility='visible';
+            button.disabled = that.list[i].buttonsDisabled;
             button.addEventListener('click', (obj) => {
                 that.list[i].buttonsDisabled = true;
                 let $dialog = that.$dialogConfirm;
