@@ -1,3 +1,4 @@
+/* jshint -W119 */
 /* jshint -W097 */
 /* jshint -W030 */
 /* jshint strict:true */
@@ -22,32 +23,31 @@ const utils = require('@iobroker/adapter-core');
  * @param {number} milliseconds
  */
 const sleep = (milliseconds) => {
-	return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
+	return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
 
 // Load your modules here, e.g.:
-/** @type {Moma | undefined} */
-let adapter = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer0 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer1 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer2 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer3 = undefined;
-/** @type {NodeJS.Timeout | undefined} */
-let timer4 = undefined;
+/** @type {Moma} */
+let adapter;
+/** @type {NodeJS.Timeout} */
+let timer;
+/** @type {NodeJS.Timeout} */
+let timer0;
+/** @type {NodeJS.Timeout} */
+let timer1;
+/** @type {NodeJS.Timeout} */
+let timer2;
+/** @type {NodeJS.Timeout} */
+let timer3;
+/** @type {NodeJS.Timeout} */
+let timer4;
 
-let alive = require(__dirname + '/lib/definitions').hostEntryAlive;
-let attention = require(__dirname + '/lib/definitions').hostEntryNeedsAttention;
-let instance = require(__dirname + '/lib/definitions').hostEntryInstance;
+const alive = require(__dirname + '/lib/definitions').hostEntryAlive;
+const attention = require(__dirname + '/lib/definitions').hostEntryNeedsAttention;
+const instance = require(__dirname + '/lib/definitions').hostEntryInstance;
 // @ts-ignore
 // let aHostNeedsAttention = require(__dirname + '/lib/definitions').hostNeedsAttention;
-
-let duration = 3000;
+const duration = 3000;
 /*
  * call for update machine state
  */
@@ -152,7 +152,7 @@ class Moma extends utils.Adapter {
 		this.setForeignStateChanged(attention, {val: true, ack: true});
 
 		try {
-			let helper = require(__dirname + '/lib/helper');
+			const helper = require(__dirname + '/lib/helper');
 			// cleanup old stuff
 			this.log.silly('preparation');
 			helper.releasePreparation(this);
@@ -223,12 +223,12 @@ class Moma extends utils.Adapter {
 		try {
 			this.setForeignState(alive, {val: false, ack: true});
 			// clean up the timer
-			if(timer4) { clearTimeout(timer4); timer4 = undefined; }
-			if(timer3) { clearTimeout(timer3); timer3 = undefined; }
-			if(timer2) { clearTimeout(timer2); timer2 = undefined; }
-			if(timer1) { clearTimeout(timer1); timer1 = undefined; }
-			if(timer0) { clearTimeout(timer0); timer0 = undefined; }
-			if(timer) { clearTimeout(timer); timer = undefined; }
+			if(timer4) { clearTimeout(timer4);}
+			if(timer3) { clearTimeout(timer3);}
+			if(timer2) { clearTimeout(timer2);}
+			if(timer1) { clearTimeout(timer1);}
+			if(timer0) { clearTimeout(timer0);}
+			if(timer) { clearTimeout(timer);}
 			this.log.info('cleaned everything up...');
 			callback();
 		} catch (e) {
@@ -274,8 +274,8 @@ class Moma extends utils.Adapter {
 	onMessage(obj) {
 		if (typeof obj === 'object' && obj.message) {
 			// this.log.debug(JSON.stringify(obj));
-	 		if (obj.command === 'execute') {
-	 			// e.g. send email or pushover or whatever
+			if (obj.command === 'execute') {
+				// e.g. send email or pushover or whatever
 				this.log.info('send command ' + obj.message);
 				if(obj.message == 'doUpdates') {
 					const Messages = require(__dirname + '/lib/Messages.js');
@@ -291,10 +291,10 @@ class Moma extends utils.Adapter {
 					new Messages().updateJsController(this);
 				}
 
-	 			// Send response in callback if required
-	 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-	 		}
-	 	}
+				// Send response in callback if required
+				if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+			}
+		}
 	}
 }
 
