@@ -54,10 +54,12 @@ const duration = 3000;
  */
 async function updateIntervalAlive() {
 	// await adapter.setStateChanged('info.connection', true, true);
-	await adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 50});
+	await adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 150});
 	// todo: implement check!
 	await adapter.setForeignStateChanged(attention, {val: false, ack: true});
 	await adapter.setForeignStateChanged(aHostNeedsAttention, {val: false, ack: true});
+	// @ts-ignore
+	timer = setTimeout(updateIntervalAlive, duration);
 }
 
 /*
