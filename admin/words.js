@@ -497,7 +497,19 @@ systemDictionary = {
 		'pl': 'Wersje zainstalowanych pakietów oprogramowania',
 		'zh-cn': '已安装软件包的版本'
 	},
-	'checkbatteries': {
+	'checkIob': {
+		'en': 'Checks ioBroker Adapter and Controller for updates',
+		'de': 'Überprüft ioBroker Adapter und Controller auf Updates',
+		'ru': 'Проверяет адаптер и контроллер ioBroker на наличие обновлений',
+		'pt': 'Verifica o Adaptador ioBroker e o Controlador para atualizações',
+		'nl': 'Controleert de ioBroker-adapter en -controller op updates',
+		'fr': "Vérifie les mises à jour de l'adaptateur et du contrôleur ioBroker",
+		'it': "Controlla l'adattatore ioBroker e il controller per gli aggiornamenti",
+		'es': 'Comprueba el adaptador y el controlador ioBroker para actualizaciones',
+		'pl': 'Sprawdza aktualizacje adaptera i kontrolera ioBroker',
+		'zh-cn': '检查ioBroker适配器和控制器以获取更新'
+	},
+	'checkBatteries': {
 		'en': 'Battery variables check',
 		'de': 'Batterievariablen prüfen',
 		'ru': 'Проверка переменных батареи',
