@@ -737,6 +737,30 @@ systemDictionary = {
 		'pl': 'Czy na pewno chcesz ponownie uruchomić komputer? Ponowne uruchomienie nastąpi natychmiast, więc upewnij się, że ponowne uruchomienie jest możliwe bez uszkodzenia czegokolwiek.',
 		'zh-cn': '你真的想重启这台电脑吗？重启将立即发生，因此请确保可以重新启动而不会损坏任何内容。'
 	},
+	'textUpdateAdapter': {
+		'en': 'Do you really want to update all adapter of this computer? This operation can not be undone!',
+		'de': 'Möchten Sie wirklich alle Adapter dieses Computers aktualisieren? Dieser Vorgang kann nicht rückgängig gemacht werden!',
+		'ru': 'Вы действительно хотите обновить все адаптеры этого компьютера? Эта операция не может быть отменена!',
+		'pt': 'Você realmente quer atualizar todos os adaptadores deste computador? Esta operação não pode ser desfeita!',
+		'nl': 'Wilt u echt alle adapter van deze computer updaten? Deze bewerking kan niet ongedaan worden gemaakt!',
+		'fr': 'Voulez-vous vraiment mettre à jour tous les adaptateurs de cet ordinateur? Cette opération ne peut pas être annulée!',
+		'it': 'Vuoi davvero aggiornare tutti gli adattatori di questo computer? Questa operazione non può essere annullata!',
+		'es': '¿Realmente quieres actualizar todos los adaptadores de esta computadora? Esta operación no se puede deshacer!',
+		'pl': 'Czy na pewno chcesz zaktualizować wszystkie karty tego komputera? Ta operacja nie może zostać cofnięta!',
+		'zh-cn': '你真的想更新这台电脑的所有适配器吗？此操作无法撤消！'
+	},
+	'textUpdateJSController': {
+		'en': 'Do you really want to update the js-controller of this computer? This operation can not be undone!',
+		'de': 'Möchten Sie den js-controller dieses Computers wirklich aktualisieren? Dieser Vorgang kann nicht rückgängig gemacht werden!',
+		'ru': 'Вы действительно хотите обновить js-контроллер этого компьютера? Эта операция не может быть отменена!',
+		'pt': 'Você realmente quer atualizar o js-controller deste computador? Esta operação não pode ser desfeita!',
+		'nl': 'Wil je echt de js-controller van deze computer updaten? Deze bewerking kan niet ongedaan worden gemaakt!',
+		'fr': 'Voulez-vous vraiment mettre à jour le contrôleur js de cet ordinateur? Cette opération ne peut pas être annulée!',
+		'it': 'Vuoi davvero aggiornare il controller js di questo computer? Questa operazione non può essere annullata!',
+		'es': '¿Realmente quieres actualizar el controlador js de esta computadora? Esta operación no se puede deshacer!',
+		'pl': 'Czy na pewno chcesz zaktualizować kontroler js tego komputera? Ta operacja nie może zostać cofnięta!',
+		'zh-cn': '你真的想更新这台电脑的js-controller吗？此操作无法撤消！'
+	},
 	'dialogUpdateAll': {
 		'en': 'Update of all computers',
 		'de': 'Update aller Computer',

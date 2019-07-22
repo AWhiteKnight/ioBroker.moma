@@ -121,6 +121,14 @@ function Moma() {
 		showHostsTable();        
 	});
 
+	// cancel button in confirm dialog
+	$('#confirmCancel').click(() => {
+		that.list[that.$currentHost].buttonsDisabled = false;
+		that.$currentConfirmation = 'none';
+		that.$currentHost = -1;
+		createHostBody();
+	});
+
 	// confirm button in confirm dialog
 	$('#confirmOk').click(() => {
 		if(that.$currentConfirmation == 'updateAll') {
@@ -260,24 +268,26 @@ function fetchData(callback) {
 						} else  if(err3){
 							console.log('err3: ' + JSON.stringify(err3));
 						}
-						that.main.socket.emit('getForeignStates', host.instance.replace('moma', 'admin')+'.info.*', function (err4, res4) {
-							// console.log(JSON.stringify(res4));
-							if(res4) {
-								for(const state in res4) {
-									// console.log(JSON.stringify(state));
-									const name = state.split('.')[3];
-									// console.log(name);
-									if(res4[state]) {
-										host[name + 'Admin'] = res4[state].val;
-									}
-								}
-								if(callback) callback();
-							} else  if(err4){
-								console.log('err4: ' + JSON.stringify(err4));
-							}
-							// console.log(JSON.stringify(host));
-						});
+						// that.main.socket.emit('getForeignStates', host.instance.replace('moma', 'admin')+'.info.*', function (err4, res4) {
+						// 	// console.log(JSON.stringify(res4));
+						// 	if(res4) {
+						// 		for(const state in res4) {
+						// 			// console.log(JSON.stringify(state));
+						// 			const name = state.split('.')[3];
+						// 			// console.log(name);
+						// 			if(res4[state]) {
+						// 				host[name + 'Admin'] = res4[state].val;
+						// 			}
+						// 		}
+						// 		if(callback) callback();
+						// 	} else  if(err4){
+						// 		console.log('err4: ' + JSON.stringify(err4));
+						// 	}
+						// 	// console.log(JSON.stringify(host));
+						// });
+						console.log(JSON.stringify(host));
 					});
+					// console.log(JSON.stringify(host));
 				});
 			}
 		} else if (err) {
@@ -370,7 +380,7 @@ function createHostBody() {
     
 	for (let i = 0; i < that.list.length; i++) {
 		let button= window.document.querySelector('#btnUpdate'+i+'');
-		if(that.list[i].numUpdates > 0) {
+		if(that.list[i].numUpdates && that.list[i].numUpdates > 0) {
 			button.style.visibility='visible';
 			button.disabled = that.list[i].buttonsDisabled;
 			if(that.list[i].alive && that.list[i].momaAlive) {
@@ -416,7 +426,7 @@ function createHostBody() {
 		}
         
 		button= window.document.querySelector('#btnAdapter'+i+'');
-		if(that.list[i].updatesNumberAdmin > 0) {
+		if(that.list[i].adapterUpdates && that.list[i].adapterUpdates.length > 1) {
 			button.style.visibility='visible';
 			button.disabled = that.list[i].buttonsDisabled;
 			button.addEventListener('click', (obj) => {
@@ -435,8 +445,7 @@ function createHostBody() {
 		}
 
 		button= window.document.querySelector('#btnJSController'+i+'');
-		const show = false;
-		if(show == true) {
+		if(that.list[i].controllerUpdate && that.list[i].controllerUpdate.length > 1) {
 			// to be implemented
 			button.style.visibility='visible';
 			button.disabled = that.list[i].buttonsDisabled;
@@ -458,6 +467,8 @@ function createHostBody() {
 		button= window.document.querySelector('#btnDetails'+i+'');
 		button.addEventListener('click', (obj) => {
 			console.log('obj: ', obj);
+			that.$currentConfirmation = 'none';
+			that.$currentHost = i;
 			that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i].id}"`);
 			that.$dialogDetails.modal();
 			that.$dialogDetails.modal('open');
