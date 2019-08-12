@@ -133,8 +133,6 @@ class Moma extends utils.Adapter {
 		});
 		adapter = this;
 		this.on('ready', this.onReady.bind(this));
-		this.on('objectChange', this.onObjectChange.bind(this));
-		this.on('stateChange', this.onStateChange.bind(this));
 		this.on('message', this.onMessage.bind(this));
 		this.on('unload', this.onUnload.bind(this));
 	}
@@ -147,7 +145,7 @@ class Moma extends utils.Adapter {
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
 		// Reset the connection indicator during startup
-		// this.setStateChanged('info.connection', false, true);
+		this.setStateChanged('info.connection', true, true);
 
 		try {
 			this.log.debug('starting IntervalAlive');
@@ -171,6 +169,7 @@ class Moma extends utils.Adapter {
 			const Once = require(__dirname + '/lib/IntervalOnce.js');
 			new Once().run(this, true);
 		} catch(err) {
+			this.setStateChanged('info.connection', false, true);
 			this.log.error('Error on startup: ' + err);
 		}
 
@@ -201,11 +200,8 @@ class Moma extends utils.Adapter {
 			this.log.silly('starting Interval0');
 			updateInterval0(true);
 		}
-		// await sleep(500);
+
 		// init is done
-		// this.setForeignStateChanged(attention, {val: false, ack: true});
-		// Set the connection indicator after startup
-		await this.setStateChanged('info.connection', true, true);
 		this.log.silly('up and running');
 	}
 
@@ -227,36 +223,6 @@ class Moma extends utils.Adapter {
 			callback();
 		} catch (e) {
 			callback();
-		}
-	}
-
-	/**
-	 * Is called if a subscribed object changes
-	 * @param {string} id
-	 * @param {ioBroker.Object | null | undefined} obj
-	 */
-	onObjectChange(id, obj) {
-		if (obj) {
-			// The object was changed
-			this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-		} else {
-			// The object was deleted
-			this.log.info(`object ${id} deleted`);
-		}
-	}
-
-	/**
-	 * Is called if a subscribed state changes
-	 * @param {string} id
-	 * @param {ioBroker.State | null | undefined} state
-	 */
-	onStateChange(id, state) {
-		if (state) {
-			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-		} else {
-			// The state was deleted
-			this.log.info(`state ${id} deleted`);
 		}
 	}
 
