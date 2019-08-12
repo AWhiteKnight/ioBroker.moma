@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.2.0",
+		"version": "1.2.1",
 		"news": {
+            "1.2.1": {
+                "en": "bugfixes",
+                "de": "Fehlerbehebungen"
+            },
             "1.2.0": {
                 "en": "systeminformation 4.14.1, update adapters & js-controller, dockerInfo, dockerContainers",
                 "de": "systeminformation 4.14.1, update aller Adapter & des JS-Controllers, dockerInfo, dockerContainers"
