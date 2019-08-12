@@ -144,7 +144,7 @@ class Moma extends utils.Adapter {
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
 		// Reset the connection indicator during startup
-		// await this.setStateChanged('info.connection', true, true);
+		await this.setStateChanged('info.connection', true, true);
 		await this.setForeignStateChanged(aHostNeedsAttention, {val: false, ack: true});
 
 		try {
