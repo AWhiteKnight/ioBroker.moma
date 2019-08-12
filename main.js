@@ -170,6 +170,12 @@ class Moma extends utils.Adapter {
 			new Once().run(this, true);
 		} catch(err) {
 			this.setStateChanged('info.connection', false, true);
+			adapter.setForeignState('hostNeedsAttention', {val: true, ack: true});
+			adapter.getForeignState('hostNeedsAttentionList', (err, state) => {
+				if(state) {
+					adapter.setForeignState('hostNeedsAttentionList', {val: state.val + require('os').hostname, ack: true});
+				}
+			});
 			this.log.error('Error on startup: ' + err);
 		}
 
