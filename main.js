@@ -57,7 +57,6 @@ async function updateIntervalAlive() {
 	await adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 150});
 	// todo: implement check!
 	await adapter.setForeignStateChanged(attention, {val: false, ack: true});
-	await adapter.setForeignStateChanged(aHostNeedsAttention, {val: false, ack: true});
 	// @ts-ignore
 	timer = setTimeout(updateIntervalAlive, duration);
 }
@@ -145,12 +144,10 @@ class Moma extends utils.Adapter {
 		// Initializiation of adapter
 		this.log.debug('starting adapter');
 		// Reset the connection indicator during startup
-		this.setStateChanged('info.connection', true, true);
+		// await this.setStateChanged('info.connection', true, true);
+		await this.setForeignStateChanged(aHostNeedsAttention, {val: false, ack: true});
 
 		try {
-			this.log.debug('starting IntervalAlive');
-			updateIntervalAlive();
-	
 			const helper = require(__dirname + '/lib/helper');
 			// cleanup old stuff
 			this.log.silly('preparation');
@@ -164,13 +161,16 @@ class Moma extends utils.Adapter {
 			helper.createMomaInstanceEntries(this);
 			// await sleep(500);
 	
+			this.log.debug('starting IntervalAlive');
+			updateIntervalAlive();
+
 			// read 'static' values on restart for change of machine configuration
 			this.log.silly('starting IntervalOnce');
 			const Once = require(__dirname + '/lib/IntervalOnce.js');
 			new Once().run(this, true);
 		} catch(err) {
 			this.setStateChanged('info.connection', false, true);
-			adapter.setForeignState('hostNeedsAttention', {val: true, ack: true});
+			adapter.setForeignState(aHostNeedsAttention, {val: true, ack: true});
 			adapter.getForeignState('hostNeedsAttentionList', (err, state) => {
 				if(state) {
 					adapter.setForeignState('hostNeedsAttentionList', {val: state.val + require('os').hostname, ack: true});
