@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.2.1",
+		"version": "1.2.2",
 		"news": {
+            "1.2.2": {
+                "en": "ioBroker adapter/controller updates for windows",
+                "de": "ioBroker Adapter/Controller Updates unter Windows"
+            },
             "1.2.1": {
                 "en": "bugfixes",
                 "de": "Fehlerbehebungen"
