@@ -19,13 +19,6 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 
-/**
- * @param {number} milliseconds
- */
-// const sleep = (milliseconds) => {
-// 	return new Promise(resolve => setTimeout(resolve, milliseconds));
-// };
-
 // Load your modules here, e.g.:
 /** @type {Moma} */
 let adapter;
@@ -42,23 +35,52 @@ let timer3;
 /** @type {NodeJS.Timeout} */
 let timer4;
 
+const hostname = require('os').hostname;
 const alive = require(__dirname + '/lib/definitions').hostEntryAlive;
 const attention = require(__dirname + '/lib/definitions').hostEntryNeedsAttention;
-const instance = require(__dirname + '/lib/definitions').hostEntryInstance;
 // @ts-ignore
 const aHostNeedsAttention = require(__dirname + '/lib/definitions').hostNeedsAttention;
 const duration = 3000;
 
+function checkMachineErrors() {
+	// todo: implement check!
+	return false;
+}
+
 /*
  * call for update machine state
  */
-async function updateIntervalAlive() {
-	// await adapter.setStateChanged('info.connection', true, true);
-	await adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 150});
-	// todo: implement check!
-	await adapter.setForeignStateChanged(attention, {val: false, ack: true});
+function watchdog() {
+	adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 150});
+	adapter.getForeignState(attention, (err, state) => {
+		if(state) {
+			const errors = checkMachineErrors();
+			if( errors != state.val) {
+				adapter.setForeignState(attention, {val: errors, ack: true});
+				// maintain list
+				adapter.getForeignState('hostNeedsAttentionList', (err2, state2) => {
+					if(state2) {
+						let value = state2.val;
+						if(errors) {
+							// add host to list
+							value += ',' + hostname;
+						} else {
+							// remove host from list
+							value = value.replace(hostname, '');
+							value = value.replace(',,', ',');
+						}
+						adapter.setForeignState('hostNeedsAttentionList', {val: value, ack: true});
+					} else if (err2) {
+						adapter.log.error(err2);			
+					}
+				});
+			}
+		} else if(err) {
+			adapter.log.error(err);			
+		}
+	});
 	// @ts-ignore
-	timer = setTimeout(updateIntervalAlive, duration);
+	timer = setTimeout(watchdog, duration);
 }
 
 /*
@@ -140,75 +162,68 @@ class Moma extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 * So we do our initializations here and start the recurrent updates via timer events.
 	 */
-	async onReady() {
-		// Initializiation of adapter
-		this.log.debug('starting adapter');
-		// Reset the connection indicator during startup
-		await this.setStateChanged('info.connection', true, true);
-		await this.setForeignStateChanged(aHostNeedsAttention, {val: false, ack: true});
+	onReady() {
+		// Set the connection indicator during startup to yellow
+		this.setState('info.connection', false, true, () => {
+			try {
+				this.log.debug('starting adapter');
+				const helper = require(__dirname + '/lib/helper');
+				// cleanup old stuff
+				helper.releasePreparation(this);
+				// create Entries moma.meta.<hostname>.*
+				helper.createMomaMetaEntries(this);
+				// create Entries moma.<instanceId>.*
+				helper.createMomaInstanceEntries(this);
 
-		try {
-			const helper = require(__dirname + '/lib/helper');
-			// cleanup old stuff
-			this.log.silly('preparation');
-			helper.releasePreparation(this);
-			// create Entries moma.meta.<hostname>.*
-			helper.createMomaMetaEntries(this);
-			// await sleep(500);
-			// set the instance in moma.meta.<hostname>.instance
-			this.setForeignStateChanged(instance, {val: this.namespace, ack: true});
-			// create Entries moma.<instanceId>.*
-			helper.createMomaInstanceEntries(this);
-			// await sleep(500);
-	
-			this.log.debug('starting IntervalAlive');
-			updateIntervalAlive();
+				// read 'static' values on restart for change of machine configuration
+				const Once = require(__dirname + '/lib/IntervalOnce.js');
+				new Once().run(this, true);
 
-			// read 'static' values on restart for change of machine configuration
-			this.log.silly('starting IntervalOnce');
-			const Once = require(__dirname + '/lib/IntervalOnce.js');
-			new Once().run(this, true);
-		} catch(err) {
-			this.setStateChanged('info.connection', false, true);
-			adapter.setForeignState(aHostNeedsAttention, {val: true, ack: true});
-			adapter.getForeignState('hostNeedsAttentionList', (err, state) => {
-				if(state) {
-					adapter.setForeignState('hostNeedsAttentionList', {val: state.val + require('os').hostname, ack: true});
+				// start the recurrent updates of values
+				this.log.debug('starting intervals');
+				// if checked run each interval once and then start it with interval timer
+				// start with the longest interval
+				if(this.config.i4 && this.config.interval4) {
+					updateInterval4(true);
 				}
-			});
-			this.log.error('Error on startup: ' + err);
-		}
 
-		// start the recurrent updates of values
-		// if checked run each interval once and then start it with interval timer
-		// start with the longest interval
-		if(this.config.i4 && this.config.interval4) {
-			this.log.silly('starting Interval4');
-			updateInterval4(true);
-		}
+				if(this.config.i3 && this.config.interval3) {
+					updateInterval3(true);
+				}
 
-		if(this.config.i3 && this.config.interval3) {
-			this.log.silly('starting Interval3');
-			updateInterval3(true);
-		}
+				if(this.config.i2 && this.config.interval2) {
+					updateInterval2(true);
+				}
 
-		if(this.config.i2 && this.config.interval2) {
-			this.log.silly('starting Interval2');
-			updateInterval2(true);
-		}
+				if(this.config.i1 && this.config.interval1) {
+					updateInterval1(true);
+				}
 
-		if(this.config.i1 && this.config.interval1) {
-			this.log.silly('starting Interval1');
-			updateInterval1(true);
-		}
+				if(this.config.i0 && this.config.interval0) {
+					updateInterval0(true);
+				}
 
-		if(this.config.i0 && this.config.interval0) {
-			this.log.silly('starting Interval0');
-			updateInterval0(true);
-		}
+				// init is done
+				this.setState('info.connection', true, true);
+				this.log.debug('up and running');
 
-		// init is done
-		this.log.silly('up and running');
+				// start watchdog
+				this.log.debug('starting watchdog');
+				watchdog();
+
+			} catch(err) {
+				this.setState('info.connection', false, true);
+				adapter.setForeignState(attention, {val: true, ack: true});
+				adapter.setForeignState(aHostNeedsAttention, {val: true, ack: true});
+				// add host to list
+				adapter.getForeignState('hostNeedsAttentionList', (err, state) => {
+					if(state) {
+						adapter.setForeignState('hostNeedsAttentionList', {val: state.val + require('os').hostname, ack: true});
+					}
+				});
+				this.log.error('Error on startup: ' + err);
+			}
+		});
 	}
 
 	/**
@@ -239,22 +254,20 @@ class Moma extends utils.Adapter {
 	 */
 	onMessage(obj) {
 		if (typeof obj === 'object' && obj.message) {
+			const Messages = require(__dirname + '/lib/Messages.js');
+			const message = new Messages();
 			// this.log.debug(JSON.stringify(obj));
 			if (obj.command === 'execute') {
 				// e.g. send email or pushover or whatever
 				this.log.info('send command ' + obj.message);
 				if(obj.message == 'doUpdates') {
-					const Messages = require(__dirname + '/lib/Messages.js');
-					new Messages().doUpdates(this);
+					message.doUpdates(this);
 				} else if(obj.message == 'scheduleReboot') {
-					const Messages = require(__dirname + '/lib/Messages.js');
-					new Messages().scheduleReboot(this);
+					message.scheduleReboot(this);
 				} else if(obj.message == 'updateAdapter') {
-					const Messages = require(__dirname + '/lib/Messages.js');
-					new Messages().updateAdapter(this);
+					message.updateAdapter(this);
 				} else if(obj.message == 'updateJSController') {
-					const Messages = require(__dirname + '/lib/Messages.js');
-					new Messages().updateJsController(this);
+					message.updateJsController(this);
 				}
 
 				// Send response in callback if required
