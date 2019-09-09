@@ -50,15 +50,15 @@ function checkMachineErrors() {
 /*
  * call for update machine state
  */
-function watchdog() {
-	adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 150});
-	adapter.getForeignState(attention, (err, state) => {
+async function watchdog() {
+	await adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 150});
+	await adapter.getForeignState(attention, async (err, state) => {
 		if(state) {
 			const errors = checkMachineErrors();
 			if( errors != state.val) {
-				adapter.setForeignState(attention, {val: errors, ack: true});
+				await adapter.setForeignState(attention, {val: errors, ack: true});
 				// maintain list
-				adapter.getForeignState('hostNeedsAttentionList', (err2, state2) => {
+				await adapter.getForeignState('hostNeedsAttentionList', (err2, state2) => {
 					if(state2) {
 						let value = state2.val;
 						if(errors) {
@@ -86,22 +86,21 @@ function watchdog() {
 /*
  * call for updated states in interval_0 (default once per second)
  */
-function updateInterval0(isInit = false) {
+async function updateInterval0(isInit = false) {
 	// updating values
 	const Interval0 = require(__dirname + '/lib/Interval0.js');
-	new Interval0().run(adapter, isInit);
+	await new Interval0().run(adapter, isInit);
 	// @ts-ignore
 	timer0 = setTimeout(updateInterval0, adapter.config.interval0*1000);
 }
 
-	
 /*
  * call for updated states in interval_1 (default once per 10 sec)
  */
-function updateInterval1(isInit = false) {
+async function updateInterval1(isInit = false) {
 	// updating values
 	const Interval1 = require(__dirname + '/lib/Interval1.js');
-	new Interval1().run(adapter, isInit);
+	await new Interval1().run(adapter, isInit);
 	// @ts-ignore
 	timer1 = setTimeout(updateInterval1, adapter.config.interval1*1000);
 }
@@ -109,10 +108,10 @@ function updateInterval1(isInit = false) {
 /*
  * call for updated states in interval_2 (default once per minute)
  */
-function updateInterval2(isInit = false) {
+async function updateInterval2(isInit = false) {
 	// updating values
 	const Interval2 = require(__dirname + '/lib/Interval2.js');
-	new Interval2().run(adapter, isInit);
+	await new Interval2().run(adapter, isInit);
 	// @ts-ignore
 	timer2 = setTimeout(updateInterval2, adapter.config.interval2*60000);
 }
@@ -120,10 +119,10 @@ function updateInterval2(isInit = false) {
 /*
  * call for updated states in interval_3 (default once per hour)
  */
-function updateInterval3(isInit = false) {
+async function updateInterval3(isInit = false) {
 	// updating values
 	const Interval3 = require(__dirname + '/lib/Interval3.js');
-	new Interval3().run(adapter, isInit);
+	await new Interval3().run(adapter, isInit);
 	// @ts-ignore
 	timer3 = setTimeout(updateInterval3, adapter.config.interval3*3600000);
 }
@@ -131,10 +130,10 @@ function updateInterval3(isInit = false) {
 /*
  * call for updated states in interval_4 (default once per day)
  */
-function updateInterval4(isInit = false) {
+async function updateInterval4(isInit = false) {
 	// updating values
 	const Interval4 = require(__dirname + '/lib/Interval4.js');
-	new Interval4().run(adapter, isInit);
+	await new Interval4().run(adapter, isInit);
 	// @ts-ignore
 	timer4 = setTimeout(updateInterval4, adapter.config.interval4*24*3600000);
 }
@@ -164,59 +163,59 @@ class Moma extends utils.Adapter {
 	 */
 	onReady() {
 		// Set the connection indicator during startup to yellow
-		this.setState('info.connection', false, true, () => {
+		this.setState('info.connection', false, true, async () => {
 			try {
 				this.log.debug('starting adapter');
 				const helper = require(__dirname + '/lib/helper');
 				// cleanup old stuff
-				helper.releasePreparation(this);
+				await helper.releasePreparation(this);
 				// create Entries moma.meta.<hostname>.*
-				helper.createMomaMetaEntries(this);
+				await helper.createMomaMetaEntries(this);
 				// create Entries moma.<instanceId>.*
-				helper.createMomaInstanceEntries(this);
+				await helper.createMomaInstanceEntries(this);
 
 				// read 'static' values on restart for change of machine configuration
 				const Once = require(__dirname + '/lib/IntervalOnce.js');
-				new Once().run(this, true);
+				await new Once().run(this, true);
 
 				// start the recurrent updates of values
 				this.log.debug('starting intervals');
 				// if checked run each interval once and then start it with interval timer
 				// start with the longest interval
 				if(this.config.i4 && this.config.interval4) {
-					updateInterval4(true);
+					await updateInterval4(true);
 				}
 
 				if(this.config.i3 && this.config.interval3) {
-					updateInterval3(true);
+					await updateInterval3(true);
 				}
 
 				if(this.config.i2 && this.config.interval2) {
-					updateInterval2(true);
+					await updateInterval2(true);
 				}
 
 				if(this.config.i1 && this.config.interval1) {
-					updateInterval1(true);
+					await updateInterval1(true);
 				}
 
 				if(this.config.i0 && this.config.interval0) {
-					updateInterval0(true);
+					await updateInterval0(true);
 				}
 
 				// init is done
-				this.setState('info.connection', true, true);
-				this.log.debug('up and running');
+				await this.setState('info.connection', true, true);
+				await this.log.debug('up and running');
 
 				// start watchdog
-				this.log.debug('starting watchdog');
+				await this.log.debug('starting watchdog');
 				watchdog();
 
 			} catch(err) {
 				this.setState('info.connection', false, true);
-				adapter.setForeignState(attention, {val: true, ack: true});
-				adapter.setForeignState(aHostNeedsAttention, {val: true, ack: true});
+				this.setForeignState(attention, {val: true, ack: true});
+				this.setForeignState(aHostNeedsAttention, {val: true, ack: true});
 				// add host to list
-				adapter.getForeignState('hostNeedsAttentionList', (err, state) => {
+				this.getForeignState('hostNeedsAttentionList', (err, state) => {
 					if(state) {
 						adapter.setForeignState('hostNeedsAttentionList', {val: state.val + require('os').hostname, ack: true});
 					}
