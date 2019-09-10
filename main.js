@@ -55,11 +55,12 @@ async function watchdog() {
 	await adapter.getForeignState(attention, async (err, state) => {
 		if(state) {
 			const errors = checkMachineErrors();
-			if( errors != state.val) {
+			if(errors != state.val) {
 				await adapter.setForeignState(attention, {val: errors, ack: true});
 				// maintain list
 				await adapter.getForeignState('hostNeedsAttentionList', (err2, state2) => {
 					if(state2) {
+						let flag = false;
 						let value = state2.val;
 						if(errors) {
 							// add host to list
@@ -70,6 +71,10 @@ async function watchdog() {
 							value = value.replace(',,', ',');
 						}
 						adapter.setForeignState('hostNeedsAttentionList', {val: value, ack: true});
+						if(value != '') {
+							flag = true;
+						}
+						adapter.setForeignState(aHostNeedsAttention, {val: flag, ack: true});
 					} else if (err2) {
 						adapter.log.error(err2);			
 					}
@@ -164,64 +169,44 @@ class Moma extends utils.Adapter {
 	onReady() {
 		// Set the connection indicator during startup to yellow
 		this.setState('info.connection', false, true, async () => {
-			try {
-				this.log.debug('starting adapter');
-				const helper = require(__dirname + '/lib/helper');
-				// cleanup old stuff
-				await helper.releasePreparation(this);
-				// create Entries moma.meta.<hostname>.*
-				await helper.createMomaMetaEntries(this);
-				// create Entries moma.<instanceId>.*
-				await helper.createMomaInstanceEntries(this);
+			await this.log.debug('starting adapter');
+			await require(__dirname + '/lib/helper').init(this);
 
-				// read 'static' values on restart for change of machine configuration
-				const Once = require(__dirname + '/lib/IntervalOnce.js');
-				await new Once().run(this, true);
+			// read 'static' values on restart for change of machine configuration
+			const once = require(__dirname + '/lib/IntervalOnce.js');
+			await new once().run(this, true);
 
-				// start the recurrent updates of values
-				this.log.debug('starting intervals');
-				// if checked run each interval once and then start it with interval timer
-				// start with the longest interval
-				if(this.config.i4 && this.config.interval4) {
-					await updateInterval4(true);
-				}
-
-				if(this.config.i3 && this.config.interval3) {
-					await updateInterval3(true);
-				}
-
-				if(this.config.i2 && this.config.interval2) {
-					await updateInterval2(true);
-				}
-
-				if(this.config.i1 && this.config.interval1) {
-					await updateInterval1(true);
-				}
-
-				if(this.config.i0 && this.config.interval0) {
-					await updateInterval0(true);
-				}
-
-				// init is done
-				await this.setState('info.connection', true, true);
-				await this.log.debug('up and running');
-
-				// start watchdog
-				await this.log.debug('starting watchdog');
-				watchdog();
-
-			} catch(err) {
-				this.setState('info.connection', false, true);
-				this.setForeignState(attention, {val: true, ack: true});
-				this.setForeignState(aHostNeedsAttention, {val: true, ack: true});
-				// add host to list
-				this.getForeignState('hostNeedsAttentionList', (err, state) => {
-					if(state) {
-						adapter.setForeignState('hostNeedsAttentionList', {val: state.val + require('os').hostname, ack: true});
-					}
-				});
-				this.log.error('Error on startup: ' + err);
+			// start the recurrent updates of values
+			await this.log.debug('starting intervals');
+			// if checked run each interval once and then start it with interval timer
+			// start with the longest interval
+			if(this.config.i4 && this.config.interval4) {
+				await updateInterval4(true);
 			}
+
+			if(this.config.i3 && this.config.interval3) {
+				await updateInterval3(true);
+			}
+
+			if(this.config.i2 && this.config.interval2) {
+				await updateInterval2(true);
+			}
+
+			if(this.config.i1 && this.config.interval1) {
+				await updateInterval1(true);
+			}
+
+			if(this.config.i0 && this.config.interval0) {
+				await updateInterval0(true);
+			}
+
+			// init is done
+			await this.setState('info.connection', true, true);
+			await this.log.debug('up and running');
+
+			// start watchdog
+			await this.log.debug('starting watchdog');
+			await watchdog();
 		});
 	}
 
