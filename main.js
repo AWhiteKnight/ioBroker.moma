@@ -166,7 +166,7 @@ class Moma extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 * So we do our initializations here and start the recurrent updates via timer events.
 	 */
-	onReady() {
+	async onReady() {
 		// Set the connection indicator during startup to yellow
 		this.setState('info.connection', false, true, async () => {
 			await this.log.debug('starting adapter');
