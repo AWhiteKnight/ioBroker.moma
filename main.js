@@ -3,7 +3,7 @@
 /* jshint -W030 */
 /* jshint strict:true */
 /* jslint node: true */
-/* jslint esversion: 6 */
+/* jslint esversion: 8 */
 'use strict';
 /**
  *
@@ -58,7 +58,7 @@ async function watchdog() {
 			if(errors != state.val) {
 				await adapter.setForeignState(attention, {val: errors, ack: true});
 				// maintain list
-				await adapter.getForeignState('hostNeedsAttentionList', (err2, state2) => {
+				await adapter.getForeignState('hostNeedsAttentionList', async (err2, state2) => {
 					if(state2) {
 						let flag = false;
 						let value = state2.val;
@@ -70,11 +70,11 @@ async function watchdog() {
 							value = value.replace(hostname, '');
 							value = value.replace(',,', ',');
 						}
-						adapter.setForeignState('hostNeedsAttentionList', {val: value, ack: true});
+						await adapter.setForeignState('hostNeedsAttentionList', {val: value, ack: true});
 						if(value != '') {
 							flag = true;
 						}
-						adapter.setForeignState(aHostNeedsAttention, {val: flag, ack: true});
+						await adapter.setForeignState(aHostNeedsAttention, {val: flag, ack: true});
 					} else if (err2) {
 						adapter.log.error(err2);			
 					}
