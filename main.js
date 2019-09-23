@@ -1,9 +1,6 @@
-/* jshint -W119 */
-/* jshint -W097 */
-/* jshint -W030 */
 /* jshint strict:true */
 /* jslint node: true */
-/* jslint esversion: 8 */
+/* jslint esversion: 9 */
 'use strict';
 /**
  *

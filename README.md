@@ -28,7 +28,7 @@ I am using it for monitoring my IT-Infrastructure at home (including home automa
 
 MoMa uses the platform independant library 'systeminformation' (https://github.com/sebhildebrandt/systeminformation) to gather information about the computer. Many of the calls are exposed to be used in timer intervalls - see reference below.
 
-MoMa needs at least nodejs version 8 / ES6.
+MoMa needs at least nodejs version 8 / ES9 / ECMAScript2018.
 
 ## Changelog
 
