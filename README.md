@@ -32,6 +32,9 @@ MoMa needs at least nodejs version 8 / ES9 / ECMAScript2018.
 
 ## Changelog
 
+### 1.2.3 (20??-??-??)
+* (AWhiteKnight) bugfixing, code cleanup 
+
 ### 1.2.2 (2019-09-12)
 * (AWhiteKnight) ioBroker adapter/controller updates for windows, issue #24 
 
