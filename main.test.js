@@ -1,3 +1,7 @@
+/* jshint -W117 */
+/* jshint strict:true */
+/* jslint node: true */
+/* jslint esversion: 6 */
 'use strict';
 
 /**
