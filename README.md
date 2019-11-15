@@ -11,8 +11,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.moma.png?downloads=true)](https://nodei.co/npm/iobroker.moma/)
 
-**Tests:** Linux/Mac: [![Travis-CI](http://img.shields.io/travis/AWhiteKnight/ioBroker.moma/master.svg)](https://travis-ci.org/AWhiteKnight/ioBroker.moma)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/AWhiteKnight/ioBroker.moma?branch=master&svg=true)](https://ci.appveyor.com/project/AWhiteKnight/ioBroker-moma/)
+**Tests:** Linux/Mac/Windows: [![Travis-CI](http://img.shields.io/travis/AWhiteKnight/ioBroker.moma/master.svg)](https://travis-ci.org/AWhiteKnight/ioBroker.moma)
 
 ## moma adapter for ioBroker
 
