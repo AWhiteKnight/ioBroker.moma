@@ -5,7 +5,8 @@
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.moma.svg)](https://www.npmjs.com/package/iobroker.moma)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.moma.svg)](https://www.npmjs.com/package/iobroker.moma)
-![Number of Installations](http://iobroker.live/badges/moma-installed.svg) ![Number of Installations](http://iobroker.live/badges/moma-stable.svg)
+![Number of Installations](http://iobroker.live/badges/moma-installed.svg) 
+![Stable version](http://iobroker.live/badges/moma-stable.svg)
 [![Dependency Status](https://img.shields.io/david/AWhiteKnight/iobroker.moma.svg)](https://david-dm.org/AWhiteKnight/iobroker.moma)
 [![Known Vulnerabilities](https://snyk.io/test/github/AWhiteKnight/ioBroker.moma/badge.svg)](https://snyk.io/test/github/AWhiteKnight/ioBroker.moma)
 
@@ -30,6 +31,9 @@ MoMa uses the platform independant library 'systeminformation' (https://github.c
 MoMa needs at least nodejs version 8 / ES9 / ECMAScript2018.
 
 ## Changelog
+
+### 1.2.4 (2020-??-??)
+* (AWhiteKnight) bugfixing, code cleanup 
 
 ### 1.2.3 (2019-11-06)
 * (AWhiteKnight) bugfixing, code cleanup 
