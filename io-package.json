@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.2.3",
+		"version": "1.2.4",
 		"news": {
+            "1.2.4": {
+                "en": "update dependancies, bugfixing, cleanup code",
+                "de": "Aktualisierung Abhängigkeiten, Fehlerbehebung, Codebereinigung"
+            },
             "1.2.3": {
                 "en": "bugfixing, cleanup code",
                 "de": "Fehlerbehebung, Codebereinigung"
