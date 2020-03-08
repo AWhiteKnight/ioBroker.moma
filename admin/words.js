@@ -904,5 +904,41 @@ systemDictionary = {
 		'es': 'desconectado',
 		'pl': 'offline',
 		'zh-cn': '离线'
+	},
+	'osupdates': {
+		"en": "Operating system updates",
+		"de": "Betriebssystem-Updates",
+		"ru": "Обновления операционной системы",
+		"pt": "Atualizações do sistema operacional",
+		"nl": "Updates van het besturingssysteem",
+		"fr": "Mises à jour du système d'exploitation",
+		"it": "Aggiornamenti del sistema operativo",
+		"es": "Actualizaciones del sistema operativo",
+		"pl": "Aktualizacje systemu operacyjnego",
+		"zh-cn": "操作系统更新"
+	},
+	'adapterupdates': {
+		"en": "Adapter updates",
+		"de": "Adapter-Updates",
+		"ru": "Обновления адаптера",
+		"pt": "Atualizações do adaptador",
+		"nl": "Adapter updates",
+		"fr": "Mises à jour de l'adaptateur",
+		"it": "Aggiornamenti dell'adattatore",
+		"es": "Actualizaciones del adaptador",
+		"pl": "Aktualizacje adaptera",
+		"zh-cn": "适配器更新"
+	},
+	'none': {
+		"en": "None",
+		"de": "Keine",
+		"ru": "Никто",
+		"pt": "Nenhum",
+		"nl": "Geen",
+		"fr": "Aucun",
+		"it": "Nessuna",
+		"es": "Ninguna",
+		"pl": "Żaden",
+		"zh-cn": "没有"
 	}
 };

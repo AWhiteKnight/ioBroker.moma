@@ -39,7 +39,7 @@ main.socket.on('disconnect', () => {
 });
 
 main.socket.on('objectChange', (id, obj) => {
-	console.log('objectChange: ', id, obj);
+	//console.log('objectChange: ', id, obj);
 	createHostBody();
 });
 
@@ -189,42 +189,42 @@ function Moma() {
 }
 
 function update(i) {
-	console.log('updating ' + that.list[i].instance);
+	//console.log('updating ' + that.list[i].instance);
 	// that.list[i].numUpdates = 0;
 	// $('#btnUpdate'+i).disabled=true;
 	that.list[i].buttonsDisabled = true;
 	main.socket.emit('sendTo', that.list[i].instance, 'execute', 'doUpdates', (result) => {
-		console.log(result);
+		;//console.log(result);
 	});
 }
 
 function reboot(i) {
-	console.log('rebooting ' + that.list[i].instance);
+	//console.log('rebooting ' + that.list[i].instance);
 	// that.list[i].needsReboot = false;
 	// $('#btnReboot'+i).disabled=true;
 	that.list[i].buttonsDisabled = true;
 	main.socket.emit('sendTo', that.list[i].instance, 'execute', 'scheduleReboot', (result) => {
-		console.log(result);
+		;//console.log(result);
 	});
 }
 
 function updateAdapter(i) {
-	console.log('updating Adapter ' + that.list[i].instance);
+	//console.log('updating Adapter ' + that.list[i].instance);
 	// that.list[i].updateAdapter = false;
 	// $('#btnAdapter'+i).disabled=true;
 	that.list[i].buttonsDisabled = true;
 	main.socket.emit('sendTo', that.list[i].instance, 'execute', 'updateAdapter', (result) => {
-		console.log(result);
+		;//console.log(result);
 	});
 }
 
 function updateJSC(i) {
-	console.log('updating JS-Controller ' + that.list[i].instance);
+	//console.log('updating JS-Controller ' + that.list[i].instance);
 	// that.list[i].updateJSC = false;
 	// $('#btnJSController'+i).disabled=true;
 	that.list[i].buttonsDisabled = true;
 	main.socket.emit('sendTo', that.list[i].instance, 'execute', 'updateJSController', (result) => {
-		console.log(result);
+		;//console.log(result);
 	});
 }
 
@@ -285,7 +285,7 @@ function fetchData(callback) {
 						// 	}
 						// 	// console.log(JSON.stringify(host));
 						// });
-						console.log(JSON.stringify(host));
+						//console.log(JSON.stringify(host));
 					});
 					// console.log(JSON.stringify(host));
 				});
@@ -367,7 +367,6 @@ function createHostFooter() {
 }
 
 function createHostBody() {
-	// console.log('preparing table ' + JSON.stringify(that.list));
 	let text = '';
 	for (let i = 0; i < that.list.length; i++) {
 		text += createHostRow(i);
@@ -376,8 +375,6 @@ function createHostBody() {
 	body.html(text);
 	body.show();
 
-	// console.log(JSON.stringify(that.list));
-    
 	for (let i = 0; i < that.list.length; i++) {
 		let button= window.document.querySelector('#btnUpdate'+i+'');
 		if(that.list[i].numUpdates && that.list[i].numUpdates > 0) {
@@ -385,7 +382,6 @@ function createHostBody() {
 			button.disabled = that.list[i].buttonsDisabled;
 			if(that.list[i].alive && that.list[i].momaAlive) {
 				button.addEventListener('click', (obj) => {
-					console.log('obj: ', obj);
 					const $dialog = that.$dialogConfirm;
 					that.$currentConfirmation = 'update';
 					that.$currentHost = i;
@@ -406,7 +402,6 @@ function createHostBody() {
 			button.disabled = that.list[i].buttonsDisabled;
 			if(that.list[i].alive && that.list[i].momaAlive) {
 				button.addEventListener('click', (obj) => {
-					console.log('obj: ', obj);
 					const $dialog = that.$dialogConfirm;
 					that.$currentConfirmation = 'reboot';
 					that.$currentHost = i;
@@ -430,7 +425,6 @@ function createHostBody() {
 			button.style.visibility='visible';
 			button.disabled = that.list[i].buttonsDisabled;
 			button.addEventListener('click', (obj) => {
-				console.log('obj: ', obj);
 				that.list[i].buttonsDisabled = true;
 				const $dialog = that.$dialogConfirm;
 				that.$currentConfirmation = 'updateAdapter';
@@ -450,7 +444,6 @@ function createHostBody() {
 			button.style.visibility='visible';
 			button.disabled = that.list[i].buttonsDisabled;
 			button.addEventListener('click', (obj) => {
-				console.log('obj: ', obj);
 				that.list[i].buttonsDisabled = true;
 				const $dialog = that.$dialogConfirm;
 				that.$currentConfirmation = 'updateJSC';
@@ -466,10 +459,14 @@ function createHostBody() {
 
 		button= window.document.querySelector('#btnDetails'+i+'');
 		button.addEventListener('click', (obj) => {
-			console.log('obj: ', obj);
 			that.$currentConfirmation = 'none';
 			that.$currentHost = i;
+			console.log(that.list[i])
 			that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i].id}"`);
+			$dialogDetails.find('#dialog-details-headline-os').text(_('osupdates'));
+			$dialogDetails.find('#dialog-details-os').text(that.list[i].updates.length  < 2 ? _('none') : that.list[i].updates);
+			$dialogDetails.find('#dialog-details-headline-adapter').text(_('adapterupdates'));
+			$dialogDetails.find('#dialog-details-adapter').text(that.list[i].adapterUpdates.length  < 2 ? _('none') : that.list[i].adapterUpdates);
 			that.$dialogDetails.modal();
 			that.$dialogDetails.modal('open');
 		});
