@@ -20,21 +20,22 @@ const utils = require('@iobroker/adapter-core');
 
 // @ts-ignore
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 /** @type {Moma} */
 let adapter;
 
 /** @type {NodeJS.Timeout} */
-//let timer;
+let timer;
 /** @type {NodeJS.Timeout} */
-//let timer0;
+let timer0;
 /** @type {NodeJS.Timeout} */
-//let timer1;
+let timer1;
 /** @type {NodeJS.Timeout} */
-//let timer2;
+let timer2;
 /** @type {NodeJS.Timeout} */
-//let timer3;
+let timer3;
 /** @type {NodeJS.Timeout} */
-//let timer4;
+let timer4;
 
 const hostname = require('os').hostname;
 const alive = require(__dirname + '/lib/definitions').hostEntryAlive;
@@ -86,8 +87,7 @@ async function watchdog() {
 		}
 	});
 	// @ts-ignore
-	wait(duration).then(() => watchdog()).catch(() => watchdog());
-	//timer = setTimeout(watchdog, duration);
+	timer = wait(duration).then(() => watchdog()).catch(() => watchdog());
 }
 
 /*
@@ -98,8 +98,7 @@ async function updateInterval0(isInit = false) {
 	const Interval0 = require(__dirname + '/lib/Interval0.js');
 	await new Interval0().run(adapter, isInit);
 	// @ts-ignore
-	wait(adapter.config.interval0*1000).then(() => updateInterval0()).catch(() => updateInterval0());
-	//timer0 = setTimeout(updateInterval0, adapter.config.interval0*1000);
+	timer0 = wait(adapter.config.interval0*1000).then(() => updateInterval0()).catch(() => updateInterval0());
 }
 
 /*
@@ -110,8 +109,7 @@ async function updateInterval1(isInit = false) {
 	const Interval1 = require(__dirname + '/lib/Interval1.js');
 	await new Interval1().run(adapter, isInit);
 	// @ts-ignore
-	wait(adapter.config.interval1*1000).then(() => updateInterval1()).catch(() => updateInterval1());
-	//timer1 = setTimeout(updateInterval1, adapter.config.interval1*1000);
+	timer1 = wait(adapter.config.interval1*1000).then(() => updateInterval1()).catch(() => updateInterval1());
 }
 	
 /*
@@ -122,8 +120,7 @@ async function updateInterval2(isInit = false) {
 	const Interval2 = require(__dirname + '/lib/Interval2.js');
 	await new Interval2().run(adapter, isInit);
 	// @ts-ignore
-	wait(adapter.config.interval2*60000).then(() => updateInterval2()).catch(() => updateInterval2());
-	//timer2 = setTimeout(updateInterval2, adapter.config.interval2*60000);
+	timer2 = wait(adapter.config.interval2*60000).then(() => updateInterval2()).catch(() => updateInterval2());
 }
 
 /*
@@ -134,8 +131,7 @@ async function updateInterval3(isInit = false) {
 	const Interval3 = require(__dirname + '/lib/Interval3.js');
 	await new Interval3().run(adapter, isInit);
 	// @ts-ignore
-	wait(adapter.config.interval3*3600000).then(() => updateInterval3()).catch(() => updateInterval3());
-	//timer3 = setTimeout(updateInterval3, adapter.config.interval3*3600000);
+	timer3 = wait(adapter.config.interval3*3600000).then(() => updateInterval3()).catch(() => updateInterval3());
 }
 	
 /*
@@ -146,8 +142,7 @@ async function updateInterval4(isInit = false) {
 	const Interval4 = require(__dirname + '/lib/Interval4.js');
 	await new Interval4().run(adapter, isInit);
 	// @ts-ignore
-	wait(adapter.config.interval4*24*3600000).then(() => updateInterval4()).catch(() => updateInterval4());
-	//timer4 = setTimeout(updateInterval4, adapter.config.interval4*24*3600000);
+	timer4 = wait(adapter.config.interval4*24*3600000).then(() => updateInterval4()).catch(() => updateInterval4());
 }
 
 /**
@@ -225,14 +220,12 @@ class Moma extends utils.Adapter {
 		try {
 			this.setForeignState(alive, {val: false, ack: true});
 			// clean up the timer
-			/*
 			if(timer4) { clearTimeout(timer4);}
 			if(timer3) { clearTimeout(timer3);}
 			if(timer2) { clearTimeout(timer2);}
 			if(timer1) { clearTimeout(timer1);}
 			if(timer0) { clearTimeout(timer0);}
 			if(timer) { clearTimeout(timer);}
-			*/
 			this.log.info('cleaned everything up...');
 			callback();
 		} catch (e) {
