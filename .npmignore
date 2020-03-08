@@ -28,3 +28,4 @@ maintenance/**
 
 ideas*
 .vscode
+tsconfig.json
