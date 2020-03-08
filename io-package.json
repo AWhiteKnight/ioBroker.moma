@@ -4,8 +4,8 @@
 		"version": "1.2.4",
 		"news": {
             "1.2.4": {
-                "en": "update dependancies, bugfixing, cleanup code",
-                "de": "Aktualisierung Abhängigkeiten, Fehlerbehebung, Codebereinigung"
+                "en": "update dependancies, bugfixing: issue #45",
+                "de": "Aktualisierung Abhängigkeiten, Fehlerbehebung: issue #45"
             },
             "1.2.3": {
                 "en": "bugfixing, cleanup code",
