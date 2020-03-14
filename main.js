@@ -53,14 +53,14 @@ function checkMachineErrors() {
  * call for update machine state
  */
 async function watchdog() {
-	await adapter.setForeignStateChanged(alive, {val: true, ack: true, expire: duration + 150});
-	await adapter.getForeignState(attention, async (err, state) => {
+	await adapter.setForeignStateChangedAsync(alive, {val: true, ack: true, expire: duration + 150});
+	adapter.getForeignState(attention, async (err, state) => {
 		if(state) {
 			const errors = checkMachineErrors();
 			if(errors != state.val) {
-				await adapter.setForeignState(attention, {val: errors, ack: true});
+				await adapter.setForeignStateChangedAsync(attention, {val: errors, ack: true});
 				// maintain list
-				await adapter.getForeignState('hostNeedsAttentionList', async (err2, state2) => {
+				adapter.getForeignState('hostNeedsAttentionList', async (err2, state2) => {
 					if(state2) {
 						let flag = false;
 						let value = state2.val;
@@ -72,11 +72,11 @@ async function watchdog() {
 							value = value.replace(hostname, '');
 							value = value.replace(',,', ',');
 						}
-						await adapter.setForeignState('hostNeedsAttentionList', {val: value, ack: true});
+						await adapter.setForeignStateChangedAsync('hostNeedsAttentionList', {val: value, ack: true});
 						if(value != '') {
 							flag = true;
 						}
-						await adapter.setForeignState(aHostNeedsAttention, {val: flag, ack: true});
+						await adapter.setForeignStateChangedAsync(aHostNeedsAttention, {val: flag, ack: true});
 					} else if (err2) {
 						adapter.log.error(err2);			
 					}
@@ -171,7 +171,7 @@ class Moma extends utils.Adapter {
 	async onReady() {
 		// Set the connection indicator during startup to yellow
 		this.setState('info.connection', false, true, async () => {
-			await this.log.debug('starting adapter');
+			this.log.debug('starting adapter');
 			await require(__dirname + '/lib/helper').init(this);
 
 			// read 'static' values on restart for change of machine configuration
@@ -179,7 +179,7 @@ class Moma extends utils.Adapter {
 			await new once().run(this, true);
 
 			// start the recurrent updates of values
-			await this.log.debug('starting intervals');
+			this.log.debug('starting intervals');
 			// if checked run each interval once and then start it with interval timer
 			// start with the longest interval
 			if(this.config.i4 && this.config.interval4) {
@@ -203,11 +203,11 @@ class Moma extends utils.Adapter {
 			}
 
 			// init is done
-			await this.setState('info.connection', true, true);
-			await this.log.debug('up and running');
+			await this.setStateChangedAsync('info.connection', true, true);
+			this.log.debug('up and running');
 
 			// start watchdog
-			await this.log.debug('starting watchdog');
+			this.log.debug('starting watchdog');
 			await watchdog();
 		});
 	}
