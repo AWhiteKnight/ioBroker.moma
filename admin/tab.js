@@ -59,9 +59,8 @@ main.socket.on('stateChange', (id, obj) => {
 				that.list[i][statename] = value;
 			} 
 		}
-		// console.log('moma: ', hostname, statename, value);
 		createHostBody();
-		// system.host.mint-master.alive
+	// system.host.mint-master.alive
 	} else if(arr[0] == 'system' && arr[1] == 'host') {
 		const hostname = arr[2];
 		const statename = arr[3];
@@ -199,9 +198,6 @@ function update(i) {
 }
 
 function reboot(i) {
-	//console.log('rebooting ' + that.list[i].instance);
-	// that.list[i].needsReboot = false;
-	// $('#btnReboot'+i).disabled=true;
 	that.list[i].buttonsDisabled = true;
 	main.socket.emit('sendTo', that.list[i].instance, 'execute', 'scheduleReboot', (result) => {
 		;//console.log(result);
@@ -209,9 +205,6 @@ function reboot(i) {
 }
 
 function updateAdapter(i) {
-	//console.log('updating Adapter ' + that.list[i].instance);
-	// that.list[i].updateAdapter = false;
-	// $('#btnAdapter'+i).disabled=true;
 	that.list[i].buttonsDisabled = true;
 	main.socket.emit('sendTo', that.list[i].instance, 'execute', 'updateAdapter', (result) => {
 		;//console.log(result);
@@ -219,9 +212,6 @@ function updateAdapter(i) {
 }
 
 function updateJSC(i) {
-	//console.log('updating JS-Controller ' + that.list[i].instance);
-	// that.list[i].updateJSC = false;
-	// $('#btnJSController'+i).disabled=true;
 	that.list[i].buttonsDisabled = true;
 	main.socket.emit('sendTo', that.list[i].instance, 'execute', 'updateJSController', (result) => {
 		;//console.log(result);
@@ -233,18 +223,14 @@ function fetchData(callback) {
 
 	that.main.socket.emit('getForeignObjects', 'moma.meta.hosts.*',  'channel', function (err, res) {
 		if(res) {
-			// console.log(res);
 			for(const line in res) {
-				// console.log(line);
 				const host = {};
 				that.list.push(host);
 				host.id = line.split('.')[3];
 				host.buttonsDisabled = false;
 				that.main.socket.emit('getForeignStates', line + '.*', function (err2, res2) {
 					if(res2) {
-						// console.log('res2: ' + JSON.stringify(res2));
 						for(const state in res2) {
-							// console.log('state: ' + JSON.stringify(state));
 							const name = state.split('.')[4];
 							if(res2[state]) {
 								host[name] = res2[state].val;
@@ -255,12 +241,9 @@ function fetchData(callback) {
 					}
 					// get system information
 					that.main.socket.emit('getForeignStates', 'system.host.'+host.id+'.*', function (err3, res3) {
-						// console.log(JSON.stringify(res3));
 						if(res3) {
 							for(const state in res3) {
-								//console.log(JSON.stringify(state));
 								const name = state.split('.')[3];
-								// console.log(name);
 								if(res3[state]) {
 									host[name] = res3[state].val;
 								}
@@ -268,32 +251,12 @@ function fetchData(callback) {
 						} else  if(err3){
 							console.log('err3: ' + JSON.stringify(err3));
 						}
-						// that.main.socket.emit('getForeignStates', host.instance.replace('moma', 'admin')+'.info.*', function (err4, res4) {
-						// 	// console.log(JSON.stringify(res4));
-						// 	if(res4) {
-						// 		for(const state in res4) {
-						// 			// console.log(JSON.stringify(state));
-						// 			const name = state.split('.')[3];
-						// 			// console.log(name);
-						// 			if(res4[state]) {
-						// 				host[name + 'Admin'] = res4[state].val;
-						// 			}
-						// 		}
-						// 		if(callback) callback();
-						// 	} else  if(err4){
-						// 		console.log('err4: ' + JSON.stringify(err4));
-						// 	}
-						// 	// console.log(JSON.stringify(host));
-						// });
-						//console.log(JSON.stringify(host));
 					});
-					// console.log(JSON.stringify(host));
 				});
 			}
 		} else if (err) {
 			console.log('err: ' + JSON.stringify(err));
 		}
-		// console.log('list', that.list);
 	});
 
 }
@@ -478,20 +441,16 @@ function createHostRow(index) {
 	const machineAlive = obj.alive;
 	const momaAlive = obj.momaAlive;
 	const allOk = !obj.needsAttention;
-	// console.log(JSON.stringify(instance));
 	const state = machineAlive ? (momaAlive ? (allOk ? 'online' : 'needsAttention') : 'momaOffline') : 'offline';
-	// let state= machineAlive ? (momaAlive ? 'online' : 'moma') : 'offline';
-	// let _class = machineAlive ? (momaAlive ? (momaAlive ? 'led-green' : 'led-yellow') : 'led-orange') : 'led-red';
 	let text = '<tr>';
-	//LED
-	// text += '<td><button type="button" title="' + that.words[state] + '" class="led ' + _class + '" id="' + state + index + '"></button></td>'
+	// LED
 	text += '<td><button type="button" disabled title="' + that.words[state] + '" class="led" id="' + state + index + '"></button></td>';
 	// hostname
 	text += '<th scope="row">' + obj.id + '</th>';
 	// number of updates
-	text += '<td>' + obj.numUpdates ? obj.numUpdates : '' + '</td>';
+	text += '<td>' + (obj.numUpdates ? obj.numUpdates : '') + '</td>';
 	// list of updates
-	text += '<td style="overflow:hidden;" title="' + obj.updates +'">' + obj.updates ? obj.updates : '' + '</td>';
+	text += '<td style="overflow:hidden;" title="' + obj.updates +'">' + (obj.updates ? obj.updates : '') + '</td>';
 	// button Update
 	text += '<td><button type="button" title="' + that.words.update + '" class="btn update" id="btnUpdate' + index + '">U</button></td>';
 	// button Reboot
