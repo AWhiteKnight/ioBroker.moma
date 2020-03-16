@@ -183,23 +183,29 @@ class Moma extends utils.Adapter {
 			// if checked run each interval once and then start it with interval timer
 			// start with the longest interval
 			if(this.config.i4 && this.config.interval4) {
-				await updateInterval4(true);
+				// start intervall4 after 10 minutes so it does not collide with os update search
+				// @ts-ignore
+				timer4 = wait(10*60*1000).then(() => updateInterval4()).catch(() => updateInterval4());
 			}
 
 			if(this.config.i3 && this.config.interval3) {
-				await updateInterval3(true);
+				// @ts-ignore
+				timer3 = wait(adapter.config.interval3*3600000).then(() => updateInterval3()).catch(() => updateInterval3());
 			}
 
 			if(this.config.i2 && this.config.interval2) {
-				await updateInterval2(true);
+				// @ts-ignore
+				timer2 = wait(adapter.config.interval2*60000).then(() => updateInterval2()).catch(() => updateInterval2());
 			}
 
 			if(this.config.i1 && this.config.interval1) {
-				await updateInterval1(true);
+				// @ts-ignore
+				timer1 = wait(adapter.config.interval1*1000).then(() => updateInterval1()).catch(() => updateInterval1());
 			}
 
 			if(this.config.i0 && this.config.interval0) {
-				await updateInterval0(true);
+				// @ts-ignore
+				timer0 = wait(adapter.config.interval0*1000).then(() => updateInterval0()).catch(() => updateInterval0());
 			}
 
 			// init is done
@@ -208,7 +214,7 @@ class Moma extends utils.Adapter {
 
 			// start watchdog
 			this.log.debug('starting watchdog');
-			await watchdog();
+			watchdog();
 		});
 	}
 
