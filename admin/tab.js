@@ -427,9 +427,17 @@ function createHostBody() {
 			console.log(that.list[i])
 			that.$dialogDetails.find('#dialog-details-headline').text(_('dialogDetails') + `"${that.list[i].id}"`);
 			$dialogDetails.find('#dialog-details-headline-os').text(_('osupdates'));
-			$dialogDetails.find('#dialog-details-os').text(that.list[i].updates.length  < 2 ? _('none') : that.list[i].updates);
+			let text = _('none');
+			if(that.list[i].updates && that.list[i].updates.length  > 1) {
+				text = that.list[i].updates;
+			}
+			$dialogDetails.find('#dialog-details-os').text(text);
 			$dialogDetails.find('#dialog-details-headline-adapter').text(_('adapterupdates'));
-			$dialogDetails.find('#dialog-details-adapter').text(that.list[i].adapterUpdates.length  < 2 ? _('none') : that.list[i].adapterUpdates);
+			text = _('none');
+			if(that.list[i].adapterUpdates && that.list[i].adapterUpdates.length  > 1) {
+				text = that.list[i].adapterUpdates;
+			}
+			$dialogDetails.find('#dialog-details-adapter').text(text);
 			that.$dialogDetails.modal();
 			that.$dialogDetails.modal('open');
 		});
