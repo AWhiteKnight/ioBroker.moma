@@ -214,7 +214,8 @@ class Moma extends utils.Adapter {
 
 			// start watchdog
 			this.log.debug('starting watchdog');
-			watchdog();
+			// @ts-ignore
+			timer = wait(duration).then(() => watchdog()).catch(() => watchdog());
 		});
 	}
 
