@@ -190,22 +190,22 @@ class Moma extends utils.Adapter {
 
 			if(this.config.i3 && this.config.interval3) {
 				// @ts-ignore
-				timer3 = wait(adapter.config.interval3*3600000).then(() => updateInterval3()).catch(() => updateInterval3());
+				timer3 = wait(5*60*1000).then(() => updateInterval3()).catch(() => updateInterval3());
 			}
 
 			if(this.config.i2 && this.config.interval2) {
 				// @ts-ignore
-				timer2 = wait(adapter.config.interval2*60000).then(() => updateInterval2()).catch(() => updateInterval2());
+				timer2 = wait(2*60*1000).then(() => updateInterval2()).catch(() => updateInterval2());
 			}
 
 			if(this.config.i1 && this.config.interval1) {
 				// @ts-ignore
-				timer1 = wait(adapter.config.interval1*1000).then(() => updateInterval1()).catch(() => updateInterval1());
+				timer1 = wait(60*1000).then(() => updateInterval1()).catch(() => updateInterval1());
 			}
 
 			if(this.config.i0 && this.config.interval0) {
 				// @ts-ignore
-				timer0 = wait(adapter.config.interval0*1000).then(() => updateInterval0()).catch(() => updateInterval0());
+				timer0 = wait(1*1000).then(() => updateInterval0()).catch(() => updateInterval0());
 			}
 
 			// init is done
