@@ -185,27 +185,27 @@ class Moma extends utils.Adapter {
 			if(this.config.i4 && this.config.interval4) {
 				// start intervall4 after 10 minutes so it does not collide with os update search
 				// @ts-ignore
-				timer4 = wait(10*60*1000).then(() => updateInterval4()).catch(() => updateInterval4());
+				timer4 = wait(2*60*1000).then(() => updateInterval4(true)).catch(() => updateInterval4(true));
 			}
 
 			if(this.config.i3 && this.config.interval3) {
 				// @ts-ignore
-				timer3 = wait(5*60*1000).then(() => updateInterval3()).catch(() => updateInterval3());
+				timer3 = wait(1*60*1000).then(() => updateInterval3(true)).catch(() => updateInterval3(true));
 			}
 
 			if(this.config.i2 && this.config.interval2) {
 				// @ts-ignore
-				timer2 = wait(2*60*1000).then(() => updateInterval2()).catch(() => updateInterval2());
+				timer2 = wait(30*1000).then(() => updateInterval2(true)).catch(() => updateInterval2(true));
 			}
 
 			if(this.config.i1 && this.config.interval1) {
 				// @ts-ignore
-				timer1 = wait(60*1000).then(() => updateInterval1()).catch(() => updateInterval1());
+				timer1 = wait(10*1000).then(() => updateInterval1(true)).catch(() => updateInterval1(true));
 			}
 
 			if(this.config.i0 && this.config.interval0) {
 				// @ts-ignore
-				timer0 = wait(1*1000).then(() => updateInterval0()).catch(() => updateInterval0());
+				timer0 = wait(1*1000).then(() => updateInterval0(true)).catch(() => updateInterval0(true));
 			}
 
 			// init is done
@@ -215,7 +215,7 @@ class Moma extends utils.Adapter {
 			// start watchdog
 			this.log.debug('starting watchdog');
 			// @ts-ignore
-			timer = wait(duration).then(() => watchdog()).catch(() => watchdog());
+			timer = wait(duration).then(() => watchdog(true)).catch(() => watchdog(true));
 		});
 	}
 
