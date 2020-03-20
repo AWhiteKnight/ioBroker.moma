@@ -168,6 +168,8 @@ function Moma() {
 		}
 		$dialog.find('#dialog-confirm-headline').text(_('dialogUpdateAll'));
 		$dialog.find('#dialog-confirm-text').text(_('textUpdateAll').replace('? ', '?\n'));
+		$dialog.find('#dialog-confirm-headline-details').css('display', 'none');
+		$dialog.find('#dialog-confirm-details').css('display', 'none');
 		$dialog.modal();
 		$dialog.modal('open');
 	});
@@ -182,6 +184,8 @@ function Moma() {
 		}
 		$dialog.find('#dialog-confirm-headline').text(_('dialogRebootAll'));
 		$dialog.find('#dialog-confirm-text').text(_('textRebootAll').replace('? ', '?\n'));
+		$dialog.find('#dialog-confirm-headline-details').css('display', 'none');
+		$dialog.find('#dialog-confirm-details').css('display', 'none');
 		$dialog.modal();
 		$dialog.modal('open');
 	});
@@ -350,6 +354,8 @@ function createHostBody() {
 					that.$currentHost = i;
 					$dialog.find('#dialog-confirm-headline').text(_('dialogUpdate') + `"${that.list[i].id}"`);
 					$dialog.find('#dialog-confirm-text').text(_('textUpdateSingle').replace('? ', '?\n'));
+					$dialog.find('#dialog-confirm-headline-details').css('display', 'block');
+					$dialog.find('#dialog-confirm-details').css('display', 'block');
 					$dialog.find('#dialog-confirm-headline-details').text(_('osupdates'));
 					$dialog.find('#dialog-confirm-details').text(that.list[i].updates);
 					$dialog.modal();
@@ -375,8 +381,8 @@ function createHostBody() {
 					}
 					$dialog.find('#dialog-confirm-headline').text(_('dialogReboot') + `"${that.list[i].id}"`);
 					$dialog.find('#dialog-confirm-text').text(_('textRebootSingle').replace('? ', '?\n'));
-					$dialog.find('#dialog-confirm-headline-details').visibility='hidden';
-					$dialog.find('#dialog-confirm-details').visibility='hidden';
+					$dialog.find('#dialog-confirm-headline-details').css('display', 'none');
+					$dialog.find('#dialog-confirm-details').css('display', 'none');
 					$dialog.modal();
 					$dialog.modal('open');
 				});
@@ -398,6 +404,8 @@ function createHostBody() {
 				that.$currentHost = i;
 				$dialog.find('#dialog-confirm-headline').text(_('dialogUpdateAdapter') + `"${that.list[i].id}"`);
 				$dialog.find('#dialog-confirm-text').text(_('textUpdateAdapter').replace('? ', '?\n'));
+				$dialog.find('#dialog-confirm-headline-details').css('display', 'block');
+				$dialog.find('#dialog-confirm-details').css('display', 'block');
 				$dialog.find('#dialog-confirm-headline-details').text(_('adapterupdates'));
 				$dialog.find('#dialog-confirm-details').text(that.list[i].adapterUpdates);
 				$dialog.modal();
@@ -419,8 +427,8 @@ function createHostBody() {
 				that.$currentHost = i;
 				$dialog.find('#dialog-confirm-headline').text(_('dialogUpdateJSController') + `"${that.list[i].id}"`);
 				$dialog.find('#dialog-confirm-text').text(_('textUpdateJSController').replace('? ', '?\n'));
-				$dialog.find('#dialog-confirm-headline-details').visibility='hidden';
-				$dialog.find('#dialog-confirm-details').visibility='hidden';
+				$dialog.find('#dialog-confirm-headline-details').css('display', 'none');
+				$dialog.find('#dialog-confirm-details').css('display', 'none');
 			$dialog.modal();
 				$dialog.modal('open');
 			});
