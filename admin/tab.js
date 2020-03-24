@@ -122,7 +122,13 @@ function Moma() {
 
 	// cancel button in confirm dialog
 	$('#confirmCancel').click(() => {
-		that.list[that.$currentHost].buttonsDisabled = false;
+		if(that.$currentConfirmation == 'updateAll' || that.$currentConfirmation == 'rebootAll') {
+			for(let i = 0; i < that.list.length; i++) {
+				that.list[i].buttonsDisabled = false;
+			}
+		} else {
+			that.list[that.$currentHost].buttonsDisabled = false;
+		}
 		that.$currentConfirmation = 'none';
 		that.$currentHost = -1;
 		createHostBody();

@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.2.4",
+		"version": "1.2.5",
 		"news": {
+            "1.2.5": {
+                "en": "bugfixing",
+                "de": "Fehlerbehebung"
+            },
             "1.2.4": {
                 "en": "update dependancies, bugfixing: issue #45",
                 "de": "Aktualisierung Abhängigkeiten, Fehlerbehebung: issue #45"
