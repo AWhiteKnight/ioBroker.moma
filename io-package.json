@@ -4,8 +4,8 @@
 		"version": "1.2.5",
 		"news": {
             "1.2.5": {
-                "en": "bugfixing",
-                "de": "Fehlerbehebung"
+                "en": "bugfixing, next stable release",
+                "de": "Fehlerbehebung, nächste Stable Version"
             },
             "1.2.4": {
                 "en": "update dependancies, bugfixing: issue #45",
