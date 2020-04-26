@@ -1,6 +1,6 @@
 {
   "name": "iobroker.moma",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Monitoring and Maintenance",
   "author": {
     "name": "AWhiteKnight",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.2.1",
-    "systeminformation": "^4.22.5"
+    "systeminformation": "^4.23.6"
   },
   "devDependencies": {
     "@iobroker/testing": "^2.0.2",
