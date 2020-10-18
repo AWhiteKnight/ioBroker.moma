@@ -1,11 +1,15 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.2.6",
+		"version": "1.2.7",
 		"news": {
+            "1.2.7": {
+                "en": "bugfixing, systeminformation 4.23.6",
+                "de": "Fehlerbehebung, systeminformation 4.23.6"
+            },
             "1.2.6": {
-                "en": "bugfixing, precise error location, systeminformatin 4.23.6",
-                "de": "Fehlerbehebung, genauere Fehlerposition, systeminformation 4.23.6"
+                "en": "bugfixing, precise error location, systeminformation 4.27.10",
+                "de": "Fehlerbehebung, genauere Fehlerposition, systeminformation 4.27.10"
             },
             "1.2.5": {
                 "en": "bugfixing, next stable release",
