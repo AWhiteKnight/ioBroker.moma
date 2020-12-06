@@ -1,8 +1,12 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.2.7",
+		"version": "1.2.8",
 		"news": {
+            "1.2.8": {
+                "en": "new fields[#51], systeminformation 4.23.6",
+                "de": "Neue Felder[#51], systeminformation 4.23.6"
+            },
             "1.2.7": {
                 "en": "bugfixing, systeminformation 4.23.6",
                 "de": "Fehlerbehebung, systeminformation 4.23.6"
@@ -131,7 +135,9 @@
 			{
 				"js-controller": ">=2.2.0"
 			}
-		]
+		],
+		"connectionType": "local",
+		"dataSource": "poll"
 	},
 	"native": {
 	    "i0": true,
