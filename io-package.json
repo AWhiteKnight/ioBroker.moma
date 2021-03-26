@@ -1,11 +1,15 @@
 {
 	"common": {
 		"name": "moma",
-		"version": "1.2.8",
+		"version": "1.2.9",
 		"news": {
+            "1.2.9": {
+                "en": "code review, package updates, ",
+                "de": "Code Review, Paket Aktualisierungen, "
+            },
             "1.2.8": {
-                "en": "new fields[#51], systeminformation 5.6.7",
-                "de": "Neue Felder[#51], systeminformation 5.6.7"
+                "en": "new fields[#51], systeminformation 5.6.8",
+                "de": "Neue Felder[#51], systeminformation 5.6.8"
             },
             "1.2.7": {
                 "en": "bugfixing, systeminformation 4.23.6",
