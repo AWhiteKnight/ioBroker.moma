@@ -61,7 +61,7 @@ async function watchdog() {
 				await adapter.setForeignStateChangedAsync(attention, {val: errors, ack: true});
 				// maintain list
 				adapter.getForeignState('hostNeedsAttentionList', async (err2, state2) => {
-					if(state2) {
+					if(state2 && state2 != null) {
 						let flag = false;
 						let value = state2.val;
 						if(errors) {
@@ -69,16 +69,20 @@ async function watchdog() {
 							value += ',' + hostname;
 						} else {
 							// remove host from list
-							value = value.replace(hostname, '');
-							value = value.replace(',,', ',');
+							if(value != null) {
+								// @ts-ignore
+								value = value.replace(hostname, '');
+								// @ts-ignore
+								value = value.replace(',,', ',');
+							}
 						}
 						await adapter.setForeignStateChangedAsync('hostNeedsAttentionList', {val: value, ack: true});
 						if(value != '') {
 							flag = true;
 						}
 						await adapter.setForeignStateChangedAsync(aHostNeedsAttention, {val: flag, ack: true});
-					} else if (err2) {
-						adapter.log.error(err2);			
+					} else if (err2 && err2 != null) {
+						adapter.log.error(err2.toString());			
 					}
 				});
 			}

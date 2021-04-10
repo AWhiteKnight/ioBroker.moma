@@ -134,10 +134,10 @@
 		"messagebox": true,
 		"dependencies": [
 			{
-				"admin": ">=3.0.0"
+				"admin": ">=4.2.0"
 			},
 			{
-				"js-controller": ">=2.2.0"
+				"js-controller": ">=3.2.0"
 			}
 		],
 		"connectionType": "local",
@@ -192,8 +192,8 @@
 			  "type": "meta.user"
 			},
 			"native": {}
-		  },
-	  {
+		},
+	  	{
 			"_id": "info",
 			"type": "channel",
 			"common": {
