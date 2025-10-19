@@ -15,3 +15,5 @@ package-lock.json
 
 ideas*
 .vscode
+#ignore .commitinfo created by ioBroker release script
+.commitinfo
