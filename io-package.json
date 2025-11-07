@@ -109,6 +109,7 @@
 		"extIcon": "https://raw.githubusercontent.com/AWhiteKnight/ioBroker.moma/master/admin/moma.png",
 		"readme": "https://github.com/AWhiteKnight/ioBroker.moma/blob/master/README.md",
 		"loglevel": "info",
+		"tier": 2,
 		"mode": "daemon",
 		"type": "general",
 		"compact": true,
