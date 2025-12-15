@@ -103,7 +103,6 @@
 		],
 		"license": "MIT",
 		"platform": "Javascript/Node.js",
-		"main": "main.js",
 		"icon": "moma.png",
 		"enabled": true,
 		"extIcon": "https://raw.githubusercontent.com/AWhiteKnight/ioBroker.moma/master/admin/moma.png",
