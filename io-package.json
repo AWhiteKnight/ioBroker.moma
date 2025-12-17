@@ -128,8 +128,7 @@
 				"pl": "MoMa",
 				"zh-cn": "MOMA"
 			},
-			"link": "",
-			"fa-icon": "info"
+			"link": ""
 		},
 		"messagebox": true,
 		"dependencies": [
