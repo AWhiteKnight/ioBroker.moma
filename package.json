@@ -9,6 +9,7 @@
   "homepage": "https://github.com/AWhiteKnight/ioBroker.moma",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
     "monitoring",
     "maintenance",
     "systeminfo"
