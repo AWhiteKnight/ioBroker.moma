@@ -37,7 +37,7 @@ let timer3;
 /** @type {NodeJS.Timeout} */
 let timer4;
 
-const hostname = require('os').hostname;
+const hostname = require('node:os').hostname;
 const alive = require(__dirname + '/lib/definitions').hostEntryAlive;
 const attention = require(__dirname + '/lib/definitions').hostEntryNeedsAttention;
 // @ts-ignore
