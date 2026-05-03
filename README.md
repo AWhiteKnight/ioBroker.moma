@@ -84,6 +84,8 @@ MoMa needs at least nodejs version 10.
 ### 0.0.1
 * (AWhiteKnight) initial version
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## Installation
 
 Available in ioBroker repository 'latest'
