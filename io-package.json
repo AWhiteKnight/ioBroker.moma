@@ -1,218 +1,218 @@
 {
-	"common": {
-		"name": "moma",
-		"version": "1.2.9",
-		"news": {
-            "1.2.9": {
-                "en": "code review, package updates, ",
-                "de": "Code Review, Paket Aktualisierungen, "
-            },
-            "1.2.8": {
-                "en": "new fields[#51], systeminformation 5.6.8",
-                "de": "Neue Felder[#51], systeminformation 5.6.8"
-            },
-            "1.2.7": {
-                "en": "bugfixing, systeminformation 4.23.6",
-                "de": "Fehlerbehebung, systeminformation 4.23.6"
-            },
-            "1.2.6": {
-                "en": "bugfixing, precise error location, systeminformation 4.27.10",
-                "de": "Fehlerbehebung, genauere Fehlerposition, systeminformation 4.27.10"
-            },
-            "1.2.5": {
-                "en": "bugfixing, next stable release",
-                "de": "Fehlerbehebung, nächste Stable Version"
-            },
-            "1.2.4": {
-                "en": "update dependancies, bugfixing: issue #45",
-                "de": "Aktualisierung Abhängigkeiten, Fehlerbehebung: issue #45"
-            },
-            "1.2.3": {
-                "en": "bugfixing, cleanup code",
-                "de": "Fehlerbehebung, Codebereinigung"
-            },
-            "1.2.2": {
-                "en": "ioBroker adapter/controller updates for windows",
-                "de": "ioBroker Adapter/Controller Updates unter Windows"
-            },
-            "1.2.1": {
-                "en": "bugfixes",
-                "de": "Fehlerbehebungen"
-            },
-            "1.2.0": {
-                "en": "systeminformation 4.14.1, update adapters & js-controller, dockerInfo, dockerContainers",
-                "de": "systeminformation 4.14.1, update aller Adapter & des JS-Controllers, dockerInfo, dockerContainers"
-            },
-            "1.1.0": {
-                "en": "Performance optimization, partial fix of issue #24. Check internet latency.",
-                "de": "Performance-Optimierung, teilw. Fix von Issue #24. Internet-Latenz prüfen"
-            },
-            "1.0.0": {
-                "en": "First release for adapter list 'stable'",
-                "de": "Erstes Release für die Adapter-Liste 'stable'."
-            },
-            "0.1.0": {
-                "en": "First release for adapter list 'latest'",
-                "de": "Erstes Release für die Adapter-Liste 'latest'."
-            },
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Первый выпуск",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"zh-cn": "初始发行"
-			}
-		},
-        "title": "Monitoring & Maintenance",
-        "titleLang": {
-			"en": "Monitoring and Maintenance",
-			"de": "Überwachung und Wartung",
-			"ru": "Мониторинг и обслуживание",
-			"pt": "Monitoramento e Manutenção",
-			"nl": "Monitoring en onderhoud",
-			"fr": "Surveillance et maintenance",
-			"it": "Monitoraggio e manutenzione",
-			"es": "Monitoreo y Mantenimiento",
-			"pl": "Monitorowanie i konserwacja",
-			"zh-cn": "监控和维护"
-				},
-		"desc": {
-			"en": "The adapter allows monitoring and maintenance of the machine",
-			"de": "Der Adapter ermöglicht die Überwachung und Wartung der Maschine",
-			"ru": "Адаптер позволяет контролировать и обслуживать машину",
-			"pt": "O adaptador permite monitorar e manter a máquina",
-			"nl": "Met de adapter kan de machine worden bewaakt en onderhouden",
-			"fr": "L'adaptateur permet la surveillance et la maintenance de la machine",
-			"it": "L'adattatore consente il monitoraggio e la manutenzione della macchina",
-			"es": "El adaptador permite el seguimiento y mantenimiento de la máquina.",
-			"pl": "Adapter umożliwia monitorowanie i konserwację maszyny",
-			"zh-cn": "适配器允许监视和维护机器"
-				},
-		"authors": [
-			"AWhiteKnight <awhiteknight@unity-mail.de>"
-		],
-		"keywords": [
-			"monitoring",
-			"maintenance",
-			"systeminfo"
-		],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "main.js",
-		"icon": "moma.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/AWhiteKnight/ioBroker.moma/master/admin/moma.png",
-		"readme": "https://github.com/AWhiteKnight/ioBroker.moma/blob/master/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "general",
-		"compact": true,
-		"materialize": true,
-		"materializeTab": true,
-		"adminTab": {
-			"singleton": true,
-			"name": {
-				"en": "MoMa",
-				"de": "MoMa",
-				"ru": "MOMA",
-				"pt": "MoMa",
-				"nl": "MoMa",
-				"fr": "MoMa",
-				"it": "MoMa",
-				"es": "MoMa",
-				"pl": "MoMa",
-				"zh-cn": "MOMA"
-			},
-			"link": "",
-			"fa-icon": "info"
-		},
-		"messagebox": true,
-		"dependencies": [
-			{
-				"admin": ">=4.2.0"
-			},
-			{
-				"js-controller": ">=3.2.0"
-			}
-		],
-		"connectionType": "local",
-		"dataSource": "poll"
-	},
-	"native": {
-	    "i0": true,
-        "interval0": 1,
-        "i1": true,
-        "interval1": 10,
-        "i2": true,
-        "interval2": 1,
-        "i3": true,
-        "interval3": 1,
-        "i4": true,
-        "interval4": 1
-	},
-    "objects": [
-        {
-            "_id": "moma",
-			"type": "meta",
-			"common": {
-				"name": "moma",
-				"type": "meta"
-			}
-        },
-        {
-            "_id": "moma.meta",
-            "parent": "moma",
-			"type": "meta",
-			"common": {
-				"name": "moma metadata",
-				"type": "meta.user"
-			}
-        },
-        {
-            "_id": "moma.meta.hosts",
-            "parent": "moma.meta",
-			"type": "device",
-			"common": {
-				"name": "list of all connected hosts",
-				"type": "meta.user"
-			}
-		  }
+  "common": {
+    "name": "moma",
+    "version": "1.2.9",
+    "news": {
+      "1.2.9": {
+        "en": "code review, package updates, ",
+        "de": "Code Review, Paket Aktualisierungen, "
+      },
+      "1.2.8": {
+        "en": "new fields[#51], systeminformation 5.6.8",
+        "de": "Neue Felder[#51], systeminformation 5.6.8"
+      },
+      "1.2.7": {
+        "en": "bugfixing, systeminformation 4.23.6",
+        "de": "Fehlerbehebung, systeminformation 4.23.6"
+      },
+      "1.2.6": {
+        "en": "bugfixing, precise error location, systeminformation 4.27.10",
+        "de": "Fehlerbehebung, genauere Fehlerposition, systeminformation 4.27.10"
+      },
+      "1.2.5": {
+        "en": "bugfixing, next stable release",
+        "de": "Fehlerbehebung, nächste Stable Version"
+      },
+      "1.2.4": {
+        "en": "update dependancies, bugfixing: issue #45",
+        "de": "Aktualisierung Abhängigkeiten, Fehlerbehebung: issue #45"
+      },
+      "1.2.3": {
+        "en": "bugfixing, cleanup code",
+        "de": "Fehlerbehebung, Codebereinigung"
+      },
+      "1.2.2": {
+        "en": "ioBroker adapter/controller updates for windows",
+        "de": "ioBroker Adapter/Controller Updates unter Windows"
+      },
+      "1.2.1": {
+        "en": "bugfixes",
+        "de": "Fehlerbehebungen"
+      },
+      "1.2.0": {
+        "en": "systeminformation 4.14.1, update adapters & js-controller, dockerInfo, dockerContainers",
+        "de": "systeminformation 4.14.1, update aller Adapter & des JS-Controllers, dockerInfo, dockerContainers"
+      },
+      "1.1.0": {
+        "en": "Performance optimization, partial fix of issue #24. Check internet latency.",
+        "de": "Performance-Optimierung, teilw. Fix von Issue #24. Internet-Latenz prüfen"
+      },
+      "1.0.0": {
+        "en": "First release for adapter list 'stable'",
+        "de": "Erstes Release für die Adapter-Liste 'stable'."
+      },
+      "0.1.0": {
+        "en": "First release for adapter list 'latest'",
+        "de": "Erstes Release für die Adapter-Liste 'latest'."
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Первый выпуск",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "初始发行"
+      }
+    },
+    "title": "Monitoring & Maintenance",
+    "titleLang": {
+      "en": "Monitoring and Maintenance",
+      "de": "Überwachung und Wartung",
+      "ru": "Мониторинг и обслуживание",
+      "pt": "Monitoramento e Manutenção",
+      "nl": "Monitoring en onderhoud",
+      "fr": "Surveillance et maintenance",
+      "it": "Monitoraggio e manutenzione",
+      "es": "Monitoreo y Mantenimiento",
+      "pl": "Monitorowanie i konserwacja",
+      "zh-cn": "监控和维护"
+    },
+    "desc": {
+      "en": "The adapter allows monitoring and maintenance of the machine",
+      "de": "Der Adapter ermöglicht die Überwachung und Wartung der Maschine",
+      "ru": "Адаптер позволяет контролировать и обслуживать машину",
+      "pt": "O adaptador permite monitorar e manter a máquina",
+      "nl": "Met de adapter kan de machine worden bewaakt en onderhouden",
+      "fr": "L'adaptateur permet la surveillance et la maintenance de la machine",
+      "it": "L'adattatore consente il monitoraggio e la manutenzione della macchina",
+      "es": "El adaptador permite el seguimiento y mantenimiento de la máquina.",
+      "pl": "Adapter umożliwia monitorowanie i konserwację maszyny",
+      "zh-cn": "适配器允许监视和维护机器"
+    },
+    "authors": [
+      "AWhiteKnight <awhiteknight@unity-mail.de>"
     ],
-	"instanceObjects": [
-		{
-			"_id": "",
-			"type": "meta",
-			"common": {
-			  "name": "",
-			  "type": "meta.user"
-			},
-			"native": {}
-		},
-	  	{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		}
-	]
+    "keywords": [
+      "monitoring",
+      "maintenance",
+      "systeminfo"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "moma.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/AWhiteKnight/ioBroker.moma/master/admin/moma.png",
+    "readme": "https://github.com/AWhiteKnight/ioBroker.moma/blob/master/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "general",
+    "compact": true,
+    "materialize": true,
+    "materializeTab": true,
+    "adminTab": {
+      "singleton": true,
+      "name": {
+        "en": "MoMa",
+        "de": "MoMa",
+        "ru": "MOMA",
+        "pt": "MoMa",
+        "nl": "MoMa",
+        "fr": "MoMa",
+        "it": "MoMa",
+        "es": "MoMa",
+        "pl": "MoMa",
+        "zh-cn": "MOMA"
+      },
+      "link": "",
+      "fa-icon": "info"
+    },
+    "messagebox": true,
+    "dependencies": [
+      {
+        "admin": ">=4.2.0"
+      },
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "connectionType": "local",
+    "dataSource": "poll"
+  },
+  "native": {
+    "i0": true,
+    "interval0": 1,
+    "i1": true,
+    "interval1": 10,
+    "i2": true,
+    "interval2": 1,
+    "i3": true,
+    "interval3": 1,
+    "i4": true,
+    "interval4": 1
+  },
+  "objects": [
+    {
+      "_id": "moma",
+      "type": "meta",
+      "common": {
+        "name": "moma",
+        "type": "meta"
+      }
+    },
+    {
+      "_id": "moma.meta",
+      "parent": "moma",
+      "type": "meta",
+      "common": {
+        "name": "moma metadata",
+        "type": "meta.user"
+      }
+    },
+    {
+      "_id": "moma.meta.hosts",
+      "parent": "moma.meta",
+      "type": "device",
+      "common": {
+        "name": "list of all connected hosts",
+        "type": "meta.user"
+      }
+    }
+  ],
+  "instanceObjects": [
+    {
+      "_id": "",
+      "type": "meta",
+      "common": {
+        "name": "",
+        "type": "meta.user"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

@@ -36,6 +36,10 @@ MoMa needs at least nodejs version 10.
 
 ## Changelog
 
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
+
 ### 1.2.9 (2021-08-17)
 * (AWhiteKnight) issue2 #53-55, upgrade to systeminformation lib 5.8.0, update all dependencies
 
